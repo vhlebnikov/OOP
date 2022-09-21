@@ -7,6 +7,7 @@ public class HeapSort {
 
     /**
      * swaps array elements.
+     * 
      * @param arr input array
      * @param a first element
      * @param b second element
@@ -19,6 +20,7 @@ public class HeapSort {
 
     /**
      * heapify makes that for each subtree the root is bigger than its sons.
+     *
      * @param arr input array (binary tree)
      * @param i root of subtree
      * @param n conditional size of binary tree
@@ -42,6 +44,7 @@ public class HeapSort {
 
     /**
      * main heapsort function.
+     *
      * @param arr input array that will be sorted
      */
     public static void heapsort(int[] arr) {
