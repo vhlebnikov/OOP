@@ -1,9 +1,12 @@
 package ru.nsu.khlebnikov;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
+import org.junit.jupiter.api.Test;
+
+/**
+ * tests for heapsort
+ */
 public class MyTest {
     int[] arr;
     int[] ans;
