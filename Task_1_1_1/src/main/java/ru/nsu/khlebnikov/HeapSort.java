@@ -7,7 +7,7 @@ public class HeapSort {
 
     /**
      * swaps array elements.
-     * 
+     *
      * @param arr input array
      * @param a first element
      * @param b second element
