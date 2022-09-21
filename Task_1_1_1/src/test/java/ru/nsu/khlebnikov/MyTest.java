@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import org.junit.jupiter.api.Test;
 
 /**
- * tests for heapsort
+ * tests for heapsort.
  */
 public class MyTest {
     int[] arr;

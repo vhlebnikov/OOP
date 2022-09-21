@@ -1,12 +1,12 @@
 package ru.nsu.khlebnikov;
 
 /**
- * heap-based sorting
+ * heap-based sorting.
  */
 public class HeapSort {
 
     /**
-     * swaps array elements
+     * swaps array elements.
      * @param arr input array
      * @param a first element
      * @param b second element
@@ -41,7 +41,7 @@ public class HeapSort {
     }
 
     /**
-     * main heapsort function
+     * main heapsort function.
      * @param arr input array that will be sorted
      */
     public static void heapsort(int[] arr) {
