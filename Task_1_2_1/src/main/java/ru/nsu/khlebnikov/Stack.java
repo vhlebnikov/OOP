@@ -118,8 +118,7 @@ public class Stack {
     public boolean stackAssertion(Stack expected) {
         if (count() != expected.count()) {
             return false;
-        }
-        else {
+        } else {
             for (int i = 0; i < count(); i++) {
                 if (arr[i] != expected.arr[i]) {
                     return false;

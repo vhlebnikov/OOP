@@ -44,13 +44,14 @@ public class StackTest {
     public void popStackTest() {
         Stack stack = new Stack(4);
         Stack stack1 = new Stack(4);
-        Stack expected = new Stack(0);
-        Stack expected1 = new Stack(4);
 
         for (int i = 0; i < 4; i++) {
             stack.push(i);
             stack1.push(i);
         }
+        
+        Stack expected = new Stack(0);
+        Stack expected1 = new Stack(4);
         expected1 = stack.popStack(10);
 
         Assertions.assertTrue(stack1.stackAssertion(expected1));
@@ -60,7 +61,6 @@ public class StackTest {
     @Test
     public void emptyStackTest() {
         Stack stack = new Stack(0);
-        Stack expected = new Stack(0);
         Stack empty = new Stack(0);
 
         stack.pushStack(empty);
@@ -68,6 +68,7 @@ public class StackTest {
         stack.pushStack(empty);
         stack.pushStack(stack);
 
+        Stack expected = new Stack(0);
         Assertions.assertTrue(stack.stackAssertion(expected));
     }
 }
