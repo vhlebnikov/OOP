@@ -7,7 +7,7 @@ import java.util.Arrays;
  * elements are stacked on top of each other.
  * It works according to the principle - last in, first out (LIFO).
  */
-public class Stack <T> {
+public class Stack<T> {
     private int size;
     private int capacity;
     public T[] arr;
