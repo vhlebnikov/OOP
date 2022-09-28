@@ -7,10 +7,10 @@ import java.util.Arrays;
  * elements are stacked on top of each other.
  * It works according to the principle - last in, first out (LIFO).
  */
-public class Stack {
+public class Stack <T> {
     private int size;
     private int capacity;
-    public Object[] arr;
+    public T[] arr;
 
     /**
      * Initial stack constructor.
@@ -20,7 +20,7 @@ public class Stack {
     public Stack(int capacity) {
         this.capacity = capacity;
         this.size = 0;
-        this.arr = new Object[capacity];
+        this.arr = (T[]) new Object[capacity];
     }
 
     /**
@@ -28,7 +28,7 @@ public class Stack {
      *
      * @param elem new element, that will be inserted in the stack
      */
-    public void push(Object elem) {
+    public void push(T elem) {
         if (size == capacity) {
             realloc();
         }
@@ -50,7 +50,7 @@ public class Stack {
      *
      * @param stackToPush stack, that will be inserted in the stack
      */
-    public void pushStack(Stack stackToPush) {
+    public void pushStack(Stack<T> stackToPush) {
         for (int i = 0; i < stackToPush.size; i++) {
             push(stackToPush.arr[i]);
         }
@@ -62,9 +62,9 @@ public class Stack {
      *
      * @return popped element, if it exists (in this case it will return "null")
      */
-    public Object pop() {
+    public T pop() {
         if (size != 0) {
-            Object poppedElem = arr[--size];
+            T poppedElem = arr[--size];
             arr[size] = null;
             return poppedElem;
         } else {
@@ -80,16 +80,16 @@ public class Stack {
      *              and will be putted in the returned stack
      * @return stack of deleted elements
      */
-    public Stack popStack(int count) {
-        Stack resultStack;
+    public Stack<T> popStack(int count) {
+        Stack<T> resultStack;
         if (count <= size) {
-            resultStack = new Stack(count);
+            resultStack = new Stack<T>(count);
             resultStack.size = count;
             for (int i = count - 1; i >= 0; i--) {
                 resultStack.arr[i] = pop();
             }
         } else {
-            resultStack = new Stack(size);
+            resultStack = new Stack<T>(size);
             resultStack.size = size;
             for (int i = size - 1; i >= 0; i--) {
                 resultStack.arr[i] = pop();
@@ -115,7 +115,7 @@ public class Stack {
      * @param expected expected answer (second stack)
      * @return boolean value, that means equality (or not) of two stacks
      */
-    public boolean stackAssertion(Stack expected) {
+    public boolean stackAssertion(Stack<T> expected) {
         if (count() != expected.count()) {
             return false;
         } else {
