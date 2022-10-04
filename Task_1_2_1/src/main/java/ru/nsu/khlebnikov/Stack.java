@@ -36,16 +36,6 @@ public class Stack<T> {
     }
 
     /**
-     * "realloc" method increases capacity of the stack,
-     * capacity is doubled.
-     */
-    private void realloc() {
-        capacity *= 2;
-        arr = Arrays.copyOf(arr, capacity);
-
-    }
-
-    /**
      * "pushStack" method puts another stack at the end of stack.
      *
      * @param stackToPush stack, that will be inserted in the stack
@@ -82,18 +72,11 @@ public class Stack<T> {
      */
     public Stack<T> popStack(int count) {
         Stack<T> resultStack;
-        if (count <= size) {
-            resultStack = new Stack<T>(count);
-            resultStack.size = count;
-            for (int i = count - 1; i >= 0; i--) {
-                resultStack.arr[i] = pop();
-            }
-        } else {
-            resultStack = new Stack<T>(size);
-            resultStack.size = size;
-            for (int i = size - 1; i >= 0; i--) {
-                resultStack.arr[i] = pop();
-            }
+        int min_size = (Math.min(count, size));
+        resultStack = new Stack<T>(min_size);
+        resultStack.size = min_size;
+        for (int i = min_size - 1; i >= 0; i--) {
+            resultStack.arr[i] = pop();
         }
         return resultStack;
     }
@@ -108,14 +91,20 @@ public class Stack<T> {
     }
 
     /**
-     * "stackAssertion" method is used for compare two stacks
-     * for equality and returns boolean value,
-     * whether the stacks are equal or not.
+     * Overridden "equals" method.
      *
-     * @param expected expected answer (second stack)
-     * @return boolean value, that means equality (or not) of two stacks
+     * @param elem the element being compared
+     * @return returns true if two stacks are equal, else returns false
      */
-    public boolean stackAssertion(Stack<T> expected) {
+    @Override
+    public boolean equals(Object elem) {
+        if (this == elem) {
+            return true;
+        }
+        if (elem == null || getClass() != elem.getClass()) {
+            return false;
+        }
+        Stack<?> expected = (Stack<?>) elem;
         if (count() != expected.count()) {
             return false;
         } else {
@@ -126,5 +115,29 @@ public class Stack<T> {
             }
         }
         return true;
+    }
+
+    /**
+     * Overridden "hashCode" method.
+     *
+     * @return hash
+     */
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 89 * hash + (this.arr != null ? Arrays.hashCode(this.arr) : 0);
+        hash = 89 * hash + this.capacity;
+        hash = 89 * hash + this.size;
+        return hash;
+    }
+
+    /**
+     * "realloc" method increases capacity of the stack,
+     * capacity is doubled.
+     */
+    private void realloc() {
+        capacity = 3 * capacity / 2 + 1; // +1 - to make a stack with a capacity of 1 element work
+        arr = Arrays.copyOf(arr, capacity);
+
     }
 }

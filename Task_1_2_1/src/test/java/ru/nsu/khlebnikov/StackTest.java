@@ -24,7 +24,7 @@ public class StackTest {
         stack.popStack(2);
         stack.count();
 
-        Assertions.assertTrue(stack.stackAssertion(expected));
+        Assertions.assertEquals(stack, expected);
     }
 
     @Test
@@ -37,7 +37,7 @@ public class StackTest {
             stack.push(i);
         }
 
-        Assertions.assertTrue(stack.stackAssertion(expected));
+        Assertions.assertEquals(stack, expected);
     }
 
     @Test
@@ -54,8 +54,8 @@ public class StackTest {
         Stack<Integer> expected1 = new Stack<Integer>(4);
         expected1 = stack.popStack(10);
 
-        Assertions.assertTrue(stack1.stackAssertion(expected1));
-        Assertions.assertTrue(stack.stackAssertion(expected));
+        Assertions.assertEquals(stack1, expected1);
+        Assertions.assertEquals(stack, expected);
     }
 
     @Test
@@ -69,7 +69,7 @@ public class StackTest {
         stack.pushStack(stack);
 
         Stack<Integer> expected = new Stack<Integer>(0);
-        Assertions.assertTrue(stack.stackAssertion(expected));
+        Assertions.assertEquals(stack, expected);
     }
 
     @Test
@@ -87,6 +87,6 @@ public class StackTest {
         stack.pop();
         stack.popStack(2);
         stack.count();
-        Assertions.assertTrue(stack.stackAssertion(expected));
+        Assertions.assertEquals(stack, expected);
     }
 }
