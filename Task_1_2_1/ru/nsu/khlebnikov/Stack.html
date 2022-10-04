@@ -26,7 +26,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -208,13 +208,27 @@ extends java.lang.Object</pre>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#equals(java.lang.Object)">equals</a></span>&#8203;(java.lang.Object&nbsp;elem)</code></th>
+<td class="colLast">
+<div class="block">Overridden "equals" method.</div>
+</td>
+</tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code>int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#hashCode()">hashCode</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Overridden "hashCode" method.</div>
+</td>
+</tr>
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code><a href="Stack.html" title="type parameter in Stack">T</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#pop()">pop</a></span>()</code></th>
 <td class="colLast">
 <div class="block">"pop" method deletes the last element of the stack and returns it.</div>
 </td>
 </tr>
-<tr id="i2" class="altColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code><a href="Stack.html" title="class in ru.nsu.khlebnikov">Stack</a>&lt;<a href="Stack.html" title="type parameter in Stack">T</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#popStack(int)">popStack</a></span>&#8203;(int&nbsp;count)</code></th>
 <td class="colLast">
@@ -222,27 +236,18 @@ extends java.lang.Object</pre>
  then returns it.</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#push(T)">push</a></span>&#8203;(<a href="Stack.html" title="type parameter in Stack">T</a>&nbsp;elem)</code></th>
 <td class="colLast">
 <div class="block">"push" method puts element to the end of the stack.</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#pushStack(ru.nsu.khlebnikov.Stack)">pushStack</a></span>&#8203;(<a href="Stack.html" title="class in ru.nsu.khlebnikov">Stack</a>&lt;<a href="Stack.html" title="type parameter in Stack">T</a>&gt;&nbsp;stackToPush)</code></th>
 <td class="colLast">
 <div class="block">"pushStack" method puts another stack at the end of stack.</div>
-</td>
-</tr>
-<tr id="i5" class="rowColor">
-<td class="colFirst"><code>boolean</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#stackAssertion(ru.nsu.khlebnikov.Stack)">stackAssertion</a></span>&#8203;(<a href="Stack.html" title="class in ru.nsu.khlebnikov">Stack</a>&lt;<a href="Stack.html" title="type parameter in Stack">T</a>&gt;&nbsp;expected)</code></th>
-<td class="colLast">
-<div class="block">"stackAssertion" method is used for compare two stacks
- for equality and returns boolean value,
- whether the stacks are equal or not.</div>
 </td>
 </tr>
 </table>
@@ -251,7 +256,7 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;java.lang.Object</h3>
-<code>clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</code></li>
+<code>clone, finalize, getClass, notify, notifyAll, toString, wait, wait, wait</code></li>
 </ul>
 </li>
 </ul>
@@ -389,21 +394,37 @@ extends java.lang.Object</pre>
 </dl>
 </li>
 </ul>
-<a id="stackAssertion(ru.nsu.khlebnikov.Stack)">
+<a id="equals(java.lang.Object)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>equals</h4>
+<pre class="methodSignature">public&nbsp;boolean&nbsp;equals&#8203;(java.lang.Object&nbsp;elem)</pre>
+<div class="block">Overridden "equals" method.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code>equals</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>elem</code> - the element being compared</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>returns true if two stacks are equal, else returns false</dd>
+</dl>
+</li>
+</ul>
+<a id="hashCode()">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
-<h4>stackAssertion</h4>
-<pre class="methodSignature">public&nbsp;boolean&nbsp;stackAssertion&#8203;(<a href="Stack.html" title="class in ru.nsu.khlebnikov">Stack</a>&lt;<a href="Stack.html" title="type parameter in Stack">T</a>&gt;&nbsp;expected)</pre>
-<div class="block">"stackAssertion" method is used for compare two stacks
- for equality and returns boolean value,
- whether the stacks are equal or not.</div>
+<h4>hashCode</h4>
+<pre class="methodSignature">public&nbsp;int&nbsp;hashCode()</pre>
+<div class="block">Overridden "hashCode" method.</div>
 <dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>expected</code> - expected answer (second stack)</dd>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code>hashCode</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>boolean value, that means equality (or not) of two stacks</dd>
+<dd>hash</dd>
 </dl>
 </li>
 </ul>
