@@ -1,6 +1,7 @@
 package ru.nsu.khlebnikov;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * A stack is linear data structure,
@@ -72,10 +73,10 @@ public class Stack<T> {
      */
     public Stack<T> popStack(int count) {
         Stack<T> resultStack;
-        int min_size = (Math.min(count, size));
-        resultStack = new Stack<T>(min_size);
-        resultStack.size = min_size;
-        for (int i = min_size - 1; i >= 0; i--) {
+        int minSize = (Math.min(count, size));
+        resultStack = new Stack<T>(minSize);
+        resultStack.size = minSize;
+        for (int i = minSize - 1; i >= 0; i--) {
             resultStack.arr[i] = pop();
         }
         return resultStack;
@@ -98,10 +99,7 @@ public class Stack<T> {
      */
     @Override
     public boolean equals(Object elem) {
-        if (this == elem) {
-            return true;
-        }
-        if (elem == null || getClass() != elem.getClass()) {
+        if (this.hashCode() != elem.hashCode()) {
             return false;
         }
         Stack<?> expected = (Stack<?>) elem;
@@ -124,11 +122,7 @@ public class Stack<T> {
      */
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 89 * hash + (this.arr != null ? Arrays.hashCode(this.arr) : 0);
-        hash = 89 * hash + this.capacity;
-        hash = 89 * hash + this.size;
-        return hash;
+        return Objects.hash(Arrays.hashCode(arr), capacity, size);
     }
 
     /**

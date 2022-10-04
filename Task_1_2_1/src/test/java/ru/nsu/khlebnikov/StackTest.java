@@ -10,7 +10,7 @@ public class StackTest {
 
     @Test
     public void initTest() {
-        Stack<Integer> expected = new Stack<Integer>(1);
+        Stack<Integer> expected = new Stack<Integer>(4);
         expected.push(2);
 
         Stack<Integer> stack = new Stack<Integer>(1);
@@ -28,8 +28,9 @@ public class StackTest {
     }
 
     @Test
-    public void popTest() { // testing work of realloc
-        Stack<Integer> expected = new Stack<Integer>(10);
+    public void pushTest() {
+        // testing work of realloc
+        Stack<Integer> expected = new Stack<Integer>(11);
         Stack<Integer> stack = new Stack<Integer>(1);
 
         for (int i = 0; i < 10; i++) {
@@ -50,7 +51,7 @@ public class StackTest {
             stack1.push(i);
         }
 
-        Stack<Integer> expected = new Stack<Integer>(0);
+        Stack<Integer> expected = new Stack<Integer>(4);
         Stack<Integer> expected1 = new Stack<Integer>(4);
         expected1 = stack.popStack(10);
 
@@ -67,6 +68,7 @@ public class StackTest {
         empty.pushStack(empty);
         stack.pushStack(empty);
         stack.pushStack(stack);
+        stack.pop();
 
         Stack<Integer> expected = new Stack<Integer>(0);
         Assertions.assertEquals(stack, expected);
@@ -74,7 +76,7 @@ public class StackTest {
 
     @Test
     public void stringStackTest() {
-        Stack<String> expected = new Stack<String>(1);
+        Stack<String> expected = new Stack<String>(4);
         expected.push("2");
 
         Stack<String> stack = new Stack<String>(4);
@@ -88,5 +90,19 @@ public class StackTest {
         stack.popStack(2);
         stack.count();
         Assertions.assertEquals(stack, expected);
+    }
+
+    @Test
+    public void wrongTest() {
+        Stack<Integer> stack = new Stack<Integer>(1);
+        for (int i = 1; i <= 3; i++) {
+            stack.push(i);
+        }
+        Stack<Integer> wrongAns = new Stack<Integer>(1);
+        wrongAns.push(1);
+        wrongAns.push(2);
+        Assertions.assertNotEquals(stack, wrongAns);
+        wrongAns.push(4);
+        Assertions.assertNotEquals(stack, wrongAns);
     }
 }
