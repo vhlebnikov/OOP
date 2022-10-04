@@ -133,7 +133,7 @@ public class Stack<T> {
 
     /**
      * "realloc" method increases capacity of the stack,
-     * capacity is doubled.
+     * capacity multiplies by 1.5.
      */
     private void realloc() {
         capacity = 3 * capacity / 2 + 1; // +1 - to make a stack with a capacity of 1 element work
