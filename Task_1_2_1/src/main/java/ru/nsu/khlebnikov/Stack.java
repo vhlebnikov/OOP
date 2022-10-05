@@ -98,8 +98,12 @@ public class Stack<T> {
      * @return returns true if two stacks are equal, else returns false
      */
     public boolean equals(Object elem) {
-        if (this == elem) return true;
-        if (elem == null || getClass() != elem.getClass()) return false;
+        if (this == elem) {
+            return true;
+        }
+        if (elem == null || getClass() != elem.getClass()) {
+            return false;
+        }
         Stack<?> expected = (Stack<?>) elem;
         if (size != expected.size) {
             return false;
