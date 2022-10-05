@@ -11,7 +11,7 @@ import java.util.Objects;
 public class Stack<T> {
     private int size;
     private int capacity;
-    public T[] arr;
+    private T[] arr;
 
     /**
      * Initial stack constructor.
