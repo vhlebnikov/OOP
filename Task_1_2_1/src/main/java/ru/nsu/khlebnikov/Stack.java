@@ -73,7 +73,7 @@ public class Stack<T> {
      */
     public Stack<T> popStack(int count) {
         Stack<T> resultStack;
-        int minSize = (Math.min(count, size));
+        int minSize = Math.min(count, size);
         resultStack = new Stack<T>(minSize);
         resultStack.size = minSize;
         for (int i = minSize - 1; i >= 0; i--) {
@@ -97,19 +97,16 @@ public class Stack<T> {
      * @param elem the element being compared
      * @return returns true if two stacks are equal, else returns false
      */
-    @Override
     public boolean equals(Object elem) {
-        if (this.hashCode() != elem.hashCode()) {
+        if (this == elem) return true;
+        if (elem == null || getClass() != elem.getClass()) return false;
+        Stack<?> expected = (Stack<?>) elem;
+        if (size != expected.size) {
             return false;
         }
-        Stack<?> expected = (Stack<?>) elem;
-        if (count() != expected.count()) {
-            return false;
-        } else {
-            for (int i = 0; i < count(); i++) {
-                if (arr[i] != expected.arr[i]) {
-                    return false;
-                }
+        for (int i = 0; i < size; i++) {
+            if (arr[i] != expected.arr[i]) {
+                return false;
             }
         }
         return true;
@@ -122,7 +119,9 @@ public class Stack<T> {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(Arrays.hashCode(arr), capacity, size);
+        int result = Objects.hash(size, capacity);
+        result = 31 * result + Arrays.hashCode(arr);
+        return result;
     }
 
     /**
