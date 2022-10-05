@@ -135,6 +135,5 @@ public class Stack<T> {
     private void realloc() {
         capacity = 3 * capacity / 2 + 1; // +1 - to make a stack with a capacity of 1 element work
         arr = Arrays.copyOf(arr, capacity);
-
     }
 }
