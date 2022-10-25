@@ -116,7 +116,6 @@ public class TreeTest {
         Tree<Integer> child_1_2_1 = child_1_2.addChild(9);
         Tree<Integer> child_2_1_1 = child_2_1.addChild(10);
         Tree<Integer> child_2_1_2 = child_2_1.addChild(11);
-        root.setTypeOfSearch(2);
         Iterator<Integer> iterator = root.iterator();
         ArrayList<Integer> actual = new ArrayList<>();
         while (iterator.hasNext()) {
