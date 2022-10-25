@@ -68,10 +68,10 @@ public class Tree<T> extends ArrayList<T> implements Iterable<T> {
 
     /**
      * Sets type of search:
-     * <ul><li>
-     * 1 for Deep First Search;
-     * </li><li>
-     * 2 for Breath First Search. (actually, anything different from 1).
+     * <ul>
+     *     <li> 1 for Deep First Search;
+     *     <li> 2 for Breath First Search. (actually, anything different from 1).
+     * </ul>
      *
      * @param typeOfSearch number that chooses type of search
      */
