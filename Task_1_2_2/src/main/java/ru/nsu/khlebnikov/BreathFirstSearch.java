@@ -6,11 +6,11 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 /**
- * My Breath First Search realization
+ * My Breath First Search realization.
  *
  * @param <T> type parameter
  */
-public class BFS<T> implements Iterator<T> {
+public class BreathFirstSearch<T> implements Iterator<T> {
 
     private final int modCounter;
     private Queue<Tree<T>> queue = new LinkedList<Tree<T>>();
@@ -22,7 +22,7 @@ public class BFS<T> implements Iterator<T> {
      *
      * @param root root of the tree
      */
-    public BFS(Tree<T> root) {
+    public BreathFirstSearch(Tree<T> root) {
         queue.add(root);
         modCounter = root.getModCounter();
     }
@@ -37,7 +37,8 @@ public class BFS<T> implements Iterator<T> {
         Tree<T> node = queue.poll();
         assert node != null;
         if (modCounter != node.getModCounter()) {
-            throw new ConcurrentModificationException("You mustn't change tree while iterator is on");
+            throw new ConcurrentModificationException("You mustn't change" +
+                    "tree while iterator is on");
         }
         queue.addAll(node.getChildren());
         return node.getData();

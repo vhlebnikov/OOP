@@ -1,8 +1,8 @@
 package ru.nsu.khlebnikov;
 
-import com.sun.source.tree.IdentifierTree;
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Objects;
 
 /**
  * My realization of tree.
@@ -67,7 +67,7 @@ public class Tree<T> extends ArrayList<T> implements Iterable<T> {
     }
 
     /**
-     * Sets type of search:
+     * Sets type of search.
      * <ul>
      *     <li> 1 for Deep First Search;
      *     <li> 2 for Breath First Search. (actually, anything different from 1).
@@ -117,9 +117,11 @@ public class Tree<T> extends ArrayList<T> implements Iterable<T> {
         }
         if (this.children.size() != 0) {
             int index = this.getParent().children.indexOf(this);
-            ArrayList<Tree<T>> subList = new ArrayList<>(this.getParent().children.subList(index + 1, this.getParent().children.size()));
+            int size = this.getParent().children.size();
+            ArrayList<Tree<T>> subList = new ArrayList<>(this.getParent().children.subList(index + 1, size));
             this.getParent().children.addAll(this.children);
-            this.getParent().children.subList(index, this.getParent().children.size() - this.children.size()).clear();
+            size = this.getParent().children.size();
+            this.getParent().children.subList(index, size - this.children.size()).clear();
             this.getParent().children.addAll(subList);
             for (Tree<T> c : this.children) {
                 c.parent = this.parent;
@@ -148,7 +150,8 @@ public class Tree<T> extends ArrayList<T> implements Iterable<T> {
     public boolean treeEquals(Tree<T> tree) throws Exception {
         Tree<T> root = this.getRoot();
         Tree<T> root1 = tree.getRoot();
-        boolean hasnext, hasnext1;
+        boolean hasnext;
+        boolean hasnext1;
         if (root.typeOfSearch != root1.typeOfSearch) {
             throw new Exception("Types of search must be equivalent");
         }
@@ -169,17 +172,22 @@ public class Tree<T> extends ArrayList<T> implements Iterable<T> {
     @Override
     public Iterator<T> iterator() {
         if (typeOfSearch == 1) {
-            return new DFS<>(this);
+            return new DeepFirstSearch<>(this);
         }
-        return new BFS<>(this);
+        return new BreathFirstSearch<>(this);
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Tree<?> tree = (Tree<?>) o;
-        if (!data.equals(tree.data) || parent != tree.parent || children.size() != tree.children.size()) {
+        if (!data.equals(tree.data) || parent != tree.parent ||
+                children.size() != tree.children.size()) {
             return false;
         }
         for (Tree<T> c : children) {
