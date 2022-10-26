@@ -62,28 +62,6 @@ public class TreeTest {
         Assertions.assertEquals(actual, expected);
     }
 
-//    reviewdog'у не нравится этот тест, я не знаю как можно иначе сделать
-//    этот тест, чтобы он отражал суть теста.
-//    (проблема в расстояниях между инициализацией и использыванием)
-//    @Test
-//    public void addAndRemoveTest() throws Exception {
-//        Tree<String> root = new Tree<>("Root");
-//        Tree<String> c1 = root.addChild("Left child");
-//        Tree<String> c2 = root.addChild("Right child");
-//        Tree<String> c11 = c1.addChild("First child of c1");
-//        Tree<String> c111 = c11.addChild("First child of c11");
-//        Tree<String> c21 = c2.addChild("First child of c2");
-//        Tree<String> c22 = c2.addChild("Second child of c2");
-//        c1.removeNode();
-//        c2.removeNode();
-//        c11.removeNode();
-//        c111.removeNode();
-//        c21.removeNode();
-//        c22.removeNode();
-//        Tree<String> rootExpected = new Tree<>("Root");
-//        Assertions.assertEquals(root, rootExpected);
-//    }
-
     @Test
     public void testBreathFirstSearch() {
         Tree<Integer> root = new Tree<>(1);
