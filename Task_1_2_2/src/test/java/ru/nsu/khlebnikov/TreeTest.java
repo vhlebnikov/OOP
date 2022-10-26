@@ -1,7 +1,10 @@
 package ru.nsu.khlebnikov;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -50,14 +53,15 @@ public class TreeTest {
         Tree<Integer> c13 = c1.addChild(6);
         Tree<Integer> c121 = c12.addChild(7);
         Tree<Integer> c122 = c12.addChild(8);
-        root.setTypeOfSearch(2);
         c12.removeNode();
+        c13.removeNode();
+        root.setTypeOfSearch(2);
         Iterator<Integer> iterator = root.iterator();
         ArrayList<Integer> actual = new ArrayList<>();
         while (iterator.hasNext()) {
             actual.add(iterator.next());
         }
-        Integer[] e = new Integer[]{1, 2, 3, 4, 7, 8, 6};
+        Integer[] e = new Integer[]{1, 2, 3, 4, 7, 8};
         ArrayList<Integer> expected = new ArrayList<>(Arrays.asList(e));
         Assertions.assertEquals(actual, expected);
     }
@@ -107,5 +111,69 @@ public class TreeTest {
         Integer[] e = new Integer[]{1, 3, 8, 7, 11, 10, 2, 6, 5, 9, 4};
         ArrayList<Integer> expected = new ArrayList<>(Arrays.asList(e));
         Assertions.assertEquals(actual, expected);
+    }
+
+    /**
+     * Testing ConcurrentModificationException for Deep First Search and Breath First Search.
+     */
+    @Test
+    public void concurrentModificationExceptionTest() {
+        Tree<Integer> root = new Tree<>(1);
+        Tree<Integer> child1 = root.addChild(2);
+        Tree<Integer> child2 = root.addChild(3);
+        Iterator<Integer> iterator = root.iterator();
+        iterator.next();
+        Tree<Integer> child3 = root.addChild(4);
+        Throwable exception =
+                assertThrows(ConcurrentModificationException.class, iterator::next);
+        Assertions.assertEquals(exception.getMessage(), "You mustn't change"
+                + "tree while iterator is on");
+
+        Tree<Integer> root1 = new Tree<>(1);
+        Tree<Integer> child11 = root1.addChild(2);
+        Tree<Integer> child21 = root1.addChild(3);
+        root1.setTypeOfSearch(2);
+        Iterator<Integer> iterator1 = root1.iterator();
+        iterator1.next();
+        Tree<Integer> child31 = root1.addChild(4);
+        Throwable exception1 =
+                assertThrows(ConcurrentModificationException.class, iterator1::next);
+        Assertions.assertEquals(exception1.getMessage(), "You mustn't change"
+                + "tree while iterator is on");
+    }
+
+    @Test
+    public void otherExceptionsTest() {
+        Tree<Integer> root = new Tree<>(1);
+        Tree<Integer> child1 = root.addChild(2);
+        Tree<Integer> child2 = root.addChild(3);
+
+        Tree<Integer> root1 = new Tree<>(1);
+        Tree<Integer> child11 = root1.addChild(2);
+        Tree<Integer> child21 = root1.addChild(3);
+        root1.setTypeOfSearch(2);
+
+        Throwable exception = assertThrows(Exception.class, () -> root.treeEquals(root1));
+        Assertions.assertEquals(exception.getMessage(), "Types of search must be equivalent");
+
+        Tree<Integer> root2 = new Tree<>(1);
+        Tree<Integer> child12 = root2.addChild(2);
+        Throwable exception1 = assertThrows(Exception.class, root2::removeNode);
+        Assertions.assertEquals(exception1.getMessage(), "Can't remove root");
+    }
+
+    @Test
+    public void notEqualsTest() throws Exception {
+        Tree<Integer> root = new Tree<>(1);
+        Tree<Integer> child1 = root.addChild(2);
+        Tree<Integer> child2 = root.addChild(3);
+        Tree<Integer> root1 = new Tree<>(1);
+        Tree<Integer> child11 = root1.addChild(2);
+        Tree<Integer> child21 = root1.addChild(4);
+        Assertions.assertEquals(child1, child11);
+        Assertions.assertNotEquals(root, root1);
+        Assertions.assertFalse(root.treeEquals(root1));
+        root.setData(5);
+        Assertions.assertNotEquals(root, root1);
     }
 }

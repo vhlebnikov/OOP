@@ -67,6 +67,15 @@ public class Tree<T> extends ArrayList<T> implements Iterable<T> {
     }
 
     /**
+     * Data setter.
+     *
+     * @param data data to write
+     */
+    public void setData(T data) {
+        this.data = data;
+    }
+
+    /**
      * Sets type of search.
      * <ul>
      *     <li> 1 for Deep First Search;
@@ -75,6 +84,8 @@ public class Tree<T> extends ArrayList<T> implements Iterable<T> {
      *
      * @param typeOfSearch number that chooses type of search
      */
+
+
     public void setTypeOfSearch(int typeOfSearch) {
         this.typeOfSearch = typeOfSearch;
     }
@@ -113,7 +124,7 @@ public class Tree<T> extends ArrayList<T> implements Iterable<T> {
      */
     public void removeNode() throws Exception {
         if (this.parent == null) {
-            throw new Exception("Can't delete root");
+            throw new Exception("Can't remove root");
         }
         if (this.children.size() != 0) {
             int index = this.getParent().children.indexOf(this);
@@ -187,8 +198,14 @@ public class Tree<T> extends ArrayList<T> implements Iterable<T> {
             return false;
         }
         Tree<?> tree = (Tree<?>) o;
-        if (!data.equals(tree.data) || parent != tree.parent
-                || children.size() != tree.children.size()) {
+        if (parent == null || tree.parent == null) {
+            if (!data.equals(tree.data) || parent != tree.parent
+                    || children.size() != tree.children.size()) {
+                return false;
+            }
+        }
+        else if (!data.equals(tree.data) || !parent.data.equals(tree.parent.data)
+                || children.size() != tree.children.size()){
             return false;
         }
         for (Tree<T> c : children) {
