@@ -203,16 +203,13 @@ public class Tree<T> extends ArrayList<T> implements Iterable<T> {
                     || children.size() != tree.children.size()) {
                 return false;
             }
-        }
-        else if (!data.equals(tree.data) || !parent.data.equals(tree.parent.data)
-                || children.size() != tree.children.size()){
+        } else if (!data.equals(tree.data) || !parent.data.equals(tree.parent.data)
+                || children.size() != tree.children.size()) {
             return false;
         }
-        for (Tree<T> c : children) {
-            for (int i = 0; i < children.size(); i++) {
-                if (children.get(i).getData() != tree.children.get(i).getData()) {
-                    return false;
-                }
+        for (int i = 0; i < children.size(); i++) {
+            if (children.get(i).getData() != tree.children.get(i).getData()) {
+                return false;
             }
         }
         return true;

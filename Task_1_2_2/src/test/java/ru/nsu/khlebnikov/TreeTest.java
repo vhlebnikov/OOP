@@ -1,7 +1,7 @@
 package ru.nsu.khlebnikov;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ConcurrentModificationException;
