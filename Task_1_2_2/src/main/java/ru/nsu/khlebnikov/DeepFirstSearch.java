@@ -34,8 +34,8 @@ public class DeepFirstSearch<T> implements Iterator<T> {
     public T next() {
         Tree<T> node = stack.pop();
         if (modCounter != node.getModCounter()) {
-            throw new ConcurrentModificationException("You mustn't change" +
-                    "tree while iterator is on");
+            throw new ConcurrentModificationException("You mustn't change"
+                    + "tree while iterator is on");
         }
         for (Tree<T> n : node.getChildren()) {
             stack.push(n);

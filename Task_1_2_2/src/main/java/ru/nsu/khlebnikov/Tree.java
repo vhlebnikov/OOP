@@ -118,7 +118,8 @@ public class Tree<T> extends ArrayList<T> implements Iterable<T> {
         if (this.children.size() != 0) {
             int index = this.getParent().children.indexOf(this);
             int size = this.getParent().children.size();
-            ArrayList<Tree<T>> subList = new ArrayList<>(this.getParent().children.subList(index + 1, size));
+            ArrayList<Tree<T>> subList =
+                    new ArrayList<>(this.getParent().children.subList(index + 1, size));
             this.getParent().children.addAll(this.children);
             size = this.getParent().children.size();
             this.getParent().children.subList(index, size - this.children.size()).clear();
@@ -186,8 +187,8 @@ public class Tree<T> extends ArrayList<T> implements Iterable<T> {
             return false;
         }
         Tree<?> tree = (Tree<?>) o;
-        if (!data.equals(tree.data) || parent != tree.parent ||
-                children.size() != tree.children.size()) {
+        if (!data.equals(tree.data) || parent != tree.parent
+                || children.size() != tree.children.size()) {
             return false;
         }
         for (Tree<T> c : children) {

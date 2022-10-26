@@ -37,8 +37,8 @@ public class BreathFirstSearch<T> implements Iterator<T> {
         Tree<T> node = queue.poll();
         assert node != null;
         if (modCounter != node.getModCounter()) {
-            throw new ConcurrentModificationException("You mustn't change" +
-                    "tree while iterator is on");
+            throw new ConcurrentModificationException("You mustn't change"
+                    + "tree while iterator is on");
         }
         queue.addAll(node.getChildren());
         return node.getData();
