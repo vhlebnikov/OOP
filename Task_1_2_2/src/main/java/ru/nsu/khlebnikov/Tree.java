@@ -15,9 +15,13 @@ public class Tree<T> extends ArrayList<T> implements Iterable<T> {
     private ArrayList<Tree<T>> children;
     private int modCounter;
 
-    public enum IteratorType {DFS, BFS}
-
-    ;
+    /**
+     * Type of iterator in the tree.
+     */
+    public enum IteratorType {
+        DFS,
+        BFS
+    }
     private IteratorType typeOfSearch;
 
     /**

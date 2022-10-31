@@ -1,7 +1,7 @@
 package ru.nsu.khlebnikov;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static ru.nsu.khlebnikov.Tree.IteratorType.*;
+import static ru.nsu.khlebnikov.Tree.IteratorType.BFS;
 
 import java.util.ArrayList;
 import java.util.Arrays;
