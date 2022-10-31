@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"ru.nsu.khlebnikov","l":"BreathFirstSearch"},{"p":"ru.nsu.khlebnikov","l":"DeepFirstSearch"},{"p":"ru.nsu.khlebnikov","l":"Tree"}]
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"ru.nsu.khlebnikov","l":"BreathFirstSearchIterator"},{"p":"ru.nsu.khlebnikov","l":"DeepFirstSearchIterator"},{"p":"ru.nsu.khlebnikov","l":"Tree.IteratorType"},{"p":"ru.nsu.khlebnikov","l":"Tree"}]
