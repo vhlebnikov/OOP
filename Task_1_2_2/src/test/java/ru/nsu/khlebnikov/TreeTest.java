@@ -1,6 +1,7 @@
 package ru.nsu.khlebnikov;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static ru.nsu.khlebnikov.Tree.IteratorType.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -55,7 +56,7 @@ public class TreeTest {
         Tree<Integer> c122 = c12.addChild(8);
         c12.removeNode();
         c13.removeNode();
-        root.setTypeOfSearch(2);
+        root.setTypeOfSearch(BFS);
         Iterator<Integer> iterator = root.iterator();
         ArrayList<Integer> actual = new ArrayList<>();
         while (iterator.hasNext()) {
@@ -79,7 +80,7 @@ public class TreeTest {
         Tree<Integer> child121 = child12.addChild(9);
         Tree<Integer> child211 = child21.addChild(10);
         Tree<Integer> child212 = child21.addChild(11);
-        root.setTypeOfSearch(2);
+        root.setTypeOfSearch(BFS);
         Iterator<Integer> iterator = root.iterator();
         ArrayList<Integer> actual = new ArrayList<>();
         while (iterator.hasNext()) {
@@ -132,7 +133,7 @@ public class TreeTest {
         Tree<Integer> root1 = new Tree<>(1);
         Tree<Integer> child11 = root1.addChild(2);
         Tree<Integer> child21 = root1.addChild(3);
-        root1.setTypeOfSearch(2);
+        root1.setTypeOfSearch(BFS);
         Iterator<Integer> iterator1 = root1.iterator();
         iterator1.next();
         Tree<Integer> child31 = root1.addChild(4);
@@ -151,7 +152,7 @@ public class TreeTest {
         Tree<Integer> root1 = new Tree<>(1);
         Tree<Integer> child11 = root1.addChild(2);
         Tree<Integer> child21 = root1.addChild(3);
-        root1.setTypeOfSearch(2);
+        root1.setTypeOfSearch(BFS);
 
         Throwable exception = assertThrows(Exception.class, () -> root.treeEquals(root1));
         Assertions.assertEquals(exception.getMessage(), "Types of search must be equivalent");

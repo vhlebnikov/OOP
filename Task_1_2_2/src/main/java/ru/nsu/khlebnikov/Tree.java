@@ -14,7 +14,11 @@ public class Tree<T> extends ArrayList<T> implements Iterable<T> {
     private Tree<T> parent;
     private ArrayList<Tree<T>> children;
     private int modCounter;
-    private int typeOfSearch;
+
+    public enum IteratorType {DFS, BFS}
+
+    ;
+    private IteratorType typeOfSearch;
 
     /**
      * Initial constructor.
@@ -26,7 +30,7 @@ public class Tree<T> extends ArrayList<T> implements Iterable<T> {
         children = new ArrayList<Tree<T>>();
         parent = null;
         modCounter = 0;
-        typeOfSearch = 1;
+        typeOfSearch = IteratorType.DFS;
     }
 
     /**
@@ -86,7 +90,7 @@ public class Tree<T> extends ArrayList<T> implements Iterable<T> {
      */
 
 
-    public void setTypeOfSearch(int typeOfSearch) {
+    public void setTypeOfSearch(IteratorType typeOfSearch) {
         this.typeOfSearch = typeOfSearch;
     }
 
@@ -112,7 +116,7 @@ public class Tree<T> extends ArrayList<T> implements Iterable<T> {
     public Tree<T> addChild(T data) {
         Tree<T> child = new Tree<T>(data);
         child.parent = this;
-        child.getParent().children.add(child);
+        this.children.add(child);
         this.modCounterIncrementation();
         return child;
     }
@@ -183,10 +187,11 @@ public class Tree<T> extends ArrayList<T> implements Iterable<T> {
 
     @Override
     public Iterator<T> iterator() {
-        if (typeOfSearch == 1) {
-            return new DeepFirstSearch<>(this);
+        if (typeOfSearch == IteratorType.DFS) {
+            return new DeepFirstSearchIterator<>(this);
+        } else {
+            return new BreathFirstSearchIterator<>(this);
         }
-        return new BreathFirstSearch<>(this);
     }
 
     @Override

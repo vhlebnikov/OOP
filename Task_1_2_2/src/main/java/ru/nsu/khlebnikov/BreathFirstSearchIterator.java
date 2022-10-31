@@ -3,26 +3,26 @@ package ru.nsu.khlebnikov;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.Queue;
+import java.util.Deque;
 
 /**
- * My Breath First Search realization.
+ * My Breath First Search Iterator realization.
  *
  * @param <T> type parameter
  */
-public class BreathFirstSearch<T> implements Iterator<T> {
+public class BreathFirstSearchIterator<T> implements Iterator<T> {
 
     private final int modCounter;
-    private Queue<Tree<T>> queue = new LinkedList<Tree<T>>();
+    private Deque<Tree<T>> queue = new LinkedList<Tree<T>>();
 
     /**
-     * Realization of Iterator for Breath First Search that
+     * Realization of Iterator for Breath First Search Iterator that
      * uses queue to traverse the tree.
      * Traverses the tree according to {@link #next} and {@link #hasNext} methods.
      *
      * @param root root of the tree
      */
-    public BreathFirstSearch(Tree<T> root) {
+    public BreathFirstSearchIterator(Tree<T> root) {
         queue.add(root);
         modCounter = root.getModCounter();
     }

@@ -5,22 +5,22 @@ import java.util.Iterator;
 import java.util.Stack;
 
 /**
- * My realization of Deep First Search.
+ * My realization of Deep First Search Iterator.
  *
  * @param <T> type parameter
  */
-public class DeepFirstSearch<T> implements Iterator<T> {
+public class DeepFirstSearchIterator<T> implements Iterator<T> {
     private final int modCounter;
     private Stack<Tree<T>> stack = new Stack<Tree<T>>();
 
     /**
-     * Realization of Iterator for Deep First Search that
+     * Realization of Iterator for Deep First Search Iterator that
      * uses stack to traverse the tree.
      * Traverses the tree according to {@link #next} and {@link #hasNext} methods.
      *
      * @param root root of the tree
      */
-    public DeepFirstSearch(Tree<T> root) {
+    public DeepFirstSearchIterator(Tree<T> root) {
         stack.add(root);
         modCounter = root.getModCounter();
     }
