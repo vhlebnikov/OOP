@@ -22,6 +22,7 @@ public class Tree<T> extends ArrayList<T> implements Iterable<T> {
         DFS,
         BFS
     }
+    
     private IteratorType typeOfSearch;
 
     /**
