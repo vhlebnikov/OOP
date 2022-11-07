@@ -165,16 +165,15 @@ public class TreeTest {
 
     @Test
     public void notEqualsTest() throws Exception {
-        Tree<Integer> root = new Tree<>(1);
-        Tree<Integer> child1 = root.addChild(2);
-        Tree<Integer> child2 = root.addChild(3);
-        Tree<Integer> root1 = new Tree<>(1);
-        Tree<Integer> child11 = root1.addChild(2);
-        Tree<Integer> child21 = root1.addChild(4);
-        Assertions.assertEquals(child1, child11);
+        Tree<String> root = new Tree<>("1");
+        Tree<String> child1 = root.addChild("2");
+        Tree<String> child2 = root.addChild("3");
+        Tree<String> root1 = new Tree<>("1");
+        Tree<String> child11 = root1.addChild("2");
+        Tree<String> child21 = root1.addChild("4");
         Assertions.assertNotEquals(root, root1);
         Assertions.assertFalse(root.treeEquals(root1));
-        root.setData(5);
+        root.setData("5");
         Assertions.assertNotEquals(root, root1);
     }
 }
