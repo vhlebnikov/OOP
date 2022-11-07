@@ -9,7 +9,7 @@ import java.util.Objects;
  *
  * @param <T> type parameter
  */
-public class Tree<T> extends ArrayList<T> implements Iterable<T> {
+public class Tree<T> implements Iterable<T> {
     private T data;
     private Tree<T> parent;
     private ArrayList<Tree<T>> children;
