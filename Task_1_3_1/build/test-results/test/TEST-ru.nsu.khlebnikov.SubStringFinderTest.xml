@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ru.nsu.khlebnikov.SubStringFinderTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2022-11-08T20:02:29" hostname="DESKTOP-1FO0QQI" time="0.083">
+  <properties/>
+  <testcase name="test()" classname="ru.nsu.khlebnikov.SubStringFinderTest" time="0.074"/>
+  <testcase name="exceptionTest()" classname="ru.nsu.khlebnikov.SubStringFinderTest" time="0.008"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
