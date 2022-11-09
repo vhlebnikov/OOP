@@ -5,9 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import java.awt.image.AreaAveragingScaleFilter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class SubStringFinderTest {
     @Test
@@ -25,7 +25,7 @@ public class SubStringFinderTest {
         expected.add(2);
         expected.add(4);
         expected.add(6);
-        ArrayList<Integer> actual = SubStringFinder.findSubString("input1.txt", "aba");
+        List<Integer> actual = SubStringFinder.findSubString("input1.txt", "aba");
         assertEquals(actual,expected);
     }
 }

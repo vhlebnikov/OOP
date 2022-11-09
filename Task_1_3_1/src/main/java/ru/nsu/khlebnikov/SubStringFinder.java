@@ -1,24 +1,24 @@
 package ru.nsu.khlebnikov;
 
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class SubStringFinder {
 
-    public static ArrayList<Integer> findSubString(String fileName, String subString) throws IOException, NullPointerException {
+    public static List<Integer> findSubString(String fileName, String subString) throws IOException, NullPointerException {
         try {
             File file = new File("src/test/resources/"+ fileName);
             FileReader fr = new FileReader(file);
-            BufferedReader reader = new BufferedReader(fr);
-            String inputString = reader.readLine();
+            BufferedReader reader = new BufferedReader(fr); // interface Closable, method Close, try with resources
+            String inputString = reader.readLine(); // read
 
             int lengthOfSubString = subString.length();
             int lengthOfInputString = inputString.length();
-            ArrayList<Integer> arrayOfIndexes = new ArrayList<>();
+            List<Integer> arrayOfIndexes = new ArrayList<>();
 
             for (int i = 0; i < lengthOfInputString; i++) {
                 if (inputString.charAt(i) == subString.charAt(0) && i + lengthOfSubString <= lengthOfInputString) {
