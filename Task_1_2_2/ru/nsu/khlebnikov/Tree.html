@@ -26,7 +26,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -222,7 +222,7 @@ implements java.lang.Iterable&lt;T&gt;</pre>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i2" class="altColor">
-<td class="colFirst"><code>java.util.ArrayList&lt;<a href="Tree.html" title="class in ru.nsu.khlebnikov">Tree</a>&lt;<a href="Tree.html" title="type parameter in Tree">T</a>&gt;&gt;</code></td>
+<td class="colFirst"><code>java.util.List&lt;<a href="Tree.html" title="class in ru.nsu.khlebnikov">Tree</a>&lt;<a href="Tree.html" title="type parameter in Tree">T</a>&gt;&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getChildren()">getChildren</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Children list getter.</div>
@@ -285,13 +285,6 @@ implements java.lang.Iterable&lt;T&gt;</pre>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setTypeOfSearch(ru.nsu.khlebnikov.Tree.IteratorType)">setTypeOfSearch</a></span>&#8203;(<a href="Tree.IteratorType.html" title="enum in ru.nsu.khlebnikov">Tree.IteratorType</a>&nbsp;typeOfSearch)</code></th>
 <td class="colLast">
 <div class="block">Sets type of search.</div>
-</td>
-</tr>
-<tr id="i12" class="altColor">
-<td class="colFirst"><code>boolean</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#treeEquals(ru.nsu.khlebnikov.Tree)">treeEquals</a></span>&#8203;(<a href="Tree.html" title="class in ru.nsu.khlebnikov">Tree</a>&lt;<a href="Tree.html" title="type parameter in Tree">T</a>&gt;&nbsp;tree)</code></th>
-<td class="colLast">
-<div class="block">Checks if two trees are equal or not.</div>
 </td>
 </tr>
 </table>
@@ -399,7 +392,7 @@ implements java.lang.Iterable&lt;T&gt;</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>getChildren</h4>
-<pre class="methodSignature">public&nbsp;java.util.ArrayList&lt;<a href="Tree.html" title="class in ru.nsu.khlebnikov">Tree</a>&lt;<a href="Tree.html" title="type parameter in Tree">T</a>&gt;&gt;&nbsp;getChildren()</pre>
+<pre class="methodSignature">public&nbsp;java.util.List&lt;<a href="Tree.html" title="class in ru.nsu.khlebnikov">Tree</a>&lt;<a href="Tree.html" title="type parameter in Tree">T</a>&gt;&gt;&nbsp;getChildren()</pre>
 <div class="block">Children list getter.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
@@ -485,25 +478,6 @@ implements java.lang.Iterable&lt;T&gt;</pre>
 <dl>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code>java.lang.Exception</code> - You can't delete root node</dd>
-</dl>
-</li>
-</ul>
-<a id="treeEquals(ru.nsu.khlebnikov.Tree)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>treeEquals</h4>
-<pre class="methodSignature">public&nbsp;boolean&nbsp;treeEquals&#8203;(<a href="Tree.html" title="class in ru.nsu.khlebnikov">Tree</a>&lt;<a href="Tree.html" title="type parameter in Tree">T</a>&gt;&nbsp;tree)
-                   throws java.lang.Exception</pre>
-<div class="block">Checks if two trees are equal or not.</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>tree</code> - tree to compare</dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>boolean value: true - if equals, otherwise - false</dd>
-<dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code>java.lang.Exception</code> - for these method types of search must be equivalent</dd>
 </dl>
 </li>
 </ul>
