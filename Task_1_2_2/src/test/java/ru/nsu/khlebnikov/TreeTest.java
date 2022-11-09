@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 public class TreeTest {
 
     @Test
-    public void treeEqualsTest() throws Exception {
+    public void treeEqualsTest() {
         Tree<Integer> root = new Tree<>(1);
         Tree<Integer> child1 = root.addChild(2);
         Tree<Integer> child2 = root.addChild(3);
@@ -41,7 +41,7 @@ public class TreeTest {
         Tree<Integer> child121r1 = child12r1.addChild(9);
         Tree<Integer> child211r1 = child21r1.addChild(10);
         Tree<Integer> child212r1 = child21r1.addChild(11);
-        Assertions.assertTrue(root.treeEquals(root1));
+        Assertions.assertEquals(root, root1);
     }
 
     @Test
@@ -145,18 +145,6 @@ public class TreeTest {
 
     @Test
     public void otherExceptionsTest() {
-        Tree<Integer> root = new Tree<>(1);
-        Tree<Integer> child1 = root.addChild(2);
-        Tree<Integer> child2 = root.addChild(3);
-
-        Tree<Integer> root1 = new Tree<>(1);
-        Tree<Integer> child11 = root1.addChild(2);
-        Tree<Integer> child21 = root1.addChild(3);
-        root1.setTypeOfSearch(BFS);
-
-        Throwable exception = assertThrows(Exception.class, () -> root.treeEquals(root1));
-        Assertions.assertEquals(exception.getMessage(), "Types of search must be equivalent");
-
         Tree<Integer> root2 = new Tree<>(1);
         Tree<Integer> child12 = root2.addChild(2);
         Throwable exception1 = assertThrows(Exception.class, root2::removeNode);
@@ -164,16 +152,13 @@ public class TreeTest {
     }
 
     @Test
-    public void notEqualsTest() throws Exception {
+    public void notEqualsTest() {
         Tree<String> root = new Tree<>("1");
         Tree<String> child1 = root.addChild("2");
         Tree<String> child2 = root.addChild("3");
         Tree<String> root1 = new Tree<>("1");
         Tree<String> child11 = root1.addChild("2");
         Tree<String> child21 = root1.addChild("4");
-        Assertions.assertNotEquals(root, root1);
-        Assertions.assertFalse(root.treeEquals(root1));
-        root.setData("5");
         Assertions.assertNotEquals(root, root1);
     }
 }
