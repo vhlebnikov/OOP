@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
+import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -58,12 +59,12 @@ public class TreeTest {
         c13.removeNode();
         root.setTypeOfSearch(BFS);
         Iterator<Integer> iterator = root.iterator();
-        ArrayList<Integer> actual = new ArrayList<>();
+        List<Integer> actual = new ArrayList<>();
         while (iterator.hasNext()) {
             actual.add(iterator.next());
         }
         Integer[] e = new Integer[]{1, 2, 3, 4, 7, 8};
-        ArrayList<Integer> expected = new ArrayList<>(Arrays.asList(e));
+        List<Integer> expected = new ArrayList<>(Arrays.asList(e));
         Assertions.assertEquals(actual, expected);
     }
 
@@ -82,12 +83,12 @@ public class TreeTest {
         Tree<Integer> child212 = child21.addChild(11);
         root.setTypeOfSearch(BFS);
         Iterator<Integer> iterator = root.iterator();
-        ArrayList<Integer> actual = new ArrayList<>();
+        List<Integer> actual = new ArrayList<>();
         while (iterator.hasNext()) {
             actual.add(iterator.next());
         }
         Integer[] e = new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
-        ArrayList<Integer> expected = new ArrayList<>(Arrays.asList(e));
+        List<Integer> expected = new ArrayList<>(Arrays.asList(e));
         Assertions.assertEquals(actual, expected);
     }
 
@@ -105,12 +106,12 @@ public class TreeTest {
         Tree<Integer> child211 = child21.addChild(10);
         Tree<Integer> child212 = child21.addChild(11);
         Iterator<Integer> iterator = root.iterator();
-        ArrayList<Integer> actual = new ArrayList<>();
+        List<Integer> actual = new ArrayList<>();
         while (iterator.hasNext()) {
             actual.add(iterator.next());
         }
         Integer[] e = new Integer[]{1, 3, 8, 7, 11, 10, 2, 6, 5, 9, 4};
-        ArrayList<Integer> expected = new ArrayList<>(Arrays.asList(e));
+        List<Integer> expected = new ArrayList<>(Arrays.asList(e));
         Assertions.assertEquals(actual, expected);
     }
 
