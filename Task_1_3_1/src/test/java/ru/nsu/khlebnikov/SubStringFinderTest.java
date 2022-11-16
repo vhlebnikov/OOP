@@ -1,8 +1,8 @@
 package ru.nsu.khlebnikov;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -43,13 +43,13 @@ public class SubStringFinderTest {
         assertEquals(actual, expected);
     }
 
-//    @Test
-//    public void bigFileTest() throws IOException {
-//        FileCreator.createFile("bigFile.txt");
-//        List<List<Integer>> actual = SubStringFinder.findSubString("bigFile.txt", "aba");
-//        List<List<Integer>> expected = List.of(Arrays.asList(0, 12), Arrays.asList(10000001, 12));
-//        assertEquals(actual, expected);
-//    }
+    @Test
+    public void bigFileTest() throws IOException {
+        FileCreator.createFile("bigFile.txt");
+        List<List<Integer>> actual = SubStringFinder.findSubString("bigFile.txt", "aba");
+        List<List<Integer>> expected = List.of(Arrays.asList(0, 12), Arrays.asList(10000001, 12));
+        assertEquals(actual, expected);
+    }
 
     @Test
     public void exceptionTest() {
