@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="ru.nsu.khlebnikov.SubStringFinderTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2022-11-08T20:02:29" hostname="DESKTOP-1FO0QQI" time="0.083">
+<testsuite name="ru.nsu.khlebnikov.SubStringFinderTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2022-11-16T21:35:32" hostname="DESKTOP-1FO0QQI" time="323.48">
   <properties/>
-  <testcase name="test()" classname="ru.nsu.khlebnikov.SubStringFinderTest" time="0.074"/>
-  <testcase name="exceptionTest()" classname="ru.nsu.khlebnikov.SubStringFinderTest" time="0.008"/>
-  <system-out><![CDATA[]]></system-out>
+  <testcase name="emptyAnswerTest()" classname="ru.nsu.khlebnikov.SubStringFinderTest" time="0.063"/>
+  <testcase name="bigFileTest()" classname="ru.nsu.khlebnikov.SubStringFinderTest" time="323.333"/>
+  <testcase name="testWithRussianLetters()" classname="ru.nsu.khlebnikov.SubStringFinderTest" time="0.001"/>
+  <testcase name="anotherTest()" classname="ru.nsu.khlebnikov.SubStringFinderTest" time="0.001"/>
+  <testcase name="warAndPeaceTest()" classname="ru.nsu.khlebnikov.SubStringFinderTest" time="0.074"/>
+  <testcase name="exceptionTest()" classname="ru.nsu.khlebnikov.SubStringFinderTest" time="0.004"/>
+  <system-out><![CDATA[Creating a new File
+]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
