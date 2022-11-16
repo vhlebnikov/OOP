@@ -18,13 +18,13 @@ public class SubStringFinderTest {
     @Test
     public void testWithRussianLetters() throws IOException {
         List<List<Integer>> expected = List.of(Arrays.asList(0, 7));
-        List<List<Integer>> actual = SubStringFinder.findSubString("input_rus.txt", "пирог");
+        List<List<Integer>> actual = SubStringFinder.findSubString("input_rus.txt", "РїРёСЂРѕРі");
         assertEquals(actual, expected);
     }
 
     @Test
     public void emptyAnswerTest() throws IOException {
-        assertTrue(SubStringFinder.findSubString("input_rus.txt", "слово").isEmpty());
+        assertTrue(SubStringFinder.findSubString("input_rus.txt", "СЃР»РѕРІРѕ").isEmpty());
     }
 
     @Test
