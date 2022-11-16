@@ -20,14 +20,16 @@ public class SubStringFinder {
      *
      * @param fileName  - file with string, where will be search of substring
      * @param subString - substring
-     * @return - array of pairs with the line number in the text and the character number in this line
-     * (the count starts from 0, for readability it would be possible
-     * to rewrite the code by adding 1 to the elements of the answer)
+     * @return - array of pairs with line number in the text and character number in this line
+     *              (the count starts from 0, for readability it would be possible
+     *              to rewrite the code by adding 1 to the elements of the answer)
      * @throws IOException          - exception that called if the input file can't be opened
      * @throws NullPointerException - exception that called if the input file is empty
      */
-    public static List<List<Integer>> findSubString(String fileName, String subString) throws IOException, NullPointerException {
-        try (FileReader file = new FileReader("src/test/resources/" + fileName, StandardCharsets.UTF_8);
+    public static List<List<Integer>> findSubString(String fileName, String subString)
+            throws IOException, NullPointerException {
+        try (FileReader file = new FileReader("src/test/resources/" + fileName,
+                StandardCharsets.UTF_8);
              BufferedReader reader = new BufferedReader(file)) {
             List<List<Integer>> arrayOfIndexes = new ArrayList<>();
             int lengthOfSubString = subString.length();

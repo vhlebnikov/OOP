@@ -1,14 +1,13 @@
 package ru.nsu.khlebnikov;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for my substring finder implementation.
@@ -54,9 +53,11 @@ public class SubStringFinderTest {
 
     @Test
     public void exceptionTest() {
-        Throwable exception = assertThrows(NullPointerException.class, () -> SubStringFinder.findSubString("empty_input.txt", "ba"));
+        Throwable exception = assertThrows(NullPointerException.class,
+                () -> SubStringFinder.findSubString("empty_input.txt", "ba"));
         assertEquals(exception.getMessage(), "File is empty");
-        exception = assertThrows(IOException.class, () -> SubStringFinder.findSubString("wrong_input.txt", "ba"));
+        exception = assertThrows(IOException.class,
+                () -> SubStringFinder.findSubString("wrong_input.txt", "ba"));
         assertEquals(exception.getMessage(), "Can't open the file");
     }
 }
