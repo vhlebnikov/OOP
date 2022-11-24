@@ -106,7 +106,10 @@ public class GradeBook {
                 if (subject.getMark() != null) {
                     countOfMarks++;
                     switch (subject.getMark()) {
-                        case ("Зачёт"), ("Отлично") :
+                        case ("Зачёт") :
+                            averageMark += 5;
+                            break;
+                        case ("Отлично") :
                             averageMark += 5;
                             break;
                         case ("Хорошо") :
@@ -115,7 +118,10 @@ public class GradeBook {
                         case ("Удовлетворительно") :
                             averageMark += 3;
                             break;
-                        case ("Незачёт"), ("Неудовлетворительно") :
+                        case ("Незачёт") :
+                            averageMark += 2;
+                            break;
+                        case ("Неудовлетворительно") :
                             averageMark += 2;
                             break;
                     }
@@ -151,7 +157,10 @@ public class GradeBook {
             if (subject.getMark() != null) {
                 countOfSubjects++;
                 switch (subject.getMark()) {
-                    case ("Зачёт"), ("Отлично") :
+                    case ("Зачёт") :
+                        mark += 5;
+                        break;
+                    case ("Отлично") :
                         mark += 5;
                         break;
                     case ("Хорошо") :
@@ -160,7 +169,10 @@ public class GradeBook {
                     case ("Удовлетворительно") :
                         mark += 3;
                         break;
-                    case ("Незачёт"), ("Неудовлетворительно") :
+                    case ("Незачёт") :
+                        mark += 2;
+                        break;
+                    case ("Неудовлетворительно") :
                         mark += 2;
                         break;
                 }
