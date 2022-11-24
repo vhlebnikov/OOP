@@ -12,6 +12,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 
 /**
@@ -238,7 +239,7 @@ public class GradeBook {
         for (Map.Entry<String, List<Subject>> entry : subjects.entrySet()) {
             List<Subject> actuallyOneSubject =
                     entry.getValue().stream().
-                            filter(x -> x.getSemester().equals(semester)).toList();
+                            filter(x -> x.getSemester().equals(semester)).collect(Collectors.toList());
             if (actuallyOneSubject.size() == 0) {
                 continue;
             }
