@@ -113,13 +113,7 @@ loadScripts(document, 'script');</script>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#createGradeBookFile(java.lang.String,java.lang.Integer)" class="member-name-link">createGradeBookFile</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;fileName,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&nbsp;numOfSemesters)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Method that creates file with statistic about student, which contains:
- 
-     Student name
-     Student's average mark
-     Student's red diploma average mark
-     Possibility to get a red diploma
- </div>
+<div class="block">Method that creates file with statistic about student.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getAverageMark()" class="member-name-link">getAverageMark</a>()</code></div>
@@ -201,7 +195,8 @@ loadScripts(document, 'script');</script>
 <h3>getAverageMark</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">getAverageMark</span>()</div>
 <div class="block">Method that calculates student's average mark.
- <p>My grade translation table:
+ <p>
+     My grade translation table:
  <ul>
      <li>"Зачёт", "Отлично" == 5</li>
      <li>""Хорошо" == 4</li>
@@ -219,7 +214,8 @@ loadScripts(document, 'script');</script>
 <h3>getAverageRedDiplomaMark</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">getAverageRedDiplomaMark</span>()</div>
 <div class="block">Method that calculates student's red diploma average mark.
- <p>My grade translation table:
+ <p>
+     My grade translation table:
  <ul>
       <li>"Зачёт", "Отлично" == 5</li>
       <li>"Хорошо" == 4</li>
@@ -263,7 +259,9 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">createGradeBookFile</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;fileName,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&nbsp;numOfSemesters)</span>
                          throws <span class="exceptions"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/IOException.html" title="class or interface in java.io" class="external-link">IOException</a></span></div>
-<div class="block">Method that creates file with statistic about student, which contains:
+<div class="block">Method that creates file with statistic about student.
+ <p>
+      It contains:
  <ul>
      <li>Student name</li>
      <li>Student's average mark</li>
