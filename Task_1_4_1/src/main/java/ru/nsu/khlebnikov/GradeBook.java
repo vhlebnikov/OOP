@@ -127,6 +127,7 @@ public class GradeBook {
 
     /**
      * Method that calculates student's red diploma average mark.
+     *
      * <p>My grade translation table:
      * <ul>
      *      <li>"Зачёт", "Отлично" == 5</li>
@@ -250,6 +251,7 @@ public class GradeBook {
 
     /**
      * Method that creates file with statistic about student.
+     *
      * <p>It contains:
      * <ul>
      *     <li>Student name</li>
