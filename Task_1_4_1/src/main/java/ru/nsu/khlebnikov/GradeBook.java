@@ -118,9 +118,10 @@ public class GradeBook {
         if (countOfMarks == 0) {
             throw new IllegalArgumentException("У этого студента нет оценок");
         }
-        averageMark /= countOfMarks;
-        DecimalFormat df = new DecimalFormat("#.#");
-        return df.format(averageMark);
+        averageMark = averageMark / countOfMarks * 10;
+        averageMark = Math.round(averageMark);
+        averageMark /= 10;
+        return Double.toString(averageMark);
     }
 
     /**
@@ -165,9 +166,10 @@ public class GradeBook {
                 }
             }
         }
-        mark /= countOfSubjects;
-        DecimalFormat df = new DecimalFormat("#.#");
-        return df.format(mark);
+        mark = mark / countOfSubjects * 10;
+        mark = Math.round(mark);
+        mark /= 10;
+        return Double.toString(mark);
     }
 
     /**
