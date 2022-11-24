@@ -1,10 +1,12 @@
 package ru.nsu.khlebnikov;
 
+import java.io.IOException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
-
+/**
+ * Test for my grade book realization.
+ */
 public class GradeBookTest {
 
     @Test
@@ -24,8 +26,8 @@ public class GradeBookTest {
         GradeBook gradeBook = new GradeBook("Фамилия Имя Отчество");
         gradeBook.addSubjects("incompleteGradeBook.txt");
         gradeBook.createGradeBookFile("incompleteGradeBook_output.txt", 2);
-        Assertions.assertEquals("0.0", gradeBook.getAverageMark());
-        Assertions.assertEquals("0.0", gradeBook.getAverageRedDiplomaMark());
+        Assertions.assertEquals("неверно введены данные", gradeBook.getAverageMark());
+        Assertions.assertEquals("неверно введены данные", gradeBook.getAverageRedDiplomaMark());
         Assertions.assertEquals("неверно введены данные", gradeBook.redDiploma());
         Assertions.assertEquals("недостаточно информации", gradeBook.increasedScholarship("1"));
         Assertions.assertEquals("неверно введены данные", gradeBook.increasedScholarship("2"));

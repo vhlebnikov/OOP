@@ -89,7 +89,8 @@ public class GradeBook {
 
     /**
      * Method that calculates student's average mark.
-     * <p>My grade translation table:
+     * <p>
+     *     My grade translation table:
      * <ul>
      *     <li>"Зачёт", "Отлично" == 5</li>
      *     <li>""Хорошо" == 4</li>
@@ -111,6 +112,9 @@ public class GradeBook {
                         case ("Хорошо") -> averageMark += 4;
                         case ("Удовлетворительно") -> averageMark += 3;
                         case ("Незачёт"), ("Неудовлетворительно") -> averageMark += 2;
+                        default -> {
+                            return "неверно введены данные";
+                        }
                     }
                 }
             }
@@ -126,7 +130,8 @@ public class GradeBook {
 
     /**
      * Method that calculates student's red diploma average mark.
-     * <p>My grade translation table:
+     * <p>
+     *     My grade translation table:
      * <ul>
      *      <li>"Зачёт", "Отлично" == 5</li>
      *      <li>"Хорошо" == 4</li>
@@ -140,29 +145,18 @@ public class GradeBook {
         double mark = 0;
         int countOfSubjects = 0;
         for (Map.Entry<String, List<Subject>> entry : subjects.entrySet()) {
-            Subject subject = entry.getValue().stream().
-                    max(Comparator.comparing(Subject::getSemester)).get();
+            Subject subject = entry.getValue().stream()
+                    .max(Comparator.comparing(Subject::getSemester)).get();
             if (subject.getMark() != null) {
                 countOfSubjects++;
                 switch (subject.getMark()) {
-                    case ("Зачёт") :
-                        mark += 5;
-                        break;
-                    case ("Отлично") :
-                        mark += 5;
-                        break;
-                    case ("Хорошо") :
-                        mark += 4;
-                        break;
-                    case ("Удовлетворительно") :
-                        mark += 3;
-                        break;
-                    case ("Незачёт") :
-                        mark += 2;
-                        break;
-                    case ("Неудовлетворительно") :
-                        mark += 2;
-                        break;
+                    case ("Зачёт"), ("Отлично") -> mark += 5;
+                    case ("Хорошо") -> mark += 4;
+                    case ("Удовлетворительно") -> mark += 3;
+                    case ("Незачёт"), ("Неудовлетворительно") -> mark += 2;
+                    default -> {
+                        return "неверно введены данные";
+                    }
                 }
             }
         }
@@ -183,8 +177,8 @@ public class GradeBook {
         boolean qualificationWork = false;
         boolean isQualificationWork = false;
         for (Map.Entry<String, List<Subject>> entry : subjects.entrySet()) {
-            Subject subject = entry.getValue().stream().
-                    max(Comparator.comparing(Subject::getSemester)).get();
+            Subject subject = entry.getValue().stream()
+                    .max(Comparator.comparing(Subject::getSemester)).get();
             if (subject.getMark() != null) {
                 if (entry.getKey().equals("Квалификационная работа")) {
                     isQualificationWork = true;
@@ -194,9 +188,9 @@ public class GradeBook {
                         qualificationWork = true;
                     }
                     countOfGreatMarks++;
-                } else if (subject.getMark().equals("Удовлетворительно") ||
-                        subject.getMark().equals("Неудовлетворительно") ||
-                        subject.getMark().equals("Незачёт")) {
+                } else if (subject.getMark().equals("Удовлетворительно")
+                        || subject.getMark().equals("Неудовлетворительно")
+                        || subject.getMark().equals("Незачёт")) {
                     return "нет";
                 } else if (!subject.getMark().equals("Хорошо")) {
                     return "неверно введены данные";
@@ -208,7 +202,7 @@ public class GradeBook {
         }
         if (((countOfGreatMarks / countOfMarks) >= 0.75d) && qualificationWork) {
             return "да";
-        } else if (isQualificationWork){
+        } else if (isQualificationWork) {
             return "нет";
         } else {
             return "недостаточно информации";
@@ -226,8 +220,8 @@ public class GradeBook {
         boolean markGood = false;
         for (Map.Entry<String, List<Subject>> entry : subjects.entrySet()) {
             List<Subject> actuallyOneSubject =
-                    entry.getValue().stream().
-                            filter(x -> x.getSemester().equals(semester)).collect(Collectors.toList());
+                    entry.getValue().stream().filter(x -> x.getSemester().equals(semester))
+                            .collect(Collectors.toList());
             if (actuallyOneSubject.size() == 0) {
                 continue;
             }
@@ -239,12 +233,12 @@ public class GradeBook {
                     } else {
                         return "нет";
                     }
-                } else if (subject.getMark().equals("Удовлетворительно") ||
-                        subject.getMark().equals("Неудовлетворительно") ||
-                        subject.getMark().equals("Незачёт")) {
+                } else if (subject.getMark().equals("Удовлетворительно")
+                        || subject.getMark().equals("Неудовлетворительно")
+                        || subject.getMark().equals("Незачёт")) {
                     return "нет";
-                } else if (!subject.getMark().equals("Отлично") &&
-                        !subject.getMark().equals("Зачёт")) {
+                } else if (!subject.getMark().equals("Отлично")
+                        && !subject.getMark().equals("Зачёт")) {
                     return "неверно введены данные";
                 }
             } else {
@@ -259,7 +253,9 @@ public class GradeBook {
     }
 
     /**
-     * Method that creates file with statistic about student, which contains:
+     * Method that creates file with statistic about student.
+     * <p>
+     *      It contains:
      * <ul>
      *     <li>Student name</li>
      *     <li>Student's average mark</li>
@@ -279,8 +275,8 @@ public class GradeBook {
             pw.println("Средний балл диплома: " + getAverageRedDiplomaMark());
             pw.println("Будет ли красный диплом? - " + redDiploma());
             for (int i = 1; i <= numOfSemesters; i++) {
-                pw.println("Повышенная стипендия за " + i +
-                        " семестр: " + increasedScholarship(Integer.toString(i)));
+                pw.println("Повышенная стипендия за " + i
+                        + " семестр: " + increasedScholarship(Integer.toString(i)));
             }
         } catch (IOException e) {
             throw new IOException(e);
