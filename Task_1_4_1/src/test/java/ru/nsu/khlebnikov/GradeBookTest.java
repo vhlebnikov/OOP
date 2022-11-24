@@ -12,7 +12,7 @@ public class GradeBookTest {
         GradeBook gradeBook = new GradeBook("Хлебников Вадим Дмитриевич");
         gradeBook.addSubjects("myGradeBook.txt");
         gradeBook.createGradeBookFile("myGradeBook_output.txt", 2);
-        Assertions.assertEquals("4,4", gradeBook.getAverageMark());
+        Assertions.assertTrue(gradeBook.getAverageMark().equals("4,4"));
         Assertions.assertEquals("4,4", gradeBook.getAverageRedDiplomaMark());
         Assertions.assertEquals("нет", gradeBook.redDiploma());
         Assertions.assertEquals("нет", gradeBook.increasedScholarship("1"));
