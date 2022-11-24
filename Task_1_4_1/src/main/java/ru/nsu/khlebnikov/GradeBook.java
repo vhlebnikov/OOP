@@ -107,24 +107,10 @@ public class GradeBook {
                 if (subject.getMark() != null) {
                     countOfMarks++;
                     switch (subject.getMark()) {
-                        case ("Зачёт") :
-                            averageMark += 5;
-                            break;
-                        case ("Отлично") :
-                            averageMark += 5;
-                            break;
-                        case ("Хорошо") :
-                            averageMark += 4;
-                            break;
-                        case ("Удовлетворительно") :
-                            averageMark += 3;
-                            break;
-                        case ("Незачёт") :
-                            averageMark += 2;
-                            break;
-                        case ("Неудовлетворительно") :
-                            averageMark += 2;
-                            break;
+                        case ("Зачёт"), ("Отлично") -> averageMark += 5;
+                        case ("Хорошо") -> averageMark += 4;
+                        case ("Удовлетворительно") -> averageMark += 3;
+                        case ("Незачёт"), ("Неудовлетворительно") -> averageMark += 2;
                     }
                 }
             }
