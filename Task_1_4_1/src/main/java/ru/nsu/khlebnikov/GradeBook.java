@@ -6,14 +6,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
-
 
 /**
  * Realization of student grade book.
@@ -89,8 +86,8 @@ public class GradeBook {
 
     /**
      * Method that calculates student's average mark.
-     * <p>
-     *     My grade translation table:
+     *
+     * <p>My grade translation table:
      * <ul>
      *     <li>"Зачёт", "Отлично" == 5</li>
      *     <li>""Хорошо" == 4</li>
@@ -130,8 +127,7 @@ public class GradeBook {
 
     /**
      * Method that calculates student's red diploma average mark.
-     * <p>
-     *     My grade translation table:
+     * <p>My grade translation table:
      * <ul>
      *      <li>"Зачёт", "Отлично" == 5</li>
      *      <li>"Хорошо" == 4</li>
@@ -220,8 +216,8 @@ public class GradeBook {
         boolean markGood = false;
         for (Map.Entry<String, List<Subject>> entry : subjects.entrySet()) {
             List<Subject> actuallyOneSubject =
-                    entry.getValue().stream().filter(x -> x.getSemester().equals(semester))
-                            .collect(Collectors.toList());
+                    entry.getValue().stream().filter(x -> x.getSemester()
+                            .equals(semester)).toList();
             if (actuallyOneSubject.size() == 0) {
                 continue;
             }
@@ -254,8 +250,7 @@ public class GradeBook {
 
     /**
      * Method that creates file with statistic about student.
-     * <p>
-     *      It contains:
+     * <p>It contains:
      * <ul>
      *     <li>Student name</li>
      *     <li>Student's average mark</li>
