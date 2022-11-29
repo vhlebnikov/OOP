@@ -7,7 +7,7 @@ import java.util.Objects;
  *
  * @param <T> - type of pair elements
  */
-public class Pair <T> {
+public class Pair<T> {
     private final T firstElement;
     private final T secondElement;
 
@@ -22,17 +22,21 @@ public class Pair <T> {
      *
      * @param firstElement - first element of pair
      * @param secondElement - second element of pair
-     * @return - actually the pair
      * @param <T> - type of pair elements
+     * @return - actually the pair
      */
-    public static <T> Pair<T> create (T firstElement, T secondElement) {
-        return new <T> Pair<T>(firstElement, secondElement);
+    public static <T> Pair<T> create(T firstElement, T secondElement) {
+        return new <T> Pair<T> (firstElement, secondElement);
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o){
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Pair<?> pair = (Pair<?>) o;
         return firstElement.equals(pair.firstElement) && secondElement.equals(pair.secondElement);
     }
