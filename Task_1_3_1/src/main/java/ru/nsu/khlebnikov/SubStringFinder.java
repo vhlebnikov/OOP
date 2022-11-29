@@ -1,8 +1,6 @@
 package ru.nsu.khlebnikov;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,14 +22,13 @@ public class SubStringFinder {
      *              (the count starts from 0, for readability it would be possible
      *              to rewrite the code by adding 1 to the elements of the answer)
      * @throws IOException          - exception that called if the input file can't be opened
-     * @throws NullPointerException - exception that called if the input file is empty
      */
-    public static List<List<Integer>> findSubString(String fileName, String subString)
-            throws IOException, NullPointerException {
+    public static List<Pair<Integer>> findSubString(String fileName, String subString)
+            throws IOException {
         try (FileReader file = new FileReader("src/test/resources/" + fileName,
                 StandardCharsets.UTF_8);
              BufferedReader reader = new BufferedReader(file)) {
-            List<List<Integer>> arrayOfIndexes = new ArrayList<>();
+            List<Pair<Integer>> arrayOfIndexes = new ArrayList<>();
             int lengthOfSubString = subString.length();
 
             int charCode;
@@ -68,17 +65,13 @@ public class SubStringFinder {
                     }
                     if (suitableSubString) {
                         reader.reset();
-                        List<Integer> answer = Arrays.asList(indexOfString, indexOfCharInString);
-                        arrayOfIndexes.add(answer);
+                        arrayOfIndexes.add(Pair.create(indexOfString, indexOfCharInString));
                     }
                 }
             }
-            if (indexOfString == 0 && indexOfCharInString == -1) {
-                throw new NullPointerException("File is empty");
-            }
             return arrayOfIndexes;
-        } catch (IOException e) {
-            throw new IOException("Can't open the file");
+        } catch (FileNotFoundException e) {
+            throw new FileNotFoundException("File doesn't exist");
         }
     }
 }
