@@ -26,12 +26,12 @@ public class Pair<T> {
      * @return - actually the pair
      */
     public static <T> Pair<T> create(T firstElement, T secondElement) {
-        return new <T> Pair<T> (firstElement, secondElement);
+        return new <T>Pair<T>(firstElement, secondElement);
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o){
+        if (this == o) {
             return true;
         }
         if (o == null || getClass() != o.getClass()) {

@@ -1,9 +1,12 @@
 package ru.nsu.khlebnikov;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -25,9 +28,9 @@ public class SubStringFinder {
      */
     public static List<Pair<Integer>> findSubString(String fileName, String subString)
             throws IOException {
-        try (FileReader file = new FileReader("src/test/resources/" + fileName,
+        try (Reader file = new FileReader("src/test/resources/" + fileName,
                 StandardCharsets.UTF_8);
-             BufferedReader reader = new BufferedReader(file)) {
+             Reader reader = new BufferedReader(file)) {
             List<Pair<Integer>> arrayOfIndexes = new ArrayList<>();
             int lengthOfSubString = subString.length();
 
