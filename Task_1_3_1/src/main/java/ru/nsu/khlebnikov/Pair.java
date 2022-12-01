@@ -22,11 +22,11 @@ public class Pair<T> {
      *
      * @param firstElement - first element of pair
      * @param secondElement - second element of pair
-     * @param <T> - type of pair elements
+     * @param <R> - type of pair elements
      * @return - actually the pair
      */
-    public static <T> Pair<T> create(T firstElement, T secondElement) {
-        return new <T>Pair<T>(firstElement, secondElement);
+    public static <R> Pair<R> create(R firstElement, R secondElement) {
+        return new Pair<>(firstElement, secondElement);
     }
 
     @Override
