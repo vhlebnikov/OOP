@@ -1,10 +1,7 @@
 package ru.nsu.khlebnikov;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Calculator {
 
@@ -12,15 +9,33 @@ public class Calculator {
         stream = System.in; // Mock stream
         Scanner sc = new Scanner(stream);
         String input;
-        List<String> operands = new ArrayList<>();
         if ((input = sc.nextLine()) == null) {
-            throw new IOException("Пустая строка ввода");
+            throw new IOException("Пустое выражение");
         }
-        operands.addAll(Arrays.asList(input.split(" ")));
-        for (int i = 0; i < input.split(" ").length; i++) {
-            if (operands.get(0).charAt(0) == )
+        int numberIndex = 0;
+        List<String> elements = new ArrayList<>(Arrays.asList(input.split(" ")));
+        Deque<String> operations = new ArrayDeque<>();
+
+        for (String elem : elements) {
+            if (Character.isDigit(elem.charAt(0))) {
+                break;
+            }
+            numberIndex++;
+            operations.push(elem);
+        }
+
+        for (int i = numberIndex; i < elements.size(); i++) {
+            
         }
         return null;
+    }
+
+    public boolean isNumber(String str) {
+        if (str == null || str.isEmpty()) return false;
+        for (int i = 0; i < str.length(); i++) {
+            if (!Character.isDigit(str.charAt(i))) return false;
+        }
+        return true;
     }
 }
 
