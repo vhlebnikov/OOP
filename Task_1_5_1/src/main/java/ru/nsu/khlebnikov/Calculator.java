@@ -39,7 +39,7 @@ public class Calculator {
                 stack.push(elem);
                 continue;
             }
-            calculate(elem);
+            calculateOperation(elem);
         }
         if (stack.size() != 1) {
             throw new IllegalExpressionException("Illegal expression");
@@ -54,7 +54,9 @@ public class Calculator {
      * @return true if can and otherwise false
      */
     private static boolean isNumber(String str) {
-        if (str == null || str.isEmpty()) return false;
+        if (str == null || str.isEmpty()) {
+            return false;
+        }
         try {
             Double.parseDouble(str);
         } catch (NumberFormatException e) {
@@ -87,7 +89,7 @@ public class Calculator {
      * @param op the operation
      * @throws IllegalExpressionException the exception thrown in case of an error
      */
-    private static void calculate(String op) throws IllegalExpressionException {
+    private static void calculateOperation(String op) throws IllegalExpressionException {
         Deque<Double> arguments = new ArrayDeque<>();
         int opArity = operationArity(op);
         if (stack.size() < opArity) {
@@ -106,6 +108,7 @@ public class Calculator {
             case "sqrt" -> stack.push(String.valueOf(Math.sqrt(arguments.pop())));
             case "sin" -> stack.push(String.valueOf(Math.sin(arguments.pop())));
             case "cos" -> stack.push(String.valueOf(Math.cos(arguments.pop())));
+            default -> throw new IllegalArgumentException("Illegal operation");
         }
     }
 }

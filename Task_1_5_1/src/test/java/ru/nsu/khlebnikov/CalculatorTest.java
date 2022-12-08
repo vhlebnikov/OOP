@@ -1,10 +1,13 @@
 package ru.nsu.khlebnikov;
 
+import java.io.InputStream;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.io.InputStream;
 
+/**
+ * Test for my calculator implementation.
+ */
 public class CalculatorTest {
     @Test
     public void testFromTask() throws IllegalExpressionException {
