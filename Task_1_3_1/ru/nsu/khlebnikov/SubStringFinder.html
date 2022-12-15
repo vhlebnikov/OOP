@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":9};
+var data = {"i0":9,"i1":9};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -178,10 +178,19 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>static java.util.List&lt;<a href="Pair.html" title="class in ru.nsu.khlebnikov">Pair</a>&lt;java.lang.Integer&gt;&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#findSubString(java.lang.String,java.lang.String)">findSubString</a></span>&#8203;(java.lang.String&nbsp;fileName,
-             java.lang.String&nbsp;subString)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#findSubStringFromPath(java.lang.String,java.lang.String,java.lang.String)">findSubStringFromPath</a></span>&#8203;(java.lang.String&nbsp;fileName,
+                     java.lang.String&nbsp;pathName,
+                     java.lang.String&nbsp;subString)</code></th>
 <td class="colLast">
-<div class="block">Method for finding substring.</div>
+<div class="block">Method for finding substring from file in custom path.</div>
+</td>
+</tr>
+<tr id="i1" class="rowColor">
+<td class="colFirst"><code>static java.util.List&lt;<a href="Pair.html" title="class in ru.nsu.khlebnikov">Pair</a>&lt;java.lang.Integer&gt;&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#findSubStringFromResources(java.lang.String,java.lang.String)">findSubStringFromResources</a></span>&#8203;(java.lang.String&nbsp;fileName,
+                          java.lang.String&nbsp;subString)</code></th>
+<td class="colLast">
+<div class="block">Method for finding substring from file in resources path.</div>
 </td>
 </tr>
 </table>
@@ -227,24 +236,49 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a id="findSubString(java.lang.String,java.lang.String)">
+<a id="findSubStringFromResources(java.lang.String,java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>findSubStringFromResources</h4>
+<pre class="methodSignature">public static&nbsp;java.util.List&lt;<a href="Pair.html" title="class in ru.nsu.khlebnikov">Pair</a>&lt;java.lang.Integer&gt;&gt;&nbsp;findSubStringFromResources&#8203;(java.lang.String&nbsp;fileName,
+                                                                                 java.lang.String&nbsp;subString)
+                                                                          throws java.io.IOException</pre>
+<div class="block">Method for finding substring from file in resources path.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>fileName</code> - - file in resources with string, where will be search of substring</dd>
+<dd><code>subString</code> - - substring</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>- array of pairs with line number in the text and character number in this line
+ (the count starts from 0, for readability it would be possible
+ to rewrite the code by adding 1 to the elements of the answer)</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code>java.io.IOException</code> - - exception that called if the input file can't be opened</dd>
+</dl>
+</li>
+</ul>
+<a id="findSubStringFromPath(java.lang.String,java.lang.String,java.lang.String)">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
-<h4>findSubString</h4>
-<pre class="methodSignature">public static&nbsp;java.util.List&lt;<a href="Pair.html" title="class in ru.nsu.khlebnikov">Pair</a>&lt;java.lang.Integer&gt;&gt;&nbsp;findSubString&#8203;(java.lang.String&nbsp;fileName,
-                                                                    java.lang.String&nbsp;subString)
-                                                             throws java.io.IOException</pre>
-<div class="block">Method for finding substring.</div>
+<h4>findSubStringFromPath</h4>
+<pre class="methodSignature">public static&nbsp;java.util.List&lt;<a href="Pair.html" title="class in ru.nsu.khlebnikov">Pair</a>&lt;java.lang.Integer&gt;&gt;&nbsp;findSubStringFromPath&#8203;(java.lang.String&nbsp;fileName,
+                                                                            java.lang.String&nbsp;pathName,
+                                                                            java.lang.String&nbsp;subString)
+                                                                     throws java.io.IOException</pre>
+<div class="block">Method for finding substring from file in custom path.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>fileName</code> - - file with string, where will be search of substring</dd>
+<dd><code>pathName</code> - - custom path of file</dd>
 <dd><code>subString</code> - - substring</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>- array of pairs with line number in the text and character number in this line
-              (the count starts from 0, for readability it would be possible
-              to rewrite the code by adding 1 to the elements of the answer)</dd>
+ (the count starts from 0, for readability it would be possible
+ to rewrite the code by adding 1 to the elements of the answer)</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code>java.io.IOException</code> - - exception that called if the input file can't be opened</dd>
 </dl>
