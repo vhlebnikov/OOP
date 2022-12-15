@@ -2,8 +2,8 @@ package ru.nsu.khlebnikov;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -18,47 +18,49 @@ public class FileCreator {
      * Method that creates big file for test for subStringFinder method.
      *
      * @param fileName - name of file that will be created
+     * @param pathName - custom path of file
      * @throws IOException - if an I/O error occurs
      */
-    public static void createFile(String fileName) throws IOException {
-        File file = new File("src/test/resources/", fileName);
-        if (file.exists()) {
+    public static void createFile(String fileName, String pathName) throws IOException {
+        File file = new File(pathName, fileName);
+        if (!file.createNewFile()) {
             throw new FileAlreadyExistsException("File already exists");
         }
-        try (PrintWriter pw = new PrintWriter(file)) {
+        try (FileWriter fw = new FileWriter(file)) {
             for (int j = 0; j < 12; j++) {
-                pw.print("0");
+                fw.write("0");
             }
-            pw.print("aba");
+            fw.write("aba");
             for (int j = 16; j < 1000; j++) {
-                pw.print("0");
+                fw.write("0");
             }
-            pw.println();
+            fw.write("\n");
             for (int i = 0; i < 10000000; i++) {
                 for (int j = 0; j < 1000; j++) {
-                    pw.print("0");
+                    fw.write("0");
                 }
-                pw.println();
-            }
+            fw.write("\n");
+        }
             for (int j = 0; j < 12; j++) {
-                pw.print("0");
+                fw.write("0");
             }
-            pw.print("aba");
+            fw.write("aba");
             for (int j = 16; j < 1000; j++) {
-                pw.print("0");
+                fw.write("0");
             }
-            pw.println();
+            fw.write("\n");
         }
     }
 
     /**
-     * Method that deletes file by its name.
+     * Method that deletes file.
      *
      * @param fileName - name of file that will be deleted
+     * @param pathName - custom path of file
      * @throws IOException - if an I/O error occurs
      */
-    public static void deleteFile(String fileName) throws IOException {
-        Path path = Paths.get("src/test/resources/" + fileName);
+    public static void deleteFile(String fileName, String pathName) throws IOException {
+        Path path = Paths.get(pathName, fileName);
         if (Files.notExists(path)) {
             throw new FileNotFoundException("File doesn't exist");
         }
