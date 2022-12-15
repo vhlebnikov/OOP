@@ -95,7 +95,8 @@ public class SubStringFinder {
      *              to rewrite the code by adding 1 to the elements of the answer)
      * @throws IOException - exception that called if the input file can't be opened
      */
-    public static List<Pair<Integer>> findSubStringFromPath(String fileName, String pathName, String subString)
+    public static List<Pair<Integer>> findSubStringFromPath(
+            String fileName, String pathName, String subString)
             throws IOException {
         try (FileInputStream fileInputStream = new FileInputStream(pathName + "/" + fileName);
              BufferedInputStream reader = new BufferedInputStream(fileInputStream)
