@@ -27,24 +27,28 @@ public class Calculator {
      */
     public static Double calculate(InputStream stream) throws IllegalExpressionException {
         Scanner sc = new Scanner(stream);
-        String input = sc.nextLine();
-        if (input.isEmpty()) {
+        try {
+            String input = sc.nextLine();
+            List<String> elements = new ArrayList<>(Arrays.asList(input.split(" ")));
+            Collections.reverse(elements);
+
+            for (String elem : elements) {
+                if (isNumber(elem)) {
+                    stack.push(elem);
+                    continue;
+                } else if (elem.equals("e")) {
+                    stack.push(String.valueOf(Math.exp(1.0)));
+                    continue;
+                }
+                calculateOperation(elem);
+            }
+            if (stack.size() != 1) {
+                throw new IllegalExpressionException("Illegal expression");
+            }
+            return Double.parseDouble(stack.pop());
+        } catch (NoSuchElementException e) {
             throw new NoSuchElementException("Пустое выражение");
         }
-        List<String> elements = new ArrayList<>(Arrays.asList(input.split(" ")));
-        Collections.reverse(elements);
-
-        for (String elem : elements) {
-            if (isNumber(elem)) {
-                stack.push(elem);
-                continue;
-            }
-            calculateOperation(elem);
-        }
-        if (stack.size() != 1) {
-            throw new IllegalExpressionException("Illegal expression");
-        }
-        return Double.parseDouble(stack.pop());
     }
 
     /**
@@ -93,7 +97,7 @@ public class Calculator {
         Deque<Double> arguments = new ArrayDeque<>();
         int opArity = operationArity(op);
         if (stack.size() < opArity) {
-            throw new IllegalExpressionException("Insufficiently of arguments");
+            throw new IllegalExpressionException("Illegal expression");
         }
         for (int i = 0; i < opArity; i++) {
             arguments.addLast(Double.parseDouble(stack.pop()));
