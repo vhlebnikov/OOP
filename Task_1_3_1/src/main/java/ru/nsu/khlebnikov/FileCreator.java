@@ -39,8 +39,8 @@ public class FileCreator {
                 for (int j = 0; j < 1000; j++) {
                     fw.write("0");
                 }
-            fw.write("\n");
-        }
+                fw.write("\n");
+            }
             for (int j = 0; j < 12; j++) {
                 fw.write("0");
             }

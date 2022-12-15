@@ -26,8 +26,8 @@ public class SubStringFinder {
      * @param fileName  - file in resources with string, where will be search of substring
      * @param subString - substring
      * @return - array of pairs with line number in the text and character number in this line
-     * (the count starts from 0, for readability it would be possible
-     * to rewrite the code by adding 1 to the elements of the answer)
+     *              (the count starts from 0, for readability it would be possible
+     *              to rewrite the code by adding 1 to the elements of the answer)
      * @throws IOException - exception that called if the input file can't be opened
      */
     public static List<Pair<Integer>> findSubStringFromResources(String fileName, String subString)
@@ -91,8 +91,8 @@ public class SubStringFinder {
      * @param pathName - custom path of file
      * @param subString - substring
      * @return - array of pairs with line number in the text and character number in this line
-     * (the count starts from 0, for readability it would be possible
-     * to rewrite the code by adding 1 to the elements of the answer)
+     *              (the count starts from 0, for readability it would be possible
+     *              to rewrite the code by adding 1 to the elements of the answer)
      * @throws IOException - exception that called if the input file can't be opened
      */
     public static List<Pair<Integer>> findSubStringFromPath(String fileName, String pathName, String subString)
