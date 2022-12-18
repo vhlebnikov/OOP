@@ -47,7 +47,8 @@ public class GradeBook {
                 if (input.size() == 2) {
                     subject = new Subject(Integer.parseInt(input.get(0)));
                 } else if (input.size() == 3) {
-                    subject = new Subject(Integer.parseInt(input.get(0)), Mark.getEnumMark(input.get(2)));
+                    subject = new Subject(Integer.parseInt(input.get(0)),
+                            Mark.getEnumMark(input.get(2)));
                 } else {
                     throw new IllegalArgumentException("Illegal string with data");
                 }
@@ -82,8 +83,8 @@ public class GradeBook {
      * @return student's average mark
      */
     public Double getAverageMark() {
-        Supplier<Stream<Subject>> stream = () -> subjects.values().stream().flatMap(Collection::stream)
-                .filter(x -> x.getMark() != null);
+        Supplier<Stream<Subject>> stream = () -> subjects.values().stream()
+                .flatMap(Collection::stream).filter(x -> x.getMark() != null);
         double countOfMarks = stream.get().count();
         double sumOfMarks = stream.get().mapToDouble(x -> Mark.getDoubleMark(x.getMark())).sum();
         if (countOfMarks == 0) {
@@ -163,8 +164,9 @@ public class GradeBook {
      * @return possibility to get increased scholarship
      */
     public boolean increasedScholarship(Integer semester) {
-        Supplier<Stream<Subject>> stream = () -> subjects.values().stream().flatMap(Collection::stream)
-                .filter(x -> x.getSemester().equals(semester)).filter(x -> x.getMark() != null);
+        Supplier<Stream<Subject>> stream = () -> subjects.values().stream()
+                .flatMap(Collection::stream).filter(x -> x.getSemester().equals(semester))
+                .filter(x -> x.getMark() != null);
         if (stream.get().findAny().isEmpty()) {
             throw new IllegalArgumentException("This student has no grades in current semester");
         }
@@ -190,7 +192,7 @@ public class GradeBook {
      *     <li>Student's average mark</li>
      *     <li>Student's diploma average mark</li>
      *     <li>Possibility to get a red diploma</li>
-     *     <li>Possibilities to get increased scholarship up to a certain semester</li
+     *     <li>Possibilities to get increased scholarship up to a certain semester</li>
      * </ul>
      *
      * @param fileName name of output file
@@ -198,23 +200,24 @@ public class GradeBook {
      * @param numOfSemesters the number of the semester before which you need to get statistics
      * @throws IOException if I/O error occurs
      */
-    public void createGradeBookFile(String fileName, String pathName, Integer numOfSemesters) throws IOException {
+    public void createGradeBookFile(String fileName, String pathName, Integer numOfSemesters)
+            throws IOException {
         File file = new File(pathName, fileName);
         file.createNewFile();
         try (FileWriter fw = new FileWriter(file)) {
             fw.write(toString());
             for (int i = 1; i <= numOfSemesters; i++) {
-                fw.write("Increased scholarship for " + i + " semester: " +
-                        increasedScholarship(i) + "\n");
+                fw.write("Increased scholarship for " + i + " semester: "
+                        + increasedScholarship(i) + "\n");
             }
         }
     }
 
     @Override
     public String toString() {
-        return "Student: " + getStudentName() + "\n" +
-                "Average mark: " + getAverageMark() + "\n" +
-                "Average diploma mark: " + getAverageDiplomaMark() + "\n" +
-                "Is a red diploma possible: " + redDiploma() + "\n";
+        return "Student: " + getStudentName() + "\n"
+                + "Average mark: " + getAverageMark() + "\n"
+                + "Average diploma mark: " + getAverageDiplomaMark() + "\n"
+                + "Is a red diploma possible: " + redDiploma() + "\n";
     }
 }
