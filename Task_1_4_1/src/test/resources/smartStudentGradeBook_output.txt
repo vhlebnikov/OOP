@@ -1,6 +1,6 @@
-Студент: Андреев Борис Вячеславович
-Общий средний балл: 5.0
-Средний балл диплома: 5.0
-Будет ли красный диплом? - да
-Повышенная стипендия за 1 семестр: NSU+
-Повышенная стипендия за 2 семестр: NSU++
+Student: Андреев Борис Вячеславович
+Average mark: 5.0
+Average diploma mark: 5.0
+Is a red diploma possible: true
+Increased scholarship for 1 semester: true
+Increased scholarship for 2 semester: true

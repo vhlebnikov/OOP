@@ -4,29 +4,27 @@ import java.util.Objects;
 
 /**
  * Additional class for {@link GradeBook} class,
- *      which contains semester and mark fields.
+ * which contains semester and mark fields.
  */
 public class Subject {
-    private String semester;
-    private String mark;
+    private final Integer semester;
+    private Mark mark;
 
-    public Subject() {
-    }
-
-    public String getSemester() {
-        return semester;
-    }
-
-    public void setSemester(String semester) {
+    public Subject(Integer semester) {
         this.semester = semester;
     }
 
-    public String getMark() {
-        return mark;
+    public Subject(Integer semester, Mark mark) {
+        this.semester = semester;
+        this.mark = mark;
     }
 
-    public void setMark(String mark) {
-        this.mark = mark;
+    public Integer getSemester() {
+        return semester;
+    }
+
+    public Mark getMark() {
+        return mark;
     }
 
     @Override
