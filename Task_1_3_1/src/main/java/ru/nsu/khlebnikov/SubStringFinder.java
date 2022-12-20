@@ -99,7 +99,7 @@ public class SubStringFinder {
             String fileName, String pathName, String subString)
             throws IOException {
         try (FileInputStream fileInputStream = new FileInputStream(pathName + "/" + fileName);
-             BufferedInputStream reader = new BufferedInputStream(fileInputStream)
+             InputStream reader = new BufferedInputStream(fileInputStream)
         ) {
             List<Pair<Integer>> arrayOfIndexes = new ArrayList<>();
             int lengthOfSubString = subString.length();
