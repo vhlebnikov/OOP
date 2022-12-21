@@ -1,0 +1,6 @@
+Student: Андреев Борис Вячеславович
+Average mark: 5.0
+Average diploma mark: 5.0
+Is a red diploma possible: true
+Increased scholarship for 1 semester: true
+Increased scholarship for 2 semester: true
