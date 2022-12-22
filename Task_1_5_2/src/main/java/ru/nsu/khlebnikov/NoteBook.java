@@ -1,4 +1,4 @@
-package ru.nsu.khelbnikov;
+package ru.nsu.khlebnikov;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +8,10 @@ public class NoteBook {
 
     public NoteBook() {
         this.notes = new ArrayList<>();
+    }
+
+    public List<Note> getNotes() {
+        return notes;
     }
 
     public void addNote(String title, String text) {

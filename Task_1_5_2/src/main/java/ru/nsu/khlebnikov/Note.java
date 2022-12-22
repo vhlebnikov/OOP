@@ -1,7 +1,8 @@
-package ru.nsu.khelbnikov;
+package ru.nsu.khlebnikov;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 
 public class Note {
     private String title;
@@ -36,5 +37,16 @@ public class Note {
         this.text = text;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Note note = (Note) o;
+        return title.equals(note.title) && Objects.equals(text, note.text) && date.equals(note.date);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, text, date);
+    }
 }
