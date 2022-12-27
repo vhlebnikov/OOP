@@ -1,0 +1,6 @@
+Student: Хлебников Вадим Дмитриевич
+Average mark: 4.4
+Average diploma mark: 4.4
+Is a red diploma possible: false
+Increased scholarship for 1 semester: false
+Increased scholarship for 2 semester: false
