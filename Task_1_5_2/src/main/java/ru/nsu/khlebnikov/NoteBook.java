@@ -126,9 +126,9 @@ public class NoteBook {
      */
     public void show(String leftBound, String rightBound, List<String> substrings)
             throws IOException, ParseException {
-        DateFormat dateFormat = new SimpleDateFormat("dd:MM:yyyy HH:mm");
-        Date leftBoundDate = dateFormat.parse(leftBound.substring(1, leftBound.length() - 1));
-        Date rightBoundDate = dateFormat.parse(rightBound.substring(1, rightBound.length() - 1));
+        DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+        Date leftBoundDate = dateFormat.parse(leftBound);
+        Date rightBoundDate = dateFormat.parse(rightBound);
         List<Note> notes = getNotesFromJson();
         List<Note> newNotes = new ArrayList<>(notes.stream()
                 .filter(note -> note.getDate().after(leftBoundDate)

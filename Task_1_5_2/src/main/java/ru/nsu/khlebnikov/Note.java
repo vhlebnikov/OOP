@@ -49,7 +49,7 @@ public class Note {
      * @return string representation of date
      */
     public String printDate() {
-        DateFormat dateFormat = new SimpleDateFormat("dd:MM:yyyy HH:mm");
+        DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm");
         return dateFormat.format(date);
     }
 
