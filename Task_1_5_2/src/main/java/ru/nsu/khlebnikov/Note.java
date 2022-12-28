@@ -12,12 +12,23 @@ public class Note {
     private final String text;
     private final Date date;
 
+    /**
+     * Constructor needed for notes without data.
+     *
+     * @param title note's title
+     */
     public Note(String title) {
         this.title = title;
         this.text = "";
         this.date = new Date();
     }
 
+    /**
+     * Constructor for full filled notes.
+     *
+     * @param title note's title
+     * @param text note's text
+     */
     public Note(String title, String text) {
         this.title = title;
         this.text = text;
@@ -44,10 +55,10 @@ public class Note {
 
     @Override
     public String toString() {
-        return "Note{" +
-                "title='" + title + '\'' +
-                ", text='" + text + '\'' +
-                ", date=" + printDate() +
-                '}';
+        return "Note{"
+                + "title='" + title + '\''
+                + ", text='" + text + '\''
+                + ", date=" + printDate()
+                + '}';
     }
 }

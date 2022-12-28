@@ -1,15 +1,14 @@
 package ru.nsu.khlebnikov;
 
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
-
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Main method that we will run.
@@ -23,7 +22,8 @@ public class Main {
      * @throws IOException exception thrown if I/O problems occurs
      * @throws java.text.ParseException another parse exception...
      */
-    public static void main(String[] args) throws ParseException, IOException, java.text.ParseException {
+    public static void main(String[] args)
+            throws ParseException, IOException, java.text.ParseException {
         NoteBook noteBook = new NoteBook("notes.json");
 
         Options options = new Options();
