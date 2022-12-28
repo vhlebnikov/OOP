@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class NoteBook {
     private final File file;
-    private final static Gson gson = new Gson();
+    private static final Gson gson = new Gson();
 
     /**
      * Constructor that links file with notebook.
