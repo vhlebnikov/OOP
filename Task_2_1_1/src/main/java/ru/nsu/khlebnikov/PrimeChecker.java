@@ -7,7 +7,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class PrimeChecker {
-    public static volatile boolean flag = false;
+    private static volatile boolean flag;
 
     public static boolean sequentialCheck(List<Integer> array) {
         return array.stream().anyMatch(x -> !BigInteger.valueOf(x).isProbablePrime(1));
@@ -24,6 +24,7 @@ public class PrimeChecker {
         if (numberOfThreads <= 0) {
             throw new InterruptedException("Number of threads must be positive");
         }
+        flag = false;
         ExecutorService executorService = Executors.newFixedThreadPool(numberOfThreads);
         int div = array.size() / numberOfThreads;
         int mod = array.size() % numberOfThreads;
@@ -35,20 +36,24 @@ public class PrimeChecker {
             executorService.submit(task(i, end, array));
             i = end;
         }
-        executorService.awaitTermination(10, TimeUnit.NANOSECONDS);
-        // Сделать, чтобы главная нить ожидала завершения всех дочерних нитей
+//        while (!executorService.isTerminated()) {
+//            executorService.awaitTermination(100, TimeUnit.NANOSECONDS);
+//        }
+        System.out.println(executorService.awaitTermination(1000, TimeUnit.NANOSECONDS));
         if (flag) {
             flag = false;
             return true;
         }
-        return flag;
+        return false;
     }
 
-    static Runnable task(int start, int end, List<Integer> array) {
+    private static Runnable task(int start, int end, List<Integer> array) {
         return () -> {
+            System.out.println("Processing");
             if (array.subList(start, end).stream().anyMatch(x -> !BigInteger.valueOf(x).isProbablePrime(1))) {
                 flag = true;
             }
+            System.out.println("Out");
         };
     }
 }

@@ -30,8 +30,8 @@ public class PrimeCheckerTest {
     }
     @Test
     public void test2() throws InterruptedException {
-        List<Integer> array = new ArrayList<>(List.of(6997901, 4, 6997937, 6997967, 6998009, 6998029, 6998039, 6998051, 6998053));
-        boolean b = PrimeChecker.threadCheck(array, 10);
-        System.out.println(b);
+        List<Integer> array = new ArrayList<>(List.of(6997901, 4, 6997937, 6997967, 6998009, 6998029, 6998039, 6998051, 6998053, 3));
+        boolean b = PrimeChecker.threadCheck(array, 4);
+//        System.out.println(b);
     }
 }
