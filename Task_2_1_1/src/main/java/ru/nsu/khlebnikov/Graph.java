@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
+
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -35,7 +36,7 @@ public class Graph extends JFrame {
         List<Integer> thousand = TestingTools.readFromFile("ThousandPrimeNumbers.txt");
         TestingTools.measure(() -> PrimeChecker.sequentialCheck(thousand), 1000);
         TestingTools.measure(() -> PrimeChecker.parallelCheck(thousand), 1000);
-        for (int i = 2; i <= 40; i *= 2){
+        for (int i = 2; i <= 40; i *= 2) {
             int finalI = i;
             TestingTools.measure(() -> {
                 try {
@@ -71,19 +72,16 @@ public class Graph extends JFrame {
      * @return data set with graphics
      */
     private XYDataset createDataset() {
-        // x - data y - time f(x,y) - method
-
+        warmUp();
         List<Integer> thousand = TestingTools.readFromFile("ThousandPrimeNumbers.txt");
         List<Integer> tenThousand = TestingTools.readFromFile("TenThousandPrimeNumbers.txt");
         List<Integer> oneHundredThousand =
                 TestingTools.readFromFile("OneHundredThousandPrimeNumbers.txt");
         List<Integer> million = TestingTools.readFromFile("MillionPrimeNumbers.txt");
-
-        warmUp();
-
+        
         XYSeries sequential = new XYSeries("Sequential");
         sequential.add(1000, TestingTools
-                .measure(() ->PrimeChecker.sequentialCheck(thousand), 1));
+                .measure(() -> PrimeChecker.sequentialCheck(thousand), 1));
         sequential.add(10000, TestingTools
                 .measure(() -> PrimeChecker.sequentialCheck(tenThousand), 1));
         sequential.add(100000, TestingTools
@@ -157,13 +155,12 @@ public class Graph extends JFrame {
                 true,
                 false
         );
-
-        XYPlot plot = chart.getXYPlot();
         XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
         renderer.setSeriesPaint(0, Color.RED);
         renderer.setSeriesStroke(0, new BasicStroke(2.0f));
         renderer.setSeriesPaint(1, Color.BLUE);
         renderer.setSeriesStroke(1, new BasicStroke(2.0f));
+        XYPlot plot = chart.getXYPlot();
         plot.setRenderer(renderer);
         plot.setBackgroundPaint(Color.white);
         plot.setRangeGridlinesVisible(false);
