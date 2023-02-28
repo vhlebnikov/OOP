@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
-
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -26,7 +25,7 @@ import org.jfree.data.xy.XYSeriesCollection;
  */
 public class Graph extends JFrame {
     public Graph() {
-        initUI();
+        initUserI();
     }
 
     /**
@@ -51,7 +50,7 @@ public class Graph extends JFrame {
     /**
      * Method that draws GUI.
      */
-    private void initUI() {
+    private void initUserI() {
         XYDataset dataset = createDataset();
         JFreeChart chart = createChart(dataset);
         ChartPanel chartPanel = new ChartPanel(chart);
@@ -78,7 +77,7 @@ public class Graph extends JFrame {
         List<Integer> oneHundredThousand =
                 TestingTools.readFromFile("OneHundredThousandPrimeNumbers.txt");
         List<Integer> million = TestingTools.readFromFile("MillionPrimeNumbers.txt");
-        
+
         XYSeries sequential = new XYSeries("Sequential");
         sequential.add(1000, TestingTools
                 .measure(() -> PrimeChecker.sequentialCheck(thousand), 1));
