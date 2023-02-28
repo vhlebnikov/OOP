@@ -1,38 +1,96 @@
 package ru.nsu.khlebnikov;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
+/**
+ * Tests for PrimeChecker methods.
+ */
 public class PrimeCheckerTest {
-    public static long measure(Runnable method, int iterations) {
-        long start = System.currentTimeMillis();
-        for (int i = 0; i < iterations; i++) {
-            method.run();
-        }
-        long end = System.currentTimeMillis();
-        return end - start;
+    @Test
+    public void initialTest() throws InterruptedException {
+        List<Integer> firstArray = new ArrayList<>((List.of(6, 8, 7, 11, 13, 9, 4)));
+        List<Integer> secondArray =
+                new ArrayList<>(List.of(6997901, 6997927, 6997937, 6997967,
+                                        6998009, 6998029, 6998039, 6998051, 6998053));
+        Assertions.assertTrue(PrimeChecker.sequentialCheck(firstArray));
+        Assertions.assertTrue(PrimeChecker.parallelCheck(firstArray));
+        Assertions.assertTrue(PrimeChecker.threadCheck(firstArray, 4));
+        Assertions.assertFalse(PrimeChecker.sequentialCheck(secondArray));
+        Assertions.assertFalse(PrimeChecker.parallelCheck(secondArray));
+        Assertions.assertFalse(PrimeChecker.threadCheck(secondArray, 4));
     }
 
     @Test
-    public void test() {
-        List<Integer> array = new ArrayList<>(List.of(6997901, 6997937, 6997967, 6998009, 6998029, 6998039, 6998051, 6998053, 6997901, 6997937, 6997967, 6998009, 6998029, 6998039, 6998051, 6998053, 6997901, 6997937, 6997967, 6998009, 6998029, 6998039, 6998051, 6998053,6997901, 6997937, 6997967, 6998009, 6998029, 6998039, 6998051, 6998053, 6997901, 6997937, 6997967, 6998009, 6998029, 6998039, 6998051, 6998053, 4));
-        System.out.println(measure(() -> PrimeChecker.sequentialCheck(array), 1000));
-        System.out.println(measure(() -> PrimeChecker.parallelCheck(array), 1000));
-        System.out.println(measure(() -> {
+    public void testWithThousandPrimeNumbers() throws InterruptedException {
+        List<Integer> array = TestingTools.readFromFile("primeNumbers.txt");
+        Assertions.assertFalse(PrimeChecker.sequentialCheck(array));
+        Assertions.assertFalse(PrimeChecker.parallelCheck(array));
+        Assertions.assertFalse(PrimeChecker.threadCheck(array, 6));
+        array.add(4);
+        Assertions.assertTrue(PrimeChecker.sequentialCheck(array));
+        Assertions.assertTrue(PrimeChecker.parallelCheck(array));
+        Assertions.assertTrue(PrimeChecker.threadCheck(array, 6));
+    }
+
+    @Test
+    public void testWithMillionPrimeNumbers() throws InterruptedException {
+        List<Integer> array = TestingTools.readFromFile("MillionPrimeNumbers.txt");
+        Assertions.assertFalse(PrimeChecker.sequentialCheck(array));
+        Assertions.assertFalse(PrimeChecker.parallelCheck(array));
+        Assertions.assertFalse(PrimeChecker.threadCheck(array, 12));
+        array.add(4);
+        Assertions.assertTrue(PrimeChecker.sequentialCheck(array));
+        Assertions.assertTrue(PrimeChecker.parallelCheck(array));
+        Assertions.assertTrue(PrimeChecker.threadCheck(array, 12));
+    }
+
+    @Test
+    public void measureSpeedOfThreadMethod() {
+        List<Integer> array = TestingTools.readFromFile("primeNumbers.txt");
+        TestingTools.measure(() -> {
             try {
-                PrimeChecker.threadCheck(array, 1);
+                PrimeChecker.threadCheck(array, 4);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-        }, 1000));
+        }, 100);
+        System.out.println(TestingTools.measure(() -> PrimeChecker.parallelCheck(array), 100));
+        System.out.println(TestingTools.measure(() -> PrimeChecker.sequentialCheck(array), 100));
+        System.out.println(TestingTools.measure(() -> {
+            try {
+                PrimeChecker.threadCheck(array, 1300);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }, 100));
+        for (int i = 1; i <= 20; i++) {
+            int finalI = i;
+            System.out.println(i + " = " + TestingTools.measure(() -> {
+                try {
+                    PrimeChecker.threadCheck(array, finalI);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }, 100));
+        }
     }
+
     @Test
-    public void test2() throws InterruptedException, ExecutionException {
-        List<Integer> array = new ArrayList<>(List.of(6997901, 3, 6997937, 6997967, 6998009, 6998029, 6998039, 6998051, 6998053, 3));
-        boolean b = PrimeChecker.threadCheck(array, 4);
-        System.out.println("Result = " + b);
+    public void measureTimeWithMillionNumbers() {
+        List<Integer> array = TestingTools.readFromFile("MillionPrimeNumbers.txt");
+        for (int i = 1; i <= 20; i++) {
+            int finalI = i;
+            System.out.println(i + " = " + TestingTools.measure(() -> {
+                try {
+                    PrimeChecker.threadCheck(array, finalI);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }, 1));
+        }
     }
 }

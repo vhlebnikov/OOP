@@ -1,6 +1,8 @@
 plugins {
     id 'java'
     id 'jacoco'
+//    id 'application'
+//    id 'org.openjfx.javafxplugin' version '0.0.13'
 }
 
 group 'org.example'
@@ -11,6 +13,7 @@ repositories {
 }
 
 dependencies {
+    implementation 'org.jfree:jfreechart:1.5.4'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
 }
@@ -30,3 +33,10 @@ java {
         languageVersion = JavaLanguageVersion.of(17)
     }
 }
+
+//javafx {
+//    version = "19"
+//    modules = [ 'javafx.controls', 'javafx.fxml' ]
+//}
+//
+//mainClassName = 'ru.nsu.khlebnikov.Main'
