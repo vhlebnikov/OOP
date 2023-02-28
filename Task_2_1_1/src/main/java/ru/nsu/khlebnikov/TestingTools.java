@@ -6,7 +6,7 @@ import java.util.Objects;
 import java.util.Scanner;
 
 /**
- * Tools for testing methods in one class, convenient, isn't it?
+ * Tools for testing methods in one class. Convenient, isn't it?
  */
 public class TestingTools {
 

@@ -15,7 +15,8 @@ import java.util.concurrent.Future;
 public class PrimeChecker {
 
     /**
-     * Static method that finds out existence of non-prime number in array using sequential execution.
+     * Static method that finds out existence of non-prime number in array
+     * using sequential execution.
      *
      * @param array input array
      * @return fact of existence of non-prime number in array
@@ -25,7 +26,8 @@ public class PrimeChecker {
     }
 
     /**
-     * Static method that finds out existence of non-prime number in array using parallelStream execution.
+     * Static method that finds out existence of non-prime number in array
+     * using parallelStream execution.
      *
      * @param array input array
      * @return fact of existence of non-prime number in array
@@ -35,7 +37,8 @@ public class PrimeChecker {
     }
 
     /**
-     * Static method that finds out existence of non-prime number in array using certain number of threads.
+     * Static method that finds out existence of non-prime number in array
+     * using certain number of threads.
      *
      * @param array           input array
      * @param numberOfThreads number of thread that you want to use
@@ -54,7 +57,8 @@ public class PrimeChecker {
 
         int div = array.size() / numberOfThreads;
         int mod = array.size() % numberOfThreads;
-        int start = 0, end;
+        int start = 0;
+        int end;
 
         for (int i = 0; i < numberOfThreads; i++) {
             end = mod-- > 0 ? start + div + 1 : start + div;

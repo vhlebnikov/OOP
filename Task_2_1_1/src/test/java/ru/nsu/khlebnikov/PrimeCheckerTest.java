@@ -1,10 +1,9 @@
 package ru.nsu.khlebnikov;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
 import java.util.List;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for PrimeChecker methods.
@@ -26,7 +25,7 @@ public class PrimeCheckerTest {
 
     @Test
     public void testWithThousandPrimeNumbers() throws InterruptedException {
-        List<Integer> array = TestingTools.readFromFile("primeNumbers.txt");
+        List<Integer> array = TestingTools.readFromFile("ThousandPrimeNumbers.txt");
         Assertions.assertFalse(PrimeChecker.sequentialCheck(array));
         Assertions.assertFalse(PrimeChecker.parallelCheck(array));
         Assertions.assertFalse(PrimeChecker.threadCheck(array, 6));
@@ -50,7 +49,7 @@ public class PrimeCheckerTest {
 
     @Test
     public void measureSpeedOfThreadMethod() {
-        List<Integer> array = TestingTools.readFromFile("primeNumbers.txt");
+        List<Integer> array = TestingTools.readFromFile("ThousandPrimeNumbers.txt");
         TestingTools.measure(() -> {
             try {
                 PrimeChecker.threadCheck(array, 4);
@@ -60,13 +59,6 @@ public class PrimeCheckerTest {
         }, 100);
         System.out.println(TestingTools.measure(() -> PrimeChecker.parallelCheck(array), 100));
         System.out.println(TestingTools.measure(() -> PrimeChecker.sequentialCheck(array), 100));
-        System.out.println(TestingTools.measure(() -> {
-            try {
-                PrimeChecker.threadCheck(array, 1300);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        }, 100));
         for (int i = 1; i <= 20; i++) {
             int finalI = i;
             System.out.println(i + " = " + TestingTools.measure(() -> {
