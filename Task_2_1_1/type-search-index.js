@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"ru.nsu.khlebnikov","l":"Main"},{"p":"ru.nsu.khlebnikov","l":"PrimeChecker"}];updateSearchResults();
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"ru.nsu.khlebnikov","l":"PrimeChecker"},{"p":"ru.nsu.khlebnikov","l":"TestingTools"},{"p":"ru.nsu.khlebnikov","l":"ThreadTask"}];updateSearchResults();
