@@ -12,7 +12,7 @@ public class Main {
         Pizzeria pizzeria = new Pizzeria("info.json");
         pizzeria.start();
         List<Customer> customers = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 5; i++) {
             customers.add(new Customer("Guy number " + i));
         }
         ExecutorService customersPool = Executors.newCachedThreadPool();
@@ -20,5 +20,6 @@ public class Main {
         TimeUnit.SECONDS.sleep(2);
         customersPool.submit(new Customer("Guy number 5"));
         customersPool.shutdown();
+        pizzeria.stop(3);
     }
 }

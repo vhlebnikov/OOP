@@ -18,16 +18,17 @@ public class JsonData {
             this.capacity = capacity;
         }
     }
+
     private final List<Baker> bakers;
     private final List<DeliverymanInfo> deliverymen;
     private final int storageCapacity;
 
     public JsonData(String fileName) throws IOException {
-        Gson GSON = new Gson();
+        Gson gson = new Gson();
         JsonData jsonData;
         try (Reader reader = new InputStreamReader(Objects.requireNonNull(
                 Pizzeria.class.getClassLoader().getResourceAsStream(fileName)))) {
-            jsonData = GSON.fromJson(reader, JsonData.class);
+            jsonData = gson.fromJson(reader, JsonData.class);
         }
         this.bakers = jsonData.bakers;
         this.deliverymen = jsonData.deliverymen;
