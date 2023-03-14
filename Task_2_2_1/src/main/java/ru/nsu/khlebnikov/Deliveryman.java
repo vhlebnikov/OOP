@@ -23,7 +23,7 @@ public class Deliveryman implements Callable<Void> {
 
     private void deliver() throws InterruptedException {
         int numberOfOrders = (int) Math.floor(Math.random() * bagCapacity + 1);
-        orders.addAll(Pizzeria.takeFromDeque(numberOfOrders));
+        orders.addAll(Pizzeria.takeFromStorage(numberOfOrders));
         isWorking = true;
         for (Order order : orders) {
             order.setStatus(Order.Status.Delivery);

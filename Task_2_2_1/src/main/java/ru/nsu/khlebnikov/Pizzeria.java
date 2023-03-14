@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Pizzeria {
     private static volatile BlockingQueue<Order> orderQueue;
-    private static volatile BlockingDeque<Order> storage;
+    private static volatile BlockingQueue<Order> storage;
     private final List<Baker> bakers;
     private final ExecutorService bakersPool;
     private final ExecutorService deliverymenPool;
@@ -22,7 +22,7 @@ public class Pizzeria {
 
     public Pizzeria(String fileName) throws IOException {
         JsonData jsonData = new JsonData(fileName);
-        storage = new LinkedBlockingDeque<>(jsonData.getStorageCapacity());
+        storage = new LinkedBlockingQueue<>(jsonData.getStorageCapacity());
         orderQueue = new LinkedBlockingQueue<>();
         this.bakers = jsonData.getBakers();
         this.deliverymen = jsonData.getDeliverymen();
@@ -68,12 +68,12 @@ public class Pizzeria {
         return orderQueue.take();
     }
 
-    protected static void putToDeque(Order order) throws InterruptedException {
+    protected static void putToStorage(Order order) throws InterruptedException {
         storage.put(order);
 //            System.out.println("storage: " + storage);
     }
 
-    protected static List<Order> takeFromDeque(int number) throws InterruptedException {
+    protected static List<Order> takeFromStorage(int number) throws InterruptedException {
         List<Order> orders = new ArrayList<>();
         if (storage.size() < number) {
             number = storage.size();

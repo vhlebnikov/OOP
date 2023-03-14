@@ -24,7 +24,7 @@ public class Baker implements Callable<Void> {
 //        System.out.println(this.name + "'s cooking order of " + order);
         TimeUnit.SECONDS.sleep(10 - experience);
         order.setStatus(Order.Status.PizzaIsDone);
-        Pizzeria.putToDeque(order);
+        Pizzeria.putToStorage(order);
         order.setStatus(Order.Status.DeliveredToStorage);
         isWorking = false;
     }
