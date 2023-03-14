@@ -58,45 +58,29 @@ public class Pizzeria {
         }
     }
 
-    protected static void putToQueue(Order order) {
-        try {
-            orderQueue.put(order);
+    protected static void putToQueue(Order order) throws InterruptedException {
+        orderQueue.put(order);
 //            System.out.println("queue: " + orderQueue);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
     }
 
-    protected static Order takeFromQueue() {
-        try {
+    protected static Order takeFromQueue() throws InterruptedException {
 //            System.out.println("queue: " + orderQueue);
-            return orderQueue.take();
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        return orderQueue.take();
     }
 
-    protected static void putToDeque(Order order) {
-        try {
-            storage.put(order);
+    protected static void putToDeque(Order order) throws InterruptedException {
+        storage.put(order);
 //            System.out.println("storage: " + storage);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
     }
 
-    protected static List<Order> takeFromDeque(int number) {
+    protected static List<Order> takeFromDeque(int number) throws InterruptedException {
         List<Order> orders = new ArrayList<>();
-        try {
-            if (storage.size() < number) {
-                number = storage.size();
-            }
-            for (int i = 0; i < number; i++) {
-                orders.add(storage.take());
+        if (storage.size() < number) {
+            number = storage.size();
+        }
+        for (int i = 0; i < number; i++) {
+            orders.add(storage.take());
 //                System.out.println("storage: " + storage);
-            }
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
         }
         return orders;
     }
