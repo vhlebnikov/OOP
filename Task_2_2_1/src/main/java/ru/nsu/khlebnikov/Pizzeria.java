@@ -9,6 +9,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
 public class Pizzeria {
@@ -22,7 +23,7 @@ public class Pizzeria {
     public Pizzeria(String fileName) throws IOException {
         JsonData jsonData = new JsonData(fileName);
         storage = new LinkedBlockingDeque<>(jsonData.getStorageCapacity());
-        orderQueue = new ArrayBlockingQueue<>(100);
+        orderQueue = new LinkedBlockingQueue<>();
         this.bakers = jsonData.getBakers();
         this.deliverymen = jsonData.getDeliverymen();
         bakersPool = Executors.newFixedThreadPool(bakers.size());
