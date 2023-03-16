@@ -10,6 +10,9 @@ public class Order {
     private final long number;
     private final Customer customer;
 
+    /**
+     * Status of order.
+     */
     public enum Status {
         Ordered,
         Cooking,
@@ -21,6 +24,11 @@ public class Order {
 
     private Status status;
 
+    /**
+     * Makes new order with certain customer and generates ID for this order.
+     *
+     * @param customer - customer that makes order
+     */
     public Order(Customer customer) {
         String stringNumber = String.format("%010d",
                 new BigInteger(UUID.randomUUID().toString().replace("-", ""), 16));

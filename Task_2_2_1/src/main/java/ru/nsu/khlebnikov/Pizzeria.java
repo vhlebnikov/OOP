@@ -20,6 +20,12 @@ public class Pizzeria {
     private final ExecutorService deliverymenPool;
     private final List<Deliveryman> deliverymen;
 
+    /**
+     * Constructor for pizzeria. Get data from json file and fills fields of this class.
+     *
+     * @param fileName - json filename
+     * @throws IOException - if I/O error occurs
+     */
     public Pizzeria(String fileName) throws IOException {
         JsonData jsonData = new JsonData(fileName);
         storage = new LinkedBlockingQueue<>(jsonData.getStorageCapacity());

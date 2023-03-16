@@ -14,6 +14,12 @@ public class Deliveryman implements Callable<Void> {
     private final int bagCapacity;
     private boolean isWorking = false;
 
+    /**
+     * Constructor from deliveryman.
+     *
+     * @param name - his name
+     * @param bagCapacity - his bag capacity
+     */
     public Deliveryman(String name, int bagCapacity) {
         this.name = name;
         this.bagCapacity = bagCapacity;

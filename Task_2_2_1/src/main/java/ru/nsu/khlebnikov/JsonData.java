@@ -29,6 +29,12 @@ public class JsonData {
     private final List<DeliverymanInfo> deliverymen;
     private final int storageCapacity;
 
+    /**
+     * Constructor that reads data from json file and then adds this data to the class fields.
+     *
+     * @param fileName - json filename
+     * @throws IOException - if I/O error occurs
+     */
     public JsonData(String fileName) throws IOException {
         Gson gson = new Gson();
         JsonData jsonData;
@@ -45,6 +51,12 @@ public class JsonData {
         return bakers;
     }
 
+    /**
+     * Method that returns list of deliverymen.
+     * (takes data from this class field and puts it to Deliveryman constructor).
+     *
+     * @return - list of deliverymen
+     */
     public List<Deliveryman> getDeliverymen() {
         List<Deliveryman> deliverymenOutput = new ArrayList<>();
         for (DeliverymanInfo deliveryman : deliverymen) {
