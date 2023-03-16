@@ -89,7 +89,9 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(java.lang.String)" class="member-name-link">JsonData</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;fileName)</code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">Constructor that reads data from json file and then adds this data to the class fields.</div>
+</div>
 </div>
 </section>
 </li>
@@ -109,7 +111,9 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="Deliveryman.html" title="class in ru.nsu.khlebnikov">Deliveryman</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getDeliverymen()" class="member-name-link">getDeliverymen</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Method that returns list of deliverymen.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getStorageCapacity()" class="member-name-link">getStorageCapacity</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
@@ -135,9 +139,12 @@ loadScripts(document, 'script');</script>
 <h3>JsonData</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">JsonData</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;fileName)</span>
          throws <span class="exceptions"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/IOException.html" title="class or interface in java.io" class="external-link">IOException</a></span></div>
+<div class="block">Constructor that reads data from json file and then adds this data to the class fields.</div>
 <dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>fileName</code> - - json filename</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/IOException.html" title="class or interface in java.io" class="external-link">IOException</a></code></dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/IOException.html" title="class or interface in java.io" class="external-link">IOException</a></code> - - if I/O error occurs</dd>
 </dl>
 </section>
 </li>
@@ -159,6 +166,12 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="getDeliverymen()">
 <h3>getDeliverymen</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="Deliveryman.html" title="class in ru.nsu.khlebnikov">Deliveryman</a>&gt;</span>&nbsp;<span class="element-name">getDeliverymen</span>()</div>
+<div class="block">Method that returns list of deliverymen.
+ (takes data from this class field and puts it to Deliveryman constructor).</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>- list of deliverymen</dd>
+</dl>
 </section>
 </li>
 <li>
