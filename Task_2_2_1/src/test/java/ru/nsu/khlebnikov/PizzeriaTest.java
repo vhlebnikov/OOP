@@ -1,5 +1,7 @@
 package ru.nsu.khlebnikov;
 
+import org.junit.jupiter.api.Test;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,8 +9,12 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-public class Main {
-    public static void main(String[] args) throws IOException, InterruptedException {
+/**
+ * Test for pizzeria.
+ */
+public class PizzeriaTest {
+    @Test
+    public void pizzeriaTest() throws IOException, InterruptedException {
         Pizzeria pizzeria = new Pizzeria("info.json");
         pizzeria.start();
         List<Customer> customers = new ArrayList<>();
@@ -20,6 +26,6 @@ public class Main {
         TimeUnit.SECONDS.sleep(2);
         customersPool.submit(new Customer("Guy number 5"));
         customersPool.shutdown();
-        pizzeria.stop(3);
+        pizzeria.stop(1);
     }
 }

@@ -3,6 +3,9 @@ package ru.nsu.khlebnikov;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Baker class representing himself and his task.
+ */
 public class Baker implements Callable<Void> {
     private final String name;
     private final int experience;
@@ -17,11 +20,18 @@ public class Baker implements Callable<Void> {
         return this.isWorking;
     }
 
+    /**
+     * Task of baker: takes order from the queue then cooks pizza and transfers it to the storage.
+     * If queue is empty waits until order becomes available.
+     * If storage is full waits until it becomes free.
+     *
+     * @throws InterruptedException - if interrupted while waiting
+     */
     private void takeOrder() throws InterruptedException {
         Order order = Pizzeria.takeFromQueue();
         isWorking = true;
         order.setStatus(Order.Status.Cooking);
-//        System.out.println(this.name + "'s cooking order of " + order);
+        System.out.println(this.name + "'s cooking " + order);
         TimeUnit.SECONDS.sleep(10 - experience);
         order.setStatus(Order.Status.PizzaIsDone);
         Pizzeria.putToStorage(order);

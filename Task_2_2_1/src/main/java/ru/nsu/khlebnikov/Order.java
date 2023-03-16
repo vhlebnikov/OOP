@@ -3,6 +3,9 @@ package ru.nsu.khlebnikov;
 import java.math.BigInteger;
 import java.util.UUID;
 
+/**
+ * Class representing customer's order of pizza.
+ */
 public class Order {
     private final long number;
     private final Customer customer;

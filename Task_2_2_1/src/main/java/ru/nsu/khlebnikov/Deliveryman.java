@@ -5,6 +5,9 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Deliveryman class representing himself and his task.
+ */
 public class Deliveryman implements Callable<Void> {
     private final String name;
     private final BlockingQueue<Order> orders;
@@ -21,13 +24,19 @@ public class Deliveryman implements Callable<Void> {
         return this.isWorking;
     }
 
+    /**
+     * Task of deliveryman: takes random number of orders [from 1 to his bag capacity].
+     * Then sequentially delivers orders. If storage is empty waits until pizzas becomes available.
+     *
+     * @throws InterruptedException - if interrupted while waiting
+     */
     private void deliver() throws InterruptedException {
         int numberOfOrders = (int) Math.floor(Math.random() * bagCapacity + 1);
         orders.addAll(Pizzeria.takeFromStorage(numberOfOrders));
         isWorking = true;
         for (Order order : orders) {
             order.setStatus(Order.Status.Delivery);
-//            System.out.println(this.name + "'s deliver " + order);
+            System.out.println(this.name + "'s delivering " + order);
             TimeUnit.SECONDS.sleep((int) (Math.random() * 5));
             order.setStatus(Order.Status.Done);
         }

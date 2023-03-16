@@ -3,15 +3,15 @@ package ru.nsu.khlebnikov;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Pizzeria class that where the management of the pizzeria employees are managed.
+ */
 public class Pizzeria {
     private static volatile BlockingQueue<Order> orderQueue;
     private static volatile BlockingQueue<Order> storage;
@@ -30,6 +30,9 @@ public class Pizzeria {
         deliverymenPool = Executors.newFixedThreadPool(deliverymen.size());
     }
 
+    /**
+     * Method that starts pizzeria, more precisely, it starts the work of bakers and deliverymen.
+     */
     public void start() {
         bakers.forEach(bakersPool::submit);
         deliverymen.forEach(deliverymenPool::submit);
@@ -37,6 +40,13 @@ public class Pizzeria {
         deliverymenPool.shutdown();
     }
 
+    /**
+     * Method that stops pizzeria, more precisely, it stops the work of bakers and deliverymen.
+     * Checks the inactivity of the workers for a certain time,
+     * after which it immediately terminates their work.
+     *
+     * @param seconds - frequency of condition checking.
+     */
     public void stop(long seconds) {
         boolean notWork = bakers.stream().noneMatch(Baker::isWorking)
                 && deliverymen.stream().noneMatch(Deliveryman::isWorking);
@@ -58,21 +68,43 @@ public class Pizzeria {
         }
     }
 
+    /**
+     * Puts new order to the queue.
+     *
+     * @param order - order to put
+     * @throws InterruptedException - if interrupted while waiting
+     */
     protected static void putToQueue(Order order) throws InterruptedException {
         orderQueue.put(order);
-//            System.out.println("queue: " + orderQueue);
     }
 
+    /**
+     * Returns order from the queue.
+     *
+     * @return - order from queue
+     * @throws InterruptedException - if interrupted while waiting
+     */
     protected static Order takeFromQueue() throws InterruptedException {
-//            System.out.println("queue: " + orderQueue);
         return orderQueue.take();
     }
 
+    /**
+     * Puts order to the storage.
+     *
+     * @param order - order to put
+     * @throws InterruptedException - if interrupted while waiting
+     */
     protected static void putToStorage(Order order) throws InterruptedException {
         storage.put(order);
-//            System.out.println("storage: " + storage);
     }
 
+    /**
+     * Returns list with a certain number of orders.
+     *
+     * @param number - number of orders to take
+     * @return - list of orders
+     * @throws InterruptedException - if interrupted while waiting
+     */
     protected static List<Order> takeFromStorage(int number) throws InterruptedException {
         List<Order> orders = new ArrayList<>();
         if (storage.size() < number) {
@@ -80,7 +112,6 @@ public class Pizzeria {
         }
         for (int i = 0; i < number; i++) {
             orders.add(storage.take());
-//                System.out.println("storage: " + storage);
         }
         return orders;
     }

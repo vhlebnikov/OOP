@@ -8,7 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Class for getting data of pizzeria workers from json file.
+ */
 public class JsonData {
+    /**
+     * Helper class for deliveryman.
+     */
     private static class DeliverymanInfo {
         private final String name;
         private final int capacity;
