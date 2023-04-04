@@ -36,14 +36,22 @@ public class Pizzeria {
         deliverymenPool = Executors.newFixedThreadPool(deliverymen.size());
     }
 
+    public static int getOrderQueueSize() {
+        return orderQueue.size();
+    }
+
+    public static int getStorageSize() {
+        return storage.size();
+    }
+
     /**
      * Method that starts pizzeria, more precisely, it starts the work of bakers and deliverymen.
      */
     public void start() {
         bakers.forEach(bakersPool::submit);
-        deliverymen.forEach(deliverymenPool::submit);
+//        deliverymen.forEach(deliverymenPool::submit);
         bakersPool.shutdown();
-        deliverymenPool.shutdown();
+//        deliverymenPool.shutdown();
     }
 
     /**
@@ -53,25 +61,28 @@ public class Pizzeria {
      *
      * @param seconds - frequency of condition checking.
      */
-    public void stop(long seconds) {
-        boolean notWork = bakers.stream().noneMatch(Baker::isWorking)
-                && deliverymen.stream().noneMatch(Deliveryman::isWorking);
-        long start = System.nanoTime();
-        while (true) {
-            if ((System.nanoTime() - start) >= TimeUnit.SECONDS.toNanos(seconds)) {
-                if (bakers.stream().noneMatch(Baker::isWorking)
-                        && deliverymen.stream().noneMatch(Deliveryman::isWorking) && notWork) {
-                    System.out.println("Shutdown");
-                    bakersPool.shutdownNow();
-                    deliverymenPool.shutdownNow();
-                    return;
-                } else {
-                    notWork = bakers.stream().noneMatch(Baker::isWorking)
-                            && deliverymen.stream().noneMatch(Deliveryman::isWorking);
-                    start = System.nanoTime();
-                }
-            }
-        }
+    public void stop(long seconds) throws InterruptedException {
+//        boolean notWork = bakers.stream().noneMatch(Baker::isWorking)
+//                && deliverymen.stream().noneMatch(Deliveryman::isWorking);
+//        long start = System.nanoTime();
+//        while (true) {
+//            if ((System.nanoTime() - start) >= TimeUnit.SECONDS.toNanos(seconds)) {
+//                if (bakers.stream().noneMatch(Baker::isWorking)
+//                        && deliverymen.stream().noneMatch(Deliveryman::isWorking) && notWork) {
+//                    System.out.println("Shutdown");
+//                    bakersPool.shutdownNow();
+//                    deliverymenPool.shutdownNow();
+//                    return;
+//                } else {
+//                    notWork = bakers.stream().noneMatch(Baker::isWorking)
+//                            && deliverymen.stream().noneMatch(Deliveryman::isWorking);
+//                    start = System.nanoTime();
+//                }
+//            }
+//        }
+        bakers.forEach(x -> x.setInterrupted(true));
+        System.out.println(bakersPool.awaitTermination((bakers.size() + 1) * 10L, TimeUnit.SECONDS));
+        deliverymen.forEach(x -> x.setInterrupted(true));
     }
 
     /**
@@ -113,7 +124,7 @@ public class Pizzeria {
      */
     protected static List<Order> takeFromStorage(int number) throws InterruptedException {
         List<Order> orders = new ArrayList<>();
-        if (storage.size() < number) {
+        if (storage.size() < number && storage.size() != 0) {
             number = storage.size();
         }
         for (int i = 0; i < number; i++) {

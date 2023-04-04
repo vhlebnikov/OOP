@@ -12,7 +12,7 @@ public class Deliveryman implements Callable<Void> {
     private final String name;
     private final BlockingQueue<Order> orders;
     private final int bagCapacity;
-    private boolean isWorking = false;
+    private volatile boolean isInterrupted = false;
 
     /**
      * Constructor from deliveryman.
@@ -26,8 +26,8 @@ public class Deliveryman implements Callable<Void> {
         this.orders = new LinkedBlockingQueue<>(bagCapacity);
     }
 
-    public boolean isWorking() {
-        return this.isWorking;
+    public void setInterrupted(boolean interrupted) {
+        isInterrupted = interrupted;
     }
 
     /**
@@ -37,9 +37,8 @@ public class Deliveryman implements Callable<Void> {
      * @throws InterruptedException - if interrupted while waiting
      */
     private void deliver() throws InterruptedException {
-        int numberOfOrders = (int) Math.floor(Math.random() * bagCapacity + 1);
-        orders.addAll(Pizzeria.takeFromStorage(numberOfOrders));
-        isWorking = true;
+        int numberOfOrders = (int) Math.floor(Math.random() * bagCapacity + 1); // тут они при прерывании должны выгружать все заказы со склада
+        orders.addAll(Pizzeria.takeFromStorage(numberOfOrders));                // иначе работают в штатном режиме
         for (Order order : orders) {
             order.setStatus(Order.Status.Delivery);
             System.out.println(this.name + "'s delivering " + order);
@@ -47,7 +46,10 @@ public class Deliveryman implements Callable<Void> {
             order.setStatus(Order.Status.Done);
         }
         orders.clear();
-        isWorking = false;
+        if (isInterrupted) {
+            Thread.currentThread().interrupt();
+            System.err.println("Interrupted deliveryman " + this.name);
+        }
     }
 
     @Override
