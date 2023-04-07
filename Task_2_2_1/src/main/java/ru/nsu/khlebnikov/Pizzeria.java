@@ -1,8 +1,8 @@
 package ru.nsu.khlebnikov;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -20,6 +20,7 @@ public class Pizzeria {
     private final ExecutorService bakersPool;
     private final ExecutorService deliverymenPool;
     private final List<Deliveryman> deliverymen;
+    private static final Object storageLock = new Object();
 
     /**
      * Constructor for pizzeria. Get data from json file and fills fields of this class.
@@ -38,51 +39,31 @@ public class Pizzeria {
         orderQueue = new LinkedBlockingQueue<>();
     }
 
-    public static int getOrderQueueSize() {
-        return orderQueue.size();
-    }
-
-    public static int getStorageSize() {
-        return storage.size();
-    }
-
     /**
      * Method that starts pizzeria, more precisely, it starts the work of bakers and deliverymen.
      */
     public void start() {
+        System.out.println("Pizzeria has opened");
         bakers.forEach(bakersPool::submit);
-//        deliverymen.forEach(deliverymenPool::submit);
+        deliverymen.forEach(deliverymenPool::submit);
         bakersPool.shutdown();
-//        deliverymenPool.shutdown();
+        deliverymenPool.shutdown();
     }
 
     /**
      * Method that stops pizzeria, more precisely, it stops the work of bakers and deliverymen.
-     * Checks the inactivity of the workers for a certain time,
-     * after which it immediately terminates their work.
+     * Waits for a more pleasant closing of the pizzeria.
      *
-     * @param seconds - frequency of condition checking.
+     * @throws InterruptedException - if was interrupted, but nobody wants to interrupt this
      */
-    public void stop(long seconds) throws InterruptedException {
-//        boolean notWork = bakers.stream().noneMatch(Baker::isWorking)
-//                && deliverymen.stream().noneMatch(Deliveryman::isWorking);
-//        long start = System.nanoTime();
-//        while (true) {
-//            if ((System.nanoTime() - start) >= TimeUnit.SECONDS.toNanos(seconds)) {
-//                if (bakers.stream().noneMatch(Baker::isWorking)
-//                        && deliverymen.stream().noneMatch(Deliveryman::isWorking) && notWork) {
-//                    System.out.println("Shutdown");
-//                    bakersPool.shutdownNow();
-//                    deliverymenPool.shutdownNow();
-//                    return;
-//                } else {
-//                    notWork = bakers.stream().noneMatch(Baker::isWorking)
-//                            && deliverymen.stream().noneMatch(Deliveryman::isWorking);
-//                    start = System.nanoTime();
-//                }
-//            }
-//        }
+    public void stop() throws InterruptedException {
+        System.err.println("Pizzeria is closing");
         bakersPool.shutdownNow();
+        deliverymenPool.shutdownNow();
+        TimeUnit.SECONDS.sleep(5);
+        System.err.println("Pizzeria has closed");
+        System.err.println("Storage: " + storage);
+        System.err.println("Queue of orders: " + orderQueue);
     }
 
     /**
@@ -109,43 +90,57 @@ public class Pizzeria {
      * Puts order to the storage.
      *
      * @param order - order to put
+     * @throws InterruptedException - if interrupted while waiting
      */
-    protected static void putToStorage(Order order) {
-        try {
-            if (storageCapacity != storage.size()) {
-                storage.put(order);
-            } else {
-                Thread.currentThread().wait();
+    protected static void putToStorage(Order order) throws InterruptedException {
+        if (storageCapacity > storage.size()) {
+            storage.put(order);
+        } else {
+            synchronized (storageLock) {
+                storageLock.wait();
                 storage.put(order);
             }
-        } catch (InterruptedException e) {
-            storage.add(order);
         }
     }
 
     /**
-     * Returns list with a certain number of orders.
+     * Immediately adds order to the storage.
+     * Blocking queue can't be full this time, because there is extra space for each baker to put order in a hurry.
      *
-     * @param number - number of orders to take
-     * @return - list of orders
+     * @param order - order to put
      */
-    protected static List<Order> takeFromStorage(int number) { // изменить мб
-        List<Order> orders = new ArrayList<>();
-        int i = 0;
-        if (storage.size() < number && storage.size() != 0) {
-            number = storage.size();
+    protected static void addToStorage(Order order) {
+        storage.add(order);
+    }
+
+    /**
+     * Adds orders to the bag of the deliveryman.
+     *
+     * @param bagCapacity - bag capacity of the deliveryman
+     * @param orders - orders queue of the deliveryman
+     */
+    protected static void takeFromStorage(int bagCapacity, Queue<Order> orders) throws InterruptedException {
+        int numberOfOrders = (int) Math.floor(Math.random() * bagCapacity + 1);
+
+        if (storage.size() < numberOfOrders && storage.size() != 0) {
+            numberOfOrders = storage.size();
         }
-        try {
-            for (;i < number; i++) {
-                orders.add(storage.take());
-                Thread.currentThread().notify();
-            }
-        } catch (InterruptedException e) {
-            for (;i < number && !storage.isEmpty(); i++) {
-                orders.add(storage.poll());
-                Thread.currentThread().notify();
+
+        for (int i = 0; i < numberOfOrders; i++) {
+            orders.add(storage.take());
+            synchronized (storageLock) {
+                storageLock.notify();
             }
         }
-        return orders;
+    }
+
+    /**
+     * Adds a maximum of "bagCapacity" orders to the baggage carrier from the storage.
+     *
+     * @param bagCapacity - bag capacity of the deliveryman
+     * @param orders - orders queue of the deliveryman
+     */
+    protected static void drainStorage(int bagCapacity, Queue<Order> orders) {
+        storage.drainTo(orders, bagCapacity);
     }
 }

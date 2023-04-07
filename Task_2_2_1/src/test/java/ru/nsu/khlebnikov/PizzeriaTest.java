@@ -26,6 +26,6 @@ public class PizzeriaTest {
         customersPool.submit(new Customer("Guy number 5"));
         customersPool.shutdown();
         TimeUnit.SECONDS.sleep(5);
-        pizzeria.stop(1);
+        pizzeria.stop();
     }
 }

@@ -20,6 +20,7 @@ public class Order {
         PizzaIsDoneInHurry,
         DeliveredToStorage,
         Delivery,
+        DeliveryInHurry,
         Done
     }
 

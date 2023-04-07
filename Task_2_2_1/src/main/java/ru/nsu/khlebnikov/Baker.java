@@ -30,7 +30,7 @@ public class Baker implements Callable<Void> {
             order = Pizzeria.takeFromQueue();
             isWorking = true;
             order.setStatus(Order.Status.Cooking);
-//            System.out.println(this.name + "'s cooking " + order);
+            System.out.println(this.name + "'s cooking " + order);
             TimeUnit.SECONDS.sleep(10 - experience);
             order.setStatus(Order.Status.PizzaIsDone);
             Pizzeria.putToStorage(order);
@@ -38,12 +38,12 @@ public class Baker implements Callable<Void> {
             isWorking = false;
             return false;
         } catch (InterruptedException e) {
-            System.out.println(this.name + " was interrupted");
+            System.err.println("Baker " + this.name + " was interrupted");
             if (isWorking) {
                 if (order.getStatus().equals(Order.Status.Cooking)) {
                     order.setStatus(Order.Status.PizzaIsDoneInHurry);
                 }
-                Pizzeria.putToStorage(order);
+                Pizzeria.addToStorage(order);
                 order.setStatus(Order.Status.DeliveredToStorage);
                 isWorking = false;
             }
