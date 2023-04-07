@@ -15,6 +15,7 @@ import java.util.concurrent.TimeUnit;
 public class Pizzeria {
     private static volatile BlockingQueue<Order> orderQueue;
     private static volatile BlockingQueue<Order> storage;
+    private static int storageCapacity;
     private final List<Baker> bakers;
     private final ExecutorService bakersPool;
     private final ExecutorService deliverymenPool;
@@ -28,12 +29,13 @@ public class Pizzeria {
      */
     public Pizzeria(String fileName) throws IOException {
         JsonData jsonData = new JsonData(fileName);
-        storage = new LinkedBlockingQueue<>(jsonData.getStorageCapacity());
-        orderQueue = new LinkedBlockingQueue<>();
         this.bakers = jsonData.getBakers();
         this.deliverymen = jsonData.getDeliverymen();
         bakersPool = Executors.newFixedThreadPool(bakers.size());
         deliverymenPool = Executors.newFixedThreadPool(deliverymen.size());
+        storageCapacity = jsonData.getStorageCapacity();
+        storage = new LinkedBlockingQueue<>(storageCapacity + bakers.size());
+        orderQueue = new LinkedBlockingQueue<>();
     }
 
     public static int getOrderQueueSize() {
@@ -80,9 +82,7 @@ public class Pizzeria {
 //                }
 //            }
 //        }
-        bakers.forEach(x -> x.setInterrupted(true));
-        System.out.println(bakersPool.awaitTermination((bakers.size() + 1) * 10L, TimeUnit.SECONDS));
-        deliverymen.forEach(x -> x.setInterrupted(true));
+        bakersPool.shutdownNow();
     }
 
     /**
@@ -109,10 +109,18 @@ public class Pizzeria {
      * Puts order to the storage.
      *
      * @param order - order to put
-     * @throws InterruptedException - if interrupted while waiting
      */
-    protected static void putToStorage(Order order) throws InterruptedException {
-        storage.put(order);
+    protected static void putToStorage(Order order) {
+        try {
+            if (storageCapacity != storage.size()) {
+                storage.put(order);
+            } else {
+                Thread.currentThread().wait();
+                storage.put(order);
+            }
+        } catch (InterruptedException e) {
+            storage.add(order);
+        }
     }
 
     /**
@@ -120,15 +128,23 @@ public class Pizzeria {
      *
      * @param number - number of orders to take
      * @return - list of orders
-     * @throws InterruptedException - if interrupted while waiting
      */
-    protected static List<Order> takeFromStorage(int number) throws InterruptedException {
+    protected static List<Order> takeFromStorage(int number) { // изменить мб
         List<Order> orders = new ArrayList<>();
+        int i = 0;
         if (storage.size() < number && storage.size() != 0) {
             number = storage.size();
         }
-        for (int i = 0; i < number; i++) {
-            orders.add(storage.take());
+        try {
+            for (;i < number; i++) {
+                orders.add(storage.take());
+                Thread.currentThread().notify();
+            }
+        } catch (InterruptedException e) {
+            for (;i < number && !storage.isEmpty(); i++) {
+                orders.add(storage.poll());
+                Thread.currentThread().notify();
+            }
         }
         return orders;
     }

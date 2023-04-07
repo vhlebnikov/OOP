@@ -17,6 +17,7 @@ public class Order {
         Ordered,
         Cooking,
         PizzaIsDone,
+        PizzaIsDoneInHurry,
         DeliveredToStorage,
         Delivery,
         Done
@@ -41,6 +42,10 @@ public class Order {
     public void setStatus(Status status) {
         this.status = status;
         System.out.println(this);
+    }
+
+    public Status getStatus() {
+        return status;
     }
 
     @Override

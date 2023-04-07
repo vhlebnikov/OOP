@@ -9,17 +9,6 @@ import java.util.concurrent.TimeUnit;
 
 public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
-        Pizzeria pizzeria = new Pizzeria("info.json");
-        pizzeria.start();
-//        List<Customer> customers = new ArrayList<>();
-//        for (int i = 0; i < 5; i++) {
-//            customers.add(new Customer("Guy number " + i));
-//        }
-        ExecutorService customersPool = Executors.newCachedThreadPool();
-//        customers.forEach(customersPool::submit);
-        TimeUnit.SECONDS.sleep(2);
-//        customersPool.submit(new Customer("Guy number 5"));
-        customersPool.shutdown();
-        pizzeria.stop(1);
+
     }
 }

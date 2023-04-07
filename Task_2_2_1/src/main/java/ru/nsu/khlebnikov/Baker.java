@@ -9,19 +9,13 @@ import java.util.concurrent.TimeUnit;
 public class Baker implements Callable<Void> {
     private final String name;
     private final int experience;
-    private volatile boolean isInterrupted = false;
+    private boolean isWorking;
+    private Order order;
 
     public Baker(String name, int experience) {
         this.name = name;
         this.experience = experience;
-    }
-
-    public void setInterrupted(boolean interrupted) {
-        isInterrupted = interrupted;
-    }
-
-    public boolean isInterrupted() {
-        return isInterrupted;
+        this.isWorking = false;
     }
 
     /**
@@ -29,33 +23,40 @@ public class Baker implements Callable<Void> {
      * If queue is empty waits until order becomes available.
      * If storage is full waits until it becomes free.
      *
-     * @throws InterruptedException - if interrupted while waiting
+     * @return - if was interrupted
      */
-    private void takeOrder() throws InterruptedException {
-        if (isInterrupted && Pizzeria.getOrderQueueSize() == 0) { // нужно сделать чтобы он сразу выходил отсюда если его прервали
-            Thread.currentThread().interrupt();
-            System.err.println("Interrupted baker " + this.name);
-        }
-        Order order = Pizzeria.takeFromQueue(); // тут выйдет - будет здорово
-        order.setStatus(Order.Status.Cooking);
-        System.out.println(this.name + "'s cooking " + order);
-        TimeUnit.SECONDS.sleep(10 - experience); // тут не круто
-        order.setStatus(Order.Status.PizzaIsDone);
-        Pizzeria.putToStorage(order); // тут тоже надо дождаться всё же
-        order.setStatus(Order.Status.DeliveredToStorage);
-        if (isInterrupted) {
-            Thread.currentThread().interrupt();
-            System.err.println("Interrupted baker " + this.name);
+    private boolean takeOrder() {
+        try {
+            order = Pizzeria.takeFromQueue();
+            isWorking = true;
+            order.setStatus(Order.Status.Cooking);
+//            System.out.println(this.name + "'s cooking " + order);
+            TimeUnit.SECONDS.sleep(10 - experience);
+            order.setStatus(Order.Status.PizzaIsDone);
+            Pizzeria.putToStorage(order);
+            order.setStatus(Order.Status.DeliveredToStorage);
+            isWorking = false;
+            return false;
+        } catch (InterruptedException e) {
+            System.out.println(this.name + " was interrupted");
+            if (isWorking) {
+                if (order.getStatus().equals(Order.Status.Cooking)) {
+                    order.setStatus(Order.Status.PizzaIsDoneInHurry);
+                }
+                Pizzeria.putToStorage(order);
+                order.setStatus(Order.Status.DeliveredToStorage);
+                isWorking = false;
+            }
+            return true;
         }
     }
 
     @Override
-    public Void call() throws InterruptedException {
+    public Void call() {
         while (true) {
-            if (Thread.interrupted()) {
+            if (takeOrder()) {
                 return null;
             }
-            takeOrder();
         }
     }
 }
