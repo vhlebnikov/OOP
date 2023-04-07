@@ -13,6 +13,12 @@ public class Deliveryman implements Callable<Void> {
     private final Queue<Order> orders;
     private final int bagCapacity;
 
+    /**
+     * Constructor for deliveryman.
+     *
+     * @param name - deliveryman's name
+     * @param bagCapacity - deliveryman's bag capacity
+     */
     public Deliveryman(String name, int bagCapacity) {
         this.name = name;
         this.bagCapacity = bagCapacity;

@@ -105,7 +105,8 @@ public class Pizzeria {
 
     /**
      * Immediately adds order to the storage.
-     * Blocking queue can't be full this time, because there is extra space for each baker to put order in a hurry.
+     * Blocking queue can't be full this time,
+     * because there is extra space for each baker to put order in a hurry.
      *
      * @param order - order to put
      */
@@ -119,7 +120,8 @@ public class Pizzeria {
      * @param bagCapacity - bag capacity of the deliveryman
      * @param orders - orders queue of the deliveryman
      */
-    protected static void takeFromStorage(int bagCapacity, Queue<Order> orders) throws InterruptedException {
+    protected static void takeFromStorage(int bagCapacity, Queue<Order> orders)
+            throws InterruptedException {
         int numberOfOrders = (int) Math.floor(Math.random() * bagCapacity + 1);
 
         if (storage.size() < numberOfOrders && storage.size() != 0) {

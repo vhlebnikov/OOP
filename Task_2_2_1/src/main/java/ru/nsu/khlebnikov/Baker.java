@@ -12,6 +12,12 @@ public class Baker implements Callable<Void> {
     private boolean isWorking;
     private Order order;
 
+    /**
+     * Constructor for baker.
+     *
+     * @param name - baker's name
+     * @param experience - baker's experience
+     */
     public Baker(String name, int experience) {
         this.name = name;
         this.experience = experience;
