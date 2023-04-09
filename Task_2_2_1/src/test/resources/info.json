@@ -1,0 +1,27 @@
+{
+  "bakers": [
+    {
+      "name": "Vanya",
+      "experience": 5
+    },
+    {
+      "name": "Katya",
+      "experience": 3
+    },
+    {
+      "name": "Seryozha",
+      "experience": 2
+    }
+  ],
+  "deliverymen": [
+    {
+      "name": "Igor",
+      "capacity": 3
+    },
+    {
+      "name": "Misha",
+      "capacity": 8
+    }
+  ],
+  "storageCapacity": 20
+}
