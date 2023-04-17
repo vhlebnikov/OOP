@@ -21,8 +21,8 @@ import java.util.Random;
 public class Main extends Application {
 
     private static final int CEIL_SIZE = 20;
-    private static final int WIDTH = 40;
-    private static final int HEIGHT = 40;
+    private static final int WIDTH = 20;
+    private static final int HEIGHT = 20;
     private static double SPEED = 5;
 
     private List<Point> snake;
@@ -63,6 +63,7 @@ public class Main extends Application {
                 snake = new ArrayList<>();
                 snake.add(new Point(WIDTH / 2, HEIGHT / 2));
                 direction = Direction.RIGHT;
+                SPEED = 5;
                 gameOver = false;
                 scoreLabel.setText("Score: 0");
                 spawnFood();
