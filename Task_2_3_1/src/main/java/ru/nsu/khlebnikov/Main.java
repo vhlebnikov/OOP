@@ -3,14 +3,11 @@ package ru.nsu.khlebnikov;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-import java.awt.*;
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -23,18 +20,21 @@ public class Main extends Application {
     private int heightCells = 20;
     private double initWindowWidth = 800;
     private double initWindowHeight = 400;
+    private Snake snake = new Snake(new Point(widthCells / 2, heightCells / 2));
     private ArrayList<Point> wallsCoordinates = new ArrayList<>(List.of(
             new Point(1, 1), new Point(2, 1), new Point(2, 2), new Point(2, 3),
             new Point(1, 3)
             ));
 
     private ArrayList<Point> snakeCoordinates = new ArrayList<>(List.of(
-            new Point(4, 4), new Point(5, 4), new Point(6, 4), new Point(6, 5),
-            new Point(6, 6), new Point(7, 6)
+            new Point(11, 10), new Point(12, 10), new Point(12, 11), new Point(12, 12),
+            new Point(13, 12), new Point(14, 12)
             ));
 
     @Override
     public void start(Stage primaryStage) {
+        snake.setSnake(snakeCoordinates);
+
         BorderPane root = new BorderPane();
         Scene scene = new Scene(root, initWindowWidth, initWindowHeight);
 
@@ -48,7 +48,7 @@ public class Main extends Application {
         primaryStage.setTitle("Snake Game");
         Image image = new Image(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("img/snake.png")));
         primaryStage.getIcons().add(image);
-        primaryStage.setMinHeight(200);
+        primaryStage.setMinHeight(400);
         primaryStage.setMinWidth(400);
         primaryStage.show();
 
@@ -61,7 +61,7 @@ public class Main extends Application {
             public void handle(long now) {
                 gameField.drawField(scene.widthProperty().get() * 0.75, scene.heightProperty().get());
                 gameField.drawWalls(scene.widthProperty().get() * 0.75, scene.heightProperty().get(), wallsCoordinates);
-                gameField.drawSnake(scene.widthProperty().get() * 0.75, scene.heightProperty().get(), snakeCoordinates);
+                gameField.drawSnake(scene.widthProperty().get() * 0.75, scene.heightProperty().get(), snake);
                 score.draw(scene.widthProperty().get() * 0.25, scene.heightProperty().get());
             }
         };

@@ -7,7 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.transform.Rotate;
+import ru.nsu.khlebnikov.Snake;
 
 import java.awt.Point;
 import java.util.ArrayList;
@@ -63,41 +63,45 @@ public class GameField extends Pane {
         double cellWidth = windowWidth / WIDTH_CELLS_NUMBER;
         double cellHeight = windowHeight / HEIGHT_CELLS_NUMBER;
 
+        SnapshotParameters params = new SnapshotParameters();
+        params.setFill(Color.TRANSPARENT);
+
         Image head = new Image(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("img/snake_head.png")));
         Image body = new Image(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("img/snake_body.png")));
         Image tail = new Image(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("img/snake_tail.png")));
         Image rotation = new Image(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("img/snake_rotation.png")));
 
         Point snakeHead = snake.getHead();
-
         ImageView headImageView = new ImageView(head);
-        switch (snake.getDirection()) {
-            case UP -> {
-                headImageView.setRotate(180); // 0 - down, 90 - left, 180 - up, 270 - right
-            }
-            case DOWN -> {
-                headImageView.setRotate(0); // 0 - down, 90 - left, 180 - up, 270 - right
-            }
-            case LEFT -> {
-                headImageView.setRotate(90); // 0 - down, 90 - left, 180 - up, 270 - right
-            }
-            case RIGHT -> {
-                headImageView.setRotate(270); // 0 - down, 90 - left, 180 - up, 270 - right
-            }
-        }
-
-        SnapshotParameters params = new SnapshotParameters();
-        params.setFill(Color.TRANSPARENT);
+        headImageView.setRotate(snake.getHeadAngle());
         Image rotatedHead = headImageView.snapshot(params, null);
-
         graphicsContext.drawImage(rotatedHead, snakeHead.x * cellWidth, snakeHead.y * cellHeight, cellWidth, cellHeight);
 
         for (Point point : snake.getBody()) {
-
-            graphicsContext.setFill(Color.GAINSBORO);
-            graphicsContext.fillRect(point.x * cellWidth, point.y * cellHeight, cellWidth, cellHeight);
+            int res = snake.getBodyOrientationOrAngle(point);
+            switch (res) {
+                case (1) -> {
+                    ImageView bodyImageView = new ImageView(body);
+                    bodyImageView.setRotate(90);
+                    Image rotatedBody = bodyImageView.snapshot(params, null);
+                    graphicsContext.drawImage(rotatedBody, point.x * cellWidth, point.y * cellHeight, cellWidth, cellHeight);
+                }
+                case (2) -> {
+                    graphicsContext.drawImage(body, point.x * cellWidth, point.y * cellHeight, cellWidth, cellHeight);
+                }
+                default -> {
+                    ImageView rotationImageView = new ImageView(rotation);
+                    rotationImageView.setRotate(res);
+                    Image rotatedRotation = rotationImageView.snapshot(params, null);
+                    graphicsContext.drawImage(rotatedRotation, point.x * cellWidth, point.y * cellHeight, cellWidth, cellHeight);
+                }
+            }
         }
 
-        //snake.getTail(); - какая-то логика тут
+        Point snakeTail = snake.getTail();
+        ImageView tailImageView = new ImageView(tail);
+        tailImageView.setRotate(snake.getTailAngle());
+        Image rotatedTail = tailImageView.snapshot(params, null);
+        graphicsContext.drawImage(rotatedTail, snakeTail.x * cellWidth, snakeTail.y * cellHeight, cellWidth, cellHeight);
     }
 }
