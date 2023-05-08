@@ -22,7 +22,7 @@ public class Main extends Application {
     private int heightCells = 20;
     private double initWindowWidth = 800;
     private double initWindowHeight = 400;
-    private Snake snake = new Snake(new Point(widthCells / 2, heightCells / 2));
+    private Snake snake = new Snake(new Point(widthCells / 2, heightCells / 2), 5);
     private Walls walls = new Walls(new ArrayList<>(List.of(
             new Point(1, 1), new Point(2, 1), new Point(2, 2), new Point(2, 3),
             new Point(1, 3)
@@ -43,13 +43,25 @@ public class Main extends Application {
         scene.setOnKeyPressed(event -> {
             KeyCode keyCode = event.getCode();
             if (keyCode == KeyCode.UP && snake.getDirection() != Snake.Direction.DOWN) {
-                snake.setDirection(Snake.Direction.UP);
+                if (snake.getSize() > 1 && snake.getHead().getY() != snake.getSnake().get(1).getY() + 1
+                && heightCells - snake.getHead().getY() != snake.getSnake().get(1).getY() + 1) {
+                    snake.setDirection(Snake.Direction.UP);
+                }
             } else if (keyCode == KeyCode.RIGHT && snake.getDirection() != Snake.Direction.LEFT) {
-                snake.setDirection(Snake.Direction.RIGHT);
+                if (snake.getSize() > 1 && snake.getHead().getX() != snake.getSnake().get(1).getX() - 1
+                && widthCells - snake.getHead().getX() != snake.getSnake().get(1).getX() + 1) {
+                    snake.setDirection(Snake.Direction.RIGHT);
+                }
             } else if (keyCode == KeyCode.DOWN && snake.getDirection() != Snake.Direction.UP) {
-                snake.setDirection(Snake.Direction.DOWN);
+                if (snake.getSize() > 1 && snake.getHead().getY() != snake.getSnake().get(1).getY() - 1
+                        && heightCells - snake.getHead().getY() != snake.getSnake().get(1).getY() + 1) {
+                    snake.setDirection(Snake.Direction.DOWN);
+                }
             } else if (keyCode == KeyCode.LEFT && snake.getDirection() != Snake.Direction.RIGHT) {
-                snake.setDirection(Snake.Direction.LEFT);
+                if (snake.getSize() > 1 && snake.getHead().getX() != snake.getSnake().get(1).getX() + 1
+                        && widthCells - snake.getHead().getX() != snake.getSnake().get(1).getX() + 1) {
+                    snake.setDirection(Snake.Direction.LEFT);
+                }
             } else if (keyCode == KeyCode.ESCAPE) {
                 primaryStage.close();
             }
@@ -77,7 +89,7 @@ public class Main extends Application {
             private long lastUpdate = 0;
             @Override
             public void handle(long now) {
-                if (now - lastUpdate >= 1000000000 / 5) {
+                if (now - lastUpdate >= 1000000000 / snake.getSpeed()) {
                     lastUpdate = now;
                     update();
                     draw();

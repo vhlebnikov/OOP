@@ -10,13 +10,15 @@ public class Snake {
         UP, RIGHT, DOWN, LEFT
     }
     private Direction direction;
+    private int speed;
     public enum BodyOrientation {
         HORIZONTALLY, VERTICALLY, ROTATED
     }
 
-    public Snake(Point head) {
+    public Snake(Point head, int speed) {
         snake = new ArrayList<>(List.of(head));
         direction = Direction.LEFT;
+        this.speed = speed;
     }
 
     public Direction getDirection() {
@@ -25,6 +27,14 @@ public class Snake {
 
     public void setDirection(Direction direction) {
         this.direction = direction;
+    }
+
+    public int getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
     }
 
     public ArrayList<Point> getSnake() {
@@ -66,15 +76,30 @@ public class Snake {
         return BodyOrientation.ROTATED;
     }
 
-    public int getBodyAngle(Point node, int widthCells, int heightCells) {
+    public int getBodyAngle(Point node) {
         int nodeIndex = snake.indexOf(node);
 
         Point prevNeighbor = snake.get(nodeIndex - 1);
         Point nextNeighbor = snake.get(nodeIndex + 1);
 
-        int res = (prevNeighbor.x + nextNeighbor.x - node.x * 2) * 2 + prevNeighbor.y + nextNeighbor.y - node.y * 2;
+        int x = prevNeighbor.x + nextNeighbor.x - node.x * 2;
+        int y = prevNeighbor.y + nextNeighbor.y - node.y * 2;
+
+        if (y < -1) {
+            y = 1;
+        }
+        if (y > 1) {
+            y = -1;
+        }
+        if (x < -1) {
+            x = 1;
+        }
+        if (x > 1) {
+            x = -1;
+        }
+        int res = 2 * x + y;
         switch (res) {
-            case -1 -> {  // 00   180 deg
+            case -1 -> {    // 00   180 deg
                 return 180; //  0
             }
             case (1) -> {  // 0    0 deg
@@ -86,7 +111,6 @@ public class Snake {
             case (3) -> {  // 00   90 deg
                 return 90; // 0
             }
-            default -> System.err.println(res + ": " + prevNeighbor + " " + node + " " + nextNeighbor);
         }
         throw new IllegalStateException("Wrong body angle");
     }
