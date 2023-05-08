@@ -27,6 +27,14 @@ public class Snake {
         this.direction = direction;
     }
 
+    public ArrayList<Point> getSnake() {
+        return snake;
+    }
+
+    public int getSize() {
+        return snake.size();
+    }
+
     public Point getHead() {
         return snake.get(0);
     }
@@ -39,8 +47,8 @@ public class Snake {
         return snake.subList(1, snake.size() - 1);
     }
 
-    public void setSnake(ArrayList<Point> snake) {
-        this.snake.addAll(snake);
+    public void addNode(Point node) {
+        this.snake.add(node);
     }
 
     public BodyOrientation getBodyOrientation(Point node) {
@@ -58,7 +66,7 @@ public class Snake {
         return BodyOrientation.ROTATED;
     }
 
-    public int getBodyAngle(Point node) {
+    public int getBodyAngle(Point node, int widthCells, int heightCells) {
         int nodeIndex = snake.indexOf(node);
 
         Point prevNeighbor = snake.get(nodeIndex - 1);
@@ -66,7 +74,7 @@ public class Snake {
 
         int res = (prevNeighbor.x + nextNeighbor.x - node.x * 2) * 2 + prevNeighbor.y + nextNeighbor.y - node.y * 2;
         switch (res) {
-            case (-1) -> {  // 00   180 deg
+            case -1 -> {  // 00   180 deg
                 return 180; //  0
             }
             case (1) -> {  // 0    0 deg
@@ -78,6 +86,7 @@ public class Snake {
             case (3) -> {  // 00   90 deg
                 return 90; // 0
             }
+            default -> System.err.println(res + ": " + prevNeighbor + " " + node + " " + nextNeighbor);
         }
         throw new IllegalStateException("Wrong body angle");
     }
@@ -90,17 +99,17 @@ public class Snake {
         int x = prevElement.x - tail.x;
         int y = prevElement.y - tail.y;
         if (x == 0) {
-            if (y == 1) {
-                return 0;
-            } else if (y == -1) {
-                return 180;
+            if (y == 1 || y < -1) {
+                return 180; // DOWN
+            } else if (y == -1 || y > 1) {
+                return 0; // UP
             }
         }
         if (y == 0) {
-            if (x == 1) {
-                return 90;
-            } else if (x == -1) {
-                return 270;
+            if (x == 1 || x < - 1) {
+                return 90; // RIGHT
+            } else if (x == -1 || x > 1) {
+                return 270; // LEFT
             }
         }
         throw new IllegalStateException("Wrong tail angle");

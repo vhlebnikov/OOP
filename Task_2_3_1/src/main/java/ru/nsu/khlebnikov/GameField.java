@@ -78,6 +78,12 @@ public class GameField extends Pane {
         Image rotatedHead = headImageView.snapshot(params, null);
         graphicsContext.drawImage(rotatedHead, snakeHead.x * cellWidth, snakeHead.y * cellHeight, cellWidth, cellHeight);
 
+        int snakeSize = snake.getSize();
+
+        if (snakeSize == 1) {
+            return;
+        }
+
         for (Point point : snake.getBody()) {
             Snake.BodyOrientation orientation = snake.getBodyOrientation(point);
             switch (orientation) {
@@ -103,5 +109,26 @@ public class GameField extends Pane {
         tailImageView.setRotate(snake.getTailAngle());
         Image rotatedTail = tailImageView.snapshot(params, null);
         graphicsContext.drawImage(rotatedTail, snakeTail.x * cellWidth, snakeTail.y * cellHeight, cellWidth, cellHeight);
+    }
+
+    public void drawFood(double windowWidth, double windowHeight, Food food) {
+        double cellWidth = windowWidth / WIDTH_CELLS_NUMBER;
+        double cellHeight = windowHeight / HEIGHT_CELLS_NUMBER;
+
+        Image watermelon = new Image(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("img/watermelon.png")));
+        Image apple = new Image(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("img/apple.png")));
+        Image lemon = new Image(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("img/lemon.png")));
+
+        for (FoodItem foodItem : food.getFood()) {
+            Point point = foodItem.getPoint();
+            switch (foodItem.getFoodType()) {
+                case WATERMELON ->
+                        graphicsContext.drawImage(watermelon, point.x * cellWidth, point.y * cellHeight, cellWidth, cellHeight);
+                case APPLE ->
+                        graphicsContext.drawImage(apple, point.x * cellWidth, point.y * cellHeight, cellWidth, cellHeight);
+                case LEMON ->
+                        graphicsContext.drawImage(lemon, point.x * cellWidth, point.y * cellHeight, cellWidth, cellHeight);
+            }
+        }
     }
 }

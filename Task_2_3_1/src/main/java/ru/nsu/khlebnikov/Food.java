@@ -3,27 +3,32 @@ package ru.nsu.khlebnikov;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
 
 public class Food {
-    private List<Point> watermelonsCoordinates;
-    private List<Point> applesCoordinates;
-    private List<Point> lemonsCoordinates;
+    private List<FoodItem> food;
+
     public Food(int watermelonsCount, int applesCount, int lemonsCount, List<Point> walls, int widthCells, int heightCells) {
-        watermelonsCoordinates = new ArrayList<>();
-        applesCoordinates = new ArrayList<>();
-        lemonsCoordinates = new ArrayList<>();
+        food = new ArrayList<>();
 
-        List<Double> x = new ArrayList<>(IntStream.rangeClosed(0, widthCells - 1).asDoubleStream().boxed().toList());
-        x.removeAll(walls.stream().map(Point::getX).toList());
-        List<Double> y = new ArrayList<>(IntStream.rangeClosed(0, heightCells - 1).asDoubleStream().boxed().toList());
-        y.removeAll(walls.stream().map(Point::getY).toList());
-
-        
+        generateFood(watermelonsCount, FoodItem.FoodType.WATERMELON, walls, widthCells, heightCells);
+        generateFood(applesCount, FoodItem.FoodType.APPLE, walls, widthCells, heightCells);
+        generateFood(lemonsCount, FoodItem.FoodType.LEMON, walls, widthCells, heightCells);
     }
-    public static void main(String[] args) {
-        Food food = new Food(5,6,7,new ArrayList<>(List.of(
-                new Point(1,2), new Point(3,4)
-        )), 20, 20);
+
+    public void generateFood(int count, FoodItem.FoodType foodType, List<Point> walls, int widthCells, int heightCells) {
+        for (int i = 0; i < count; i++) {
+            Point point = new Point((int) (Math.random() * widthCells), (int) (Math.random() * heightCells));
+            while (food.stream().anyMatch(f -> f.getPoint().x == point.x && f.getPoint().y == point.y)
+                    || walls.stream().anyMatch(w -> w.x == point.x && w.y == point.y)) {
+                point.setLocation((int) (Math.random() * widthCells), (int) (Math.random() * heightCells));
+            }
+            food.add(new FoodItem(foodType, point));
+        }
+    }
+
+    public List<FoodItem> getFood() {
+        return food;
     }
 }
