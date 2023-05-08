@@ -11,6 +11,7 @@ import ru.nsu.khlebnikov.Snake;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class GameField extends Pane {
@@ -48,7 +49,7 @@ public class GameField extends Pane {
         }
     }
 
-    public void drawWalls(double windowWidth, double windowHeight, ArrayList<Point> wallsCoordinates) {
+    public void drawWalls(double windowWidth, double windowHeight, List<Point> wallsCoordinates) {
         double cellWidth = windowWidth / WIDTH_CELLS_NUMBER;
         double cellHeight = windowHeight / HEIGHT_CELLS_NUMBER;
 
@@ -78,20 +79,19 @@ public class GameField extends Pane {
         graphicsContext.drawImage(rotatedHead, snakeHead.x * cellWidth, snakeHead.y * cellHeight, cellWidth, cellHeight);
 
         for (Point point : snake.getBody()) {
-            int res = snake.getBodyOrientationOrAngle(point);
-            switch (res) {
-                case (1) -> {
+            Snake.BodyOrientation orientation = snake.getBodyOrientation(point);
+            switch (orientation) {
+                case HORIZONTALLY -> {
                     ImageView bodyImageView = new ImageView(body);
                     bodyImageView.setRotate(90);
                     Image rotatedBody = bodyImageView.snapshot(params, null);
                     graphicsContext.drawImage(rotatedBody, point.x * cellWidth, point.y * cellHeight, cellWidth, cellHeight);
                 }
-                case (2) -> {
-                    graphicsContext.drawImage(body, point.x * cellWidth, point.y * cellHeight, cellWidth, cellHeight);
-                }
-                default -> {
+                case VERTICALLY ->
+                        graphicsContext.drawImage(body, point.x * cellWidth, point.y * cellHeight, cellWidth, cellHeight);
+                case ROTATED -> {
                     ImageView rotationImageView = new ImageView(rotation);
-                    rotationImageView.setRotate(res);
+                    rotationImageView.setRotate(snake.getBodyAngle(point));
                     Image rotatedRotation = rotationImageView.snapshot(params, null);
                     graphicsContext.drawImage(rotatedRotation, point.x * cellWidth, point.y * cellHeight, cellWidth, cellHeight);
                 }

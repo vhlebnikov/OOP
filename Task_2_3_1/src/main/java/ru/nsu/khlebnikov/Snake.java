@@ -10,6 +10,9 @@ public class Snake {
         UP, RIGHT, DOWN, LEFT
     }
     private Direction direction;
+    public enum BodyOrientation {
+        HORIZONTALLY, VERTICALLY, ROTATED
+    }
 
     public Snake(Point head) {
         snake = new ArrayList<>(List.of(head));
@@ -40,19 +43,27 @@ public class Snake {
         this.snake.addAll(snake);
     }
 
-    public int getBodyOrientationOrAngle(Point node) { // enum
+    public BodyOrientation getBodyOrientation(Point node) {
         int nodeIndex = snake.indexOf(node);
 
         Point prevNeighbor = snake.get(nodeIndex - 1);
         Point nextNeighbor = snake.get(nodeIndex + 1);
 
         if (prevNeighbor.y == nextNeighbor.y) {
-            return 1; // horizontally
+            return BodyOrientation.HORIZONTALLY;
         }
         if (prevNeighbor.x == nextNeighbor.x) {
-            return 2; // vertically
+            return BodyOrientation.VERTICALLY;
         }
-        // rotate, return means missing square cell with an angle
+        return BodyOrientation.ROTATED;
+    }
+
+    public int getBodyAngle(Point node) {
+        int nodeIndex = snake.indexOf(node);
+
+        Point prevNeighbor = snake.get(nodeIndex - 1);
+        Point nextNeighbor = snake.get(nodeIndex + 1);
+
         int res = (prevNeighbor.x + nextNeighbor.x - node.x * 2) * 2 + prevNeighbor.y + nextNeighbor.y - node.y * 2;
         switch (res) {
             case (-1) -> {  // 00   180 deg
@@ -68,7 +79,7 @@ public class Snake {
                 return 90; // 0
             }
         }
-        throw new IllegalStateException(); // message
+        throw new IllegalStateException("Wrong body angle");
     }
 
     public double getTailAngle() {
@@ -92,13 +103,13 @@ public class Snake {
                 return 270;
             }
         }
-        throw new IllegalStateException();
+        throw new IllegalStateException("Wrong tail angle");
     }
 
     public double getHeadAngle() {
         switch (direction) {
             case UP -> {
-                return 180; // 0 - down, 90 - left, 180 - up, 270 - right
+                return 180;
             }
             case DOWN -> {
                 return 0;
@@ -109,9 +120,7 @@ public class Snake {
             case RIGHT -> {
                 return 270;
             }
-            default -> {
-                throw new IllegalStateException();
-            }
         }
+        throw new IllegalStateException("Wrong head angle");
     }
 }
