@@ -16,21 +16,21 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 public class Score extends Pane {
-    private static double watermelons;
-    private static double watermelonsGoal;
-    private static double apples;
-    private static double applesGoal;
-    private static double lemons;
-    private static double lemonsGoal;
-    private static GridPane gridPane;
-    private static ColumnConstraints column;
-    private static Canvas canvas;
-    private static ProgressBar pbWatermelons;
-    private static ProgressBar pbApples;
-    private static ProgressBar pbLemons;
-    private static Label labelWatermelons;
-    private static Label labelApples;
-    private static Label labelLemons;
+    private double watermelons;
+    private double watermelonsGoal;
+    private double apples;
+    private double applesGoal;
+    private double lemons;
+    private double lemonsGoal;
+    private GridPane gridPane;
+    private ColumnConstraints column;
+    private Canvas canvas;
+    private ProgressBar pbWatermelons;
+    private ProgressBar pbApples;
+    private ProgressBar pbLemons;
+    private Label labelWatermelons;
+    private Label labelApples;
+    private Label labelLemons;
 
     public Score(int wGoal, int aGoal, int lGoal, double windowWidth, double windowHeight) {
         watermelons = 0;
@@ -98,6 +98,30 @@ public class Score extends Pane {
         gridPane.add(lemonBox, 0, 2);
 
         this.getChildren().addAll(canvas, gridPane);
+    }
+
+    public void setWatermelons(double watermelons) {
+        this.watermelons = watermelons;
+    }
+
+    public void setApples(double apples) {
+        this.apples = apples;
+    }
+
+    public void setLemons(double lemons) {
+        this.lemons = lemons;
+    }
+
+    public double getWatermelons() {
+        return watermelons;
+    }
+
+    public double getApples() {
+        return apples;
+    }
+
+    public double getLemons() {
+        return lemons;
     }
 
     public void draw(double windowWidth, double windowHeight) {

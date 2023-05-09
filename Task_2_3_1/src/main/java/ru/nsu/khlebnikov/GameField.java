@@ -7,22 +7,20 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import ru.nsu.khlebnikov.Snake;
 
 import java.awt.Point;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class GameField extends Pane {
-    private static int WIDTH_CELLS_NUMBER;
-    private static int HEIGHT_CELLS_NUMBER;
-    private static Canvas canvas;
-    private static GraphicsContext graphicsContext;
+    private int widthCells;
+    private int heightCells;
+    private Canvas canvas;
+    private GraphicsContext graphicsContext;
 
     public GameField(int width, int height, double windowWidth, double windowHeight) {
-        WIDTH_CELLS_NUMBER = width;
-        HEIGHT_CELLS_NUMBER = height;
+        widthCells = width;
+        heightCells = height;
         canvas = new Canvas(windowWidth, windowHeight);
         this.getChildren().add(canvas);
     }
@@ -30,14 +28,14 @@ public class GameField extends Pane {
     public void drawField(double windowWidth, double windowHeight) {
         graphicsContext = canvas.getGraphicsContext2D();
 
-        double cellWidth = windowWidth / WIDTH_CELLS_NUMBER;
-        double cellHeight = windowHeight / HEIGHT_CELLS_NUMBER;
+        double cellWidth = windowWidth / widthCells;
+        double cellHeight = windowHeight / heightCells;
 
         canvas.setWidth(windowWidth);
         canvas.setHeight(windowHeight);
 
-        for (int h = 0; h < HEIGHT_CELLS_NUMBER; h++) {
-            for (int w = 0; w < WIDTH_CELLS_NUMBER; w++) {
+        for (int h = 0; h < heightCells; h++) {
+            for (int w = 0; w < widthCells; w++) {
                 if ((h + w) % 2 == 0) {
                     graphicsContext.setFill(Color.web("#AAD751"));
                 } else {
@@ -50,8 +48,8 @@ public class GameField extends Pane {
     }
 
     public void drawWalls(double windowWidth, double windowHeight, List<Point> wallsCoordinates) {
-        double cellWidth = windowWidth / WIDTH_CELLS_NUMBER;
-        double cellHeight = windowHeight / HEIGHT_CELLS_NUMBER;
+        double cellWidth = windowWidth / widthCells;
+        double cellHeight = windowHeight / heightCells;
 
         Image image = new Image(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("img/brickwall.png")));
 
@@ -61,8 +59,8 @@ public class GameField extends Pane {
     }
 
     public void drawSnake(double windowWidth, double windowHeight, Snake snake) {
-        double cellWidth = windowWidth / WIDTH_CELLS_NUMBER;
-        double cellHeight = windowHeight / HEIGHT_CELLS_NUMBER;
+        double cellWidth = windowWidth / widthCells;
+        double cellHeight = windowHeight / heightCells;
 
         SnapshotParameters params = new SnapshotParameters();
         params.setFill(Color.TRANSPARENT);
@@ -112,8 +110,8 @@ public class GameField extends Pane {
     }
 
     public void drawFood(double windowWidth, double windowHeight, Food food) {
-        double cellWidth = windowWidth / WIDTH_CELLS_NUMBER;
-        double cellHeight = windowHeight / HEIGHT_CELLS_NUMBER;
+        double cellWidth = windowWidth / widthCells;
+        double cellHeight = windowHeight / heightCells;
 
         Image watermelon = new Image(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("img/watermelon.png")));
         Image apple = new Image(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("img/apple.png")));

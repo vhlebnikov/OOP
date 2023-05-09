@@ -10,12 +10,12 @@ public class Snake {
         UP, RIGHT, DOWN, LEFT
     }
     private Direction direction;
-    private int speed;
+    private double speed;
     public enum BodyOrientation {
         HORIZONTALLY, VERTICALLY, ROTATED
     }
 
-    public Snake(Point head, int speed) {
+    public Snake(Point head, double speed) {
         snake = new ArrayList<>(List.of(head));
         direction = Direction.LEFT;
         this.speed = speed;
@@ -29,11 +29,11 @@ public class Snake {
         this.direction = direction;
     }
 
-    public int getSpeed() {
+    public double getSpeed() {
         return speed;
     }
 
-    public void setSpeed(int speed) {
+    public void setSpeed(double speed) {
         this.speed = speed;
     }
 

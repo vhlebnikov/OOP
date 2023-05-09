@@ -8,13 +8,19 @@ import java.util.stream.IntStream;
 
 public class Food {
     private List<FoodItem> food;
+    private int watermelonsGoal;
+    private int applesGoal;
+    private int lemonsGoal;
 
-    public Food(int watermelonsCount, int applesCount, int lemonsCount, List<Point> walls, int widthCells, int heightCells) {
+    public Food(int watermelonsGoal, int applesGoal, int lemonsGoal, List<Point> walls, int widthCells, int heightCells) {
         food = new ArrayList<>();
+        this.watermelonsGoal = watermelonsGoal;
+        this.applesGoal = applesGoal;
+        this.lemonsGoal = lemonsGoal;
 
-        generateFood(watermelonsCount, FoodItem.FoodType.WATERMELON, walls, widthCells, heightCells);
-        generateFood(applesCount, FoodItem.FoodType.APPLE, walls, widthCells, heightCells);
-        generateFood(lemonsCount, FoodItem.FoodType.LEMON, walls, widthCells, heightCells);
+        generateFood(watermelonsGoal, FoodItem.FoodType.WATERMELON, walls, widthCells, heightCells);
+        generateFood(applesGoal, FoodItem.FoodType.APPLE, walls, widthCells, heightCells);
+        generateFood(lemonsGoal, FoodItem.FoodType.LEMON, walls, widthCells, heightCells);
     }
 
     public void generateFood(int count, FoodItem.FoodType foodType, List<Point> walls, int widthCells, int heightCells) {
@@ -26,6 +32,18 @@ public class Food {
             }
             food.add(new FoodItem(foodType, point));
         }
+    }
+
+    public void regenerateFood(List<Point> walls, int widthCells, int heightCells) {
+        food.clear();
+
+        generateFood(watermelonsGoal, FoodItem.FoodType.WATERMELON, walls, widthCells, heightCells);
+        generateFood(applesGoal, FoodItem.FoodType.APPLE, walls, widthCells, heightCells);
+        generateFood(lemonsGoal, FoodItem.FoodType.LEMON, walls, widthCells, heightCells);
+    }
+
+    public void removeFood(FoodItem foodItem) {
+        food.remove(foodItem);
     }
 
     public List<FoodItem> getFood() {
