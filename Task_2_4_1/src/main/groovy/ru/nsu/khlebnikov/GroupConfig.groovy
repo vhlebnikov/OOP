@@ -26,7 +26,7 @@ class GroupConfig {
         }
     }
 
-    static void group (@DelegatesTo(value = GroupParam, strategy = DELEGATE_ONLY) Closure closure) {
+    static void oneGroup (@DelegatesTo(value = GroupParam, strategy = DELEGATE_ONLY) Closure closure) {
         closure.delegate = groupParam
         closure.resolveStrategy = DELEGATE_ONLY
         closure.call()
@@ -35,8 +35,8 @@ class GroupConfig {
     static public StudentParam studentParam = new StudentParam()
 
     static class StudentParam {
-        static void student(String nickName, String url, String surname, String name, String patronymic) {
-            group.addStudent(new Student(nickName, url, surname, name, patronymic))
+        static void student(String nickName, String name, String surname, String patronymic, String url) {
+            group.addStudent(new Student(nickName, name, surname, patronymic, url))
         }
     }
 
@@ -77,8 +77,8 @@ class GroupConfig {
     static public ControlMarkParam controlMarkParam = new ControlMarkParam()
 
     static class ControlMarkParam {
-        static void controlMark(String name, String date) {
-            controlMarksList.add(new ControlMark(name, date))
+        static void controlMark(String date, String name) {
+            controlMarksList.add(new ControlMark(date, name))
         }
     }
 
