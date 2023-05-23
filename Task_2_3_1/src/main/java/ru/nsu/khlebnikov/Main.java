@@ -26,8 +26,6 @@ public class Main extends Application {
 
     private int widthCells = 20;
     private int heightCells = 20;
-    private double initWindowWidth = 800;
-    private double initWindowHeight = 400;
     public enum GameState {
         GAME, GAME_OVER, STOPPED, WIN
     }
@@ -41,11 +39,11 @@ public class Main extends Application {
     private Food food = new Food(3, 3, 3, walls.getCoordinates(), widthCells, heightCells);
 
     @Override
-    public void start(Stage primaryStage) {
-        this.primaryStage = primaryStage;
+    public void start(Stage primaryStage1) {
+        primaryStage = primaryStage1;
 
         BorderPane root = new BorderPane();
-        scene = new Scene(root, initWindowWidth, initWindowHeight);
+        scene = new Scene(root, primaryStage.getWidth(), primaryStage.getHeight());
 
         scene.setOnKeyPressed(event -> {
             KeyCode keyCode = event.getCode();
@@ -80,8 +78,8 @@ public class Main extends Application {
             }
         });
 
-        gameField = new GameField(widthCells, heightCells, initWindowWidth * 0.75, initWindowHeight);
-        score = new Score(10, 10, 10, initWindowWidth * 0.25, initWindowHeight);
+        gameField = new GameField(widthCells, heightCells, primaryStage.getWidth() * 0.75, primaryStage.getHeight());
+        score = new Score(10, 10, 10, primaryStage.getWidth() * 0.25, primaryStage.getHeight());
 
         root.setLeft(gameField);
         root.setRight(score);
