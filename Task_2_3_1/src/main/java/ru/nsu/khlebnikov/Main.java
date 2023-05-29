@@ -3,12 +3,10 @@ package ru.nsu.khlebnikov;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.SnapshotParameters;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.awt.Point;
@@ -16,27 +14,26 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-
 public class Main extends Application {
     private static Stage primaryStage;
     private GameField gameField;
     private Score score;
     private static Scene scene;
     private GameOverScene gameOverScene;
-
-    private int widthCells = 20;
-    private int heightCells = 20;
+    private final int widthCells = 20;
+    private final int heightCells = 20;
     public enum GameState {
         GAME, GAME_OVER, STOPPED, WIN
     }
     private static GameState gameState = GameState.GAME;
-    private double initSnakeSpeed = 5;
-    private Snake snake = new Snake(new Point(widthCells / 2, heightCells / 2), initSnakeSpeed);
-    private Walls walls = new Walls(new ArrayList<>(List.of(
+    private final double initSnakeSpeed = 5;
+    private final double initSnakeGrowthSpeed = 0.5;
+    private Snake snake = new Snake(new Point(widthCells / 2, heightCells / 2), initSnakeSpeed, initSnakeGrowthSpeed);
+    private final Walls walls = new Walls(new ArrayList<>(List.of(
             new Point(1, 1), new Point(2, 1), new Point(2, 2), new Point(2, 3),
             new Point(1, 3)
     )));
-    private Food food = new Food(3, 3, 3, walls.getCoordinates(), widthCells, heightCells);
+    private final Food food = new Food(3, 3, 3, walls.getCoordinates(), widthCells, heightCells);
 
     @Override
     public void start(Stage primaryStage1) {
@@ -158,7 +155,7 @@ public class Main extends Application {
                 case APPLE -> score.setApples(score.getApples() + 1);
                 case LEMON -> score.setLemons(score.getLemons() + 1);
             }
-            snake.setSpeed(snake.getSpeed() + 0.5);
+            snake.setSpeed(snake.getSpeed() + snake.getGrowthSpeed());
         }
 
         if (snake.getSize() > 2 && (snake.getBody().stream().anyMatch(x -> x.equals(head))
@@ -176,7 +173,7 @@ public class Main extends Application {
     }
 
     public void restart() {
-        snake = new Snake(new Point(widthCells / 2, heightCells / 2), initSnakeSpeed);
+        snake = new Snake(new Point(widthCells / 2, heightCells / 2), initSnakeSpeed, initSnakeGrowthSpeed);
         score.setWatermelons(0);
         score.setApples(0);
         score.setLemons(0);
@@ -185,14 +182,17 @@ public class Main extends Application {
     }
 
     public void gameOver() {
-        snake = new Snake(new Point(widthCells / 2, heightCells / 2), initSnakeSpeed);
+        setGameState(GameState.GAME_OVER);
+        Image snapshot = scene.snapshot(null);
+        gameOverScene = new GameOverScene(new StackPane(), snapshot, scene.widthProperty().get(),
+                        scene.heightProperty().get(), score.getTotalScore(), score.getTotalGoal());
+
+        snake = new Snake(new Point(widthCells / 2, heightCells / 2), initSnakeSpeed, initSnakeGrowthSpeed);
         score.setWatermelons(0);
         score.setApples(0);
         score.setLemons(0);
         food.regenerateFood(walls.getCoordinates(), widthCells, heightCells);
-        setGameState(GameState.GAME_OVER);
-        Image snapshot = scene.snapshot(null);
-        gameOverScene = new GameOverScene(new StackPane(), snapshot, scene.widthProperty().get(), scene.heightProperty().get());
+
         primaryStage.setScene(gameOverScene);
     }
 

@@ -8,19 +8,19 @@ import java.util.stream.IntStream;
 
 public class Food {
     private List<FoodItem> food;
-    private int watermelonsGoal;
-    private int applesGoal;
-    private int lemonsGoal;
+    private int initWatermelons;
+    private int initApples;
+    private int initLemons;
 
-    public Food(int watermelonsGoal, int applesGoal, int lemonsGoal, List<Point> walls, int widthCells, int heightCells) {
+    public Food(int initWatermelons, int initApples, int initLemons, List<Point> walls, int widthCells, int heightCells) {
         food = new ArrayList<>();
-        this.watermelonsGoal = watermelonsGoal;
-        this.applesGoal = applesGoal;
-        this.lemonsGoal = lemonsGoal;
+        this.initWatermelons = initWatermelons;
+        this.initApples = initApples;
+        this.initLemons = initLemons;
 
-        generateFood(watermelonsGoal, FoodItem.FoodType.WATERMELON, walls, widthCells, heightCells);
-        generateFood(applesGoal, FoodItem.FoodType.APPLE, walls, widthCells, heightCells);
-        generateFood(lemonsGoal, FoodItem.FoodType.LEMON, walls, widthCells, heightCells);
+        generateFood(initWatermelons, FoodItem.FoodType.WATERMELON, walls, widthCells, heightCells);
+        generateFood(initApples, FoodItem.FoodType.APPLE, walls, widthCells, heightCells);
+        generateFood(initLemons, FoodItem.FoodType.LEMON, walls, widthCells, heightCells);
     }
 
     public void generateFood(int count, FoodItem.FoodType foodType, List<Point> walls, int widthCells, int heightCells) {
@@ -37,9 +37,9 @@ public class Food {
     public void regenerateFood(List<Point> walls, int widthCells, int heightCells) {
         food.clear();
 
-        generateFood(watermelonsGoal, FoodItem.FoodType.WATERMELON, walls, widthCells, heightCells);
-        generateFood(applesGoal, FoodItem.FoodType.APPLE, walls, widthCells, heightCells);
-        generateFood(lemonsGoal, FoodItem.FoodType.LEMON, walls, widthCells, heightCells);
+        generateFood(initWatermelons, FoodItem.FoodType.WATERMELON, walls, widthCells, heightCells);
+        generateFood(initApples, FoodItem.FoodType.APPLE, walls, widthCells, heightCells);
+        generateFood(initLemons, FoodItem.FoodType.LEMON, walls, widthCells, heightCells);
     }
 
     public void removeFood(FoodItem foodItem) {

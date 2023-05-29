@@ -11,14 +11,16 @@ public class Snake {
     }
     private Direction direction;
     private double speed;
+    private double growthSpeed;
     public enum BodyOrientation {
         HORIZONTALLY, VERTICALLY, ROTATED
     }
 
-    public Snake(Point head, double speed) {
+    public Snake(Point head, double speed, double growthSpeed) {
         snake = new ArrayList<>(List.of(head));
         direction = Direction.LEFT;
         this.speed = speed;
+        this.growthSpeed = growthSpeed;
     }
 
     public Direction getDirection() {
@@ -27,6 +29,14 @@ public class Snake {
 
     public void setDirection(Direction direction) {
         this.direction = direction;
+    }
+
+    public double getGrowthSpeed() {
+        return growthSpeed;
+    }
+
+    public void setGrowthSpeed(double growthSpeed) {
+        this.growthSpeed = growthSpeed;
     }
 
     public double getSpeed() {

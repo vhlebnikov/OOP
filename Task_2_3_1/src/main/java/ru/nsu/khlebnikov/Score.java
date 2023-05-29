@@ -22,15 +22,15 @@ public class Score extends Pane {
     private double applesGoal;
     private double lemons;
     private double lemonsGoal;
-    private GridPane gridPane;
-    private ColumnConstraints column;
-    private Canvas canvas;
-    private ProgressBar pbWatermelons;
-    private ProgressBar pbApples;
-    private ProgressBar pbLemons;
-    private Label labelWatermelons;
-    private Label labelApples;
-    private Label labelLemons;
+    private final GridPane gridPane;
+    private final ColumnConstraints column;
+    private final Canvas canvas;
+    private final ProgressBar pbWatermelons;
+    private final ProgressBar pbApples;
+    private final ProgressBar pbLemons;
+    private final Label labelWatermelons;
+    private final Label labelApples;
+    private final Label labelLemons;
 
     public Score(int wGoal, int aGoal, int lGoal, double windowWidth, double windowHeight) {
         watermelons = 0;
@@ -98,6 +98,14 @@ public class Score extends Pane {
         gridPane.add(lemonBox, 0, 2);
 
         this.getChildren().addAll(canvas, gridPane);
+    }
+
+    public double getTotalGoal() {
+        return watermelonsGoal + applesGoal + lemonsGoal;
+    }
+
+    public double getTotalScore() {
+        return watermelons + apples + lemons;
     }
 
     public void setWatermelons(double watermelons) {
