@@ -1,4 +1,4 @@
-package ru.nsu.khlebnikov;
+package ru.nsu.khlebnikov.view;
 
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
@@ -7,15 +7,18 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import ru.nsu.khlebnikov.model.food.Food;
+import ru.nsu.khlebnikov.model.food.FoodItem;
+import ru.nsu.khlebnikov.model.snake.Snake;
 
 import java.awt.Point;
 import java.util.List;
 import java.util.Objects;
 
 public class GameField extends Pane {
-    private int widthCells;
-    private int heightCells;
-    private Canvas canvas;
+    private final int widthCells;
+    private final int heightCells;
+    private final Canvas canvas;
     private GraphicsContext graphicsContext;
 
     public GameField(int width, int height, double windowWidth, double windowHeight) {
@@ -58,17 +61,39 @@ public class GameField extends Pane {
         }
     }
 
-    public void drawSnake(double windowWidth, double windowHeight, Snake snake) {
+    public void drawSnake(double windowWidth, double windowHeight, Snake snake, int botId) {
         double cellWidth = windowWidth / widthCells;
         double cellHeight = windowHeight / heightCells;
 
         SnapshotParameters params = new SnapshotParameters();
         params.setFill(Color.TRANSPARENT);
 
-        Image head = new Image(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("img/snake_head.png")));
-        Image body = new Image(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("img/snake_body.png")));
-        Image tail = new Image(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("img/snake_tail.png")));
-        Image rotation = new Image(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("img/snake_rotation.png")));
+        Image head;
+        Image body;
+        Image tail;
+        Image rotation;
+
+        if (botId == 0) {
+            head = new Image(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("img/snake_head.png")));
+            body = new Image(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("img/snake_body.png")));
+            tail = new Image(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("img/snake_tail.png")));
+            rotation = new Image(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("img/snake_rotation.png")));
+        } else if (botId == 1) {
+            head = new Image(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("img/snake_head_bot.png")));
+            body = new Image(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("img/snake_body_bot.png")));
+            tail = new Image(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("img/snake_tail_bot.png")));
+            rotation = new Image(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("img/snake_rotation_bot.png")));
+        } else if (botId == 2) {
+            head = new Image(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("img/snake_head_pink.png")));
+            body = new Image(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("img/snake_body_pink.png")));
+            tail = new Image(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("img/snake_tail_pink.png")));
+            rotation = new Image(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("img/snake_rotation_pink.png")));
+        } else {
+            head = new Image(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("img/snake_head.png")));
+            body = new Image(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("img/snake_body.png")));
+            tail = new Image(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("img/snake_tail.png")));
+            rotation = new Image(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("img/snake_rotation.png")));
+        }
 
         Point snakeHead = snake.getHead();
         ImageView headImageView = new ImageView(head);
@@ -118,8 +143,8 @@ public class GameField extends Pane {
         Image lemon = new Image(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("img/lemon.png")));
 
         for (FoodItem foodItem : food.getFood()) {
-            Point point = foodItem.getPoint();
-            switch (foodItem.getFoodType()) {
+            Point point = foodItem.point();
+            switch (foodItem.foodType()) {
                 case WATERMELON ->
                         graphicsContext.drawImage(watermelon, point.x * cellWidth, point.y * cellHeight, cellWidth, cellHeight);
                 case APPLE ->

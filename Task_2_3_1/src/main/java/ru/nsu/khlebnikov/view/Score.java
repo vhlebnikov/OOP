@@ -1,4 +1,4 @@
-package ru.nsu.khlebnikov;
+package ru.nsu.khlebnikov.view;
 
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -17,11 +17,11 @@ import javafx.scene.text.Font;
 
 public class Score extends Pane {
     private double watermelons;
-    private double watermelonsGoal;
+    private final double watermelonsGoal;
     private double apples;
-    private double applesGoal;
+    private final double applesGoal;
     private double lemons;
-    private double lemonsGoal;
+    private final double lemonsGoal;
     private final GridPane gridPane;
     private final ColumnConstraints column;
     private final Canvas canvas;
@@ -84,7 +84,6 @@ public class Score extends Pane {
         lemonBox.setAlignment(Pos.CENTER);
 
         gridPane = new GridPane();
-//        gridPane.setGridLinesVisible(true);
         gridPane.setVgap(7);
         gridPane.setPadding(new Insets(10, 0, 10, 0));
 
@@ -109,15 +108,21 @@ public class Score extends Pane {
     }
 
     public void setWatermelons(double watermelons) {
-        this.watermelons = watermelons;
+        if (watermelons <= watermelonsGoal) {
+            this.watermelons = watermelons;
+        }
     }
 
     public void setApples(double apples) {
-        this.apples = apples;
+        if (apples <= applesGoal) {
+            this.apples = apples;
+        }
     }
 
     public void setLemons(double lemons) {
-        this.lemons = lemons;
+        if (lemons <= lemonsGoal) {
+            this.lemons = lemons;
+        }
     }
 
     public double getWatermelons() {

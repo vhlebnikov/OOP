@@ -1,4 +1,4 @@
-package ru.nsu.khlebnikov;
+package ru.nsu.khlebnikov.model.walls;
 
 import java.awt.Point;
 import java.util.List;

@@ -1,4 +1,4 @@
-package ru.nsu.khlebnikov;
+package ru.nsu.khlebnikov.view;
 
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -13,33 +13,32 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import ru.nsu.khlebnikov.Main;
+import ru.nsu.khlebnikov.controller.GameWinController;
 
-public class GameOverScene extends Scene {
-    private Label gameOverText;
-    private Label scoreText;
-    private Canvas canvas;
-    private Image snapshot;
-    private GraphicsContext graphicsContext;
-    private VBox vBox;
-    private double totalGoal;
-    private double totalScore;
+public class GameWinScene extends Scene {
+    private final Canvas canvas;
+    private final Image snapshot;
 
-    public GameOverScene(StackPane root, Image snapshot, double windowWidth, double windowHeight, double totalScore, double totalGoal) {
+    public GameWinScene(StackPane root, Image snapshot, double windowWidth, double windowHeight, double totalScore, double totalGoal, Main main) {
         super(root, windowWidth, windowHeight);
 
-        this.totalGoal = totalGoal;
-        this.totalScore = totalScore;
-
-        gameOverText = new Label("GAME OVER");
+        Label gameOverText = new Label("YOU WON!");
         Font font = Font.loadFont(getClass().getClassLoader().getResourceAsStream("fonts/Mario-Kart-DS.ttf"), 60);
         gameOverText.setFont(font);
 
-        scoreText = new Label((int) totalScore + " of " + (int) totalGoal);
+        Label scoreText = new Label((int) totalScore + " of " + (int) totalGoal);
         scoreText.setFont(font);
 
-        Label helperText = new Label("Try again by pressing [Space]");
+        Label helperText;
 
-        vBox = new VBox(gameOverText, scoreText, helperText);
+        if (Main.getFileName().equals("config/level3.json")) {
+            helperText = new Label("Press [R] to restart.");
+        } else {
+            helperText = new Label("Press [Space] for the next level!\nPress [R] to restart.");
+        }
+
+        VBox vBox = new VBox(gameOverText, scoreText, helperText);
         vBox.setAlignment(Pos.CENTER);
 
         this.snapshot = snapshot;
@@ -49,10 +48,7 @@ public class GameOverScene extends Scene {
 
         this.setOnKeyPressed(event -> {
             KeyCode keyCode = event.getCode();
-            if (keyCode == KeyCode.SPACE) {
-                Main.setGameState(Main.GameState.GAME);
-                Main.setGameScene();
-            }
+            GameWinController.handler(keyCode, main);
         });
     }
 
@@ -60,7 +56,7 @@ public class GameOverScene extends Scene {
         double windowWidth = this.widthProperty().get();
         double windowHeight = this.heightProperty().get();
 
-        graphicsContext = canvas.getGraphicsContext2D();
+        GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
         canvas.setWidth(windowWidth);
         canvas.setHeight(windowHeight);
 
