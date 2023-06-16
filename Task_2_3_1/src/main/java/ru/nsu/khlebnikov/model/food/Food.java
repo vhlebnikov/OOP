@@ -48,7 +48,7 @@ public class Food {
      * @param heightCells - number of cells by height
      */
     public void generateFood(int count, FoodItem.FoodType foodType, List<Point> walls,
-                             List<Point> snake,int widthCells, int heightCells) {
+                             List<Point> snake, int widthCells, int heightCells) {
         for (int i = 0; i < count; i++) {
             Point point = new Point((int) (Math.random() * widthCells),
                     (int) (Math.random() * heightCells));

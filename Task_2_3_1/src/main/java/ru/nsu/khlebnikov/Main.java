@@ -3,7 +3,6 @@ package ru.nsu.khlebnikov;
 import java.awt.Point;
 import java.util.List;
 import java.util.Objects;
-
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -55,7 +54,8 @@ public class Main extends Application {
     private int applesGoal = jsonDTO.applesGoal();
     private int lemonsGoal = jsonDTO.lemonsGoal();
     private Snake snake =
-            new Snake(new Point(widthCells / 2, heightCells / 2), initSnakeSpeed, initSnakeGrowthSpeed);
+            new Snake(new Point(widthCells / 2, heightCells / 2),
+                    initSnakeSpeed, initSnakeGrowthSpeed);
     private Snake hunterBotSnake =
             new Snake(List.of(new Point(0, 0), new Point(1, 0), new Point(2, 0)), 5, 0.5);
     private Snake gluttonBotSnake =

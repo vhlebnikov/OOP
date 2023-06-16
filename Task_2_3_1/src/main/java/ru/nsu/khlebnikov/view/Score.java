@@ -44,7 +44,8 @@ public class Score extends Pane {
      * @param windowWidth - window width
      * @param windowHeight - window height
      */
-    public Score(int watermelonsGoal, int applesGoal, int lemonsGoal, double windowWidth, double windowHeight) {
+    public Score(int watermelonsGoal, int applesGoal, int lemonsGoal,
+                 double windowWidth, double windowHeight) {
         watermelons = 0;
         apples = 0;
         lemons = 0;
