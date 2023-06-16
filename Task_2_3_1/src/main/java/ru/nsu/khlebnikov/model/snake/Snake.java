@@ -3,7 +3,7 @@ package ru.nsu.khlebnikov.model.snake;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
-import ru.nsu.khlebnikov.Main;
+import ru.nsu.khlebnikov.Game;
 import ru.nsu.khlebnikov.model.food.Food;
 import ru.nsu.khlebnikov.model.food.FoodItem;
 import ru.nsu.khlebnikov.model.walls.Walls;
@@ -239,11 +239,11 @@ public class Snake {
      * @param food - food object
      * @param walls - walls object
      * @param score - score
-     * @param main - main class
+     * @param game - main class
      * @param widthCells - number of the cells by width
      * @param heightCells - number of the cells by height
      */
-    public void update(Food food, Walls walls, Score score, Main main,
+    public void update(Food food, Walls walls, Score score, Game game,
                        int widthCells, int heightCells) {
         Point head = new Point(this.getHead());
 
@@ -289,12 +289,12 @@ public class Snake {
         if (this.getSize() > 2 && (this.getBody().stream().anyMatch(x -> x.equals(head))
                 || this.getTail().equals(head))
                 || walls.getCoordinates().stream().anyMatch(w -> w.equals(head))) {
-            main.gameOver();
+            game.gameOver();
             return;
         }
 
         if (score.getTotalScore() == score.getTotalGoal()) {
-            main.gameWin();
+            game.gameWin();
             return;
         }
 
@@ -310,9 +310,9 @@ public class Snake {
      *
      * @param player - user's snake
      * @param walls - walls object
-     * @param main - main class
+     * @param game - main class
      */
-    public void hunterBotUpdate(Snake player, Walls walls, Main main) {
+    public void hunterBotUpdate(Snake player, Walls walls, Game game) {
         Point playerHead = new Point(player.getHead());
         Point botHead = new Point(this.getHead());
 
@@ -342,7 +342,7 @@ public class Snake {
             if (s.equals(botHead)) {
                 player.cutSnake(s);
                 if (player.getSnake().size() == 0) {
-                    main.gameOver();
+                    game.gameOver();
                     return;
                 }
             }

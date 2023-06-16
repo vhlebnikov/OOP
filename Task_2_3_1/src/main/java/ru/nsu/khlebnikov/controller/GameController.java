@@ -1,7 +1,7 @@
 package ru.nsu.khlebnikov.controller;
 
 import javafx.scene.input.KeyCode;
-import ru.nsu.khlebnikov.Main;
+import ru.nsu.khlebnikov.Game;
 import ru.nsu.khlebnikov.model.snake.Snake;
 
 /**
@@ -16,10 +16,10 @@ public class GameController {
      * @param snake - user's snake
      * @param heightCells - number of cells by height
      * @param widthCells - number of cells by width
-     * @param main - main class to restart the game
+     * @param game - main class to restart the game
      */
     public static void handler(KeyCode keyCode, Snake snake, int heightCells, int widthCells,
-                               Main main) {
+                               Game game) {
         if (keyCode == KeyCode.UP && snake.getDirection() != Snake.Direction.DOWN) {
             if ((snake.getSize() > 1 && snake.getHead().getY() != snake.getSnake().get(1).getY() + 1
                     && heightCells - snake.getHead().getY() != snake.getSnake().get(1).getY() + 1)
@@ -45,14 +45,14 @@ public class GameController {
                 snake.setDirection(Snake.Direction.LEFT);
             }
         } else if (keyCode == KeyCode.ESCAPE) {
-            Main.getPrimaryStage().close();
+            Game.getPrimaryStage().close();
         } else if (keyCode == KeyCode.SPACE) {
-            main.restart();
+            game.restart();
         } else if (keyCode == KeyCode.P) {
-            if (Main.getGameState().equals(Main.GameState.GAME)) {
-                Main.setGameState(Main.GameState.STOPPED);
+            if (Game.getGameState().equals(Game.GameState.GAME)) {
+                Game.setGameState(Game.GameState.STOPPED);
             } else {
-                Main.setGameState(Main.GameState.GAME);
+                Game.setGameState(Game.GameState.GAME);
             }
         }
     }

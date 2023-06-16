@@ -13,7 +13,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import ru.nsu.khlebnikov.Main;
+import ru.nsu.khlebnikov.Game;
 import ru.nsu.khlebnikov.controller.GameWinController;
 
 /**
@@ -32,10 +32,10 @@ public class GameWinScene extends Scene {
      * @param windowHeight - window height
      * @param totalScore - total score
      * @param totalGoal - total goal
-     * @param main - main class
+     * @param game - main class
      */
     public GameWinScene(StackPane root, Image snapshot, double windowWidth, double windowHeight,
-                        double totalScore, double totalGoal, Main main) {
+                        double totalScore, double totalGoal, Game game) {
         super(root, windowWidth, windowHeight);
 
         Label gameOverText = new Label("YOU WON!");
@@ -48,7 +48,7 @@ public class GameWinScene extends Scene {
 
         Label helperText;
 
-        if (Main.getFileName().equals("config/level3.json")) {
+        if (Game.getFileName().equals("config/level3.json")) {
             helperText = new Label("Press [R] to restart.");
         } else {
             helperText = new Label("Press [Space] for the next level!\nPress [R] to restart.");
@@ -64,7 +64,7 @@ public class GameWinScene extends Scene {
 
         this.setOnKeyPressed(event -> {
             KeyCode keyCode = event.getCode();
-            GameWinController.handler(keyCode, main);
+            GameWinController.handler(keyCode, game);
         });
     }
 

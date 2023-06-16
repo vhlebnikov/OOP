@@ -34,9 +34,17 @@ java {
     }
 }
 
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'ru.nsu.khlebnikov.Main'
+        )
+    }
+}
+
 javafx {
     version = "20"
     modules = [ 'javafx.controls', 'javafx.fxml' ]
 }
 
-mainClassName = "ru.nsu.khlebnikov.Main"
+mainClassName = 'ru.nsu.khlebnikov.Main'
