@@ -23,7 +23,7 @@ import ru.nsu.khlebnikov.view.GameWinScene;
 import ru.nsu.khlebnikov.view.Score;
 
 /**
- * Main class that contains methods to initialize and update game state.
+ * Game class that contains methods to initialize and update game state.
  */
 public class Game extends Application {
     private static Stage primaryStage;

@@ -16,7 +16,7 @@ public class GameController {
      * @param snake - user's snake
      * @param heightCells - number of cells by height
      * @param widthCells - number of cells by width
-     * @param game - main class to restart the game
+     * @param game - game class to restart the game
      */
     public static void handler(KeyCode keyCode, Snake snake, int heightCells, int widthCells,
                                Game game) {

@@ -239,7 +239,7 @@ public class Snake {
      * @param food - food object
      * @param walls - walls object
      * @param score - score
-     * @param game - main class
+     * @param game - game class
      * @param widthCells - number of the cells by width
      * @param heightCells - number of the cells by height
      */
@@ -310,7 +310,7 @@ public class Snake {
      *
      * @param player - user's snake
      * @param walls - walls object
-     * @param game - main class
+     * @param game - game class
      */
     public void hunterBotUpdate(Snake player, Walls walls, Game game) {
         Point playerHead = new Point(player.getHead());

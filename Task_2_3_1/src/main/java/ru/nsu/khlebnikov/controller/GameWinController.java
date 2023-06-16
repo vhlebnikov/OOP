@@ -12,7 +12,7 @@ public class GameWinController {
      * Method to handle button clicks by user on game won game scene.
      *
      * @param keyCode - button game code
-     * @param game - main class to initialize game state
+     * @param game - game class to initialize game state
      */
     public static void handler(KeyCode keyCode, Game game) {
         if (keyCode == KeyCode.SPACE && !Game.getFileName().equals("config/level3.json")) {

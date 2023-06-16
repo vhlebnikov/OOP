@@ -32,7 +32,7 @@ public class GameWinScene extends Scene {
      * @param windowHeight - window height
      * @param totalScore - total score
      * @param totalGoal - total goal
-     * @param game - main class
+     * @param game - game class
      */
     public GameWinScene(StackPane root, Image snapshot, double windowWidth, double windowHeight,
                         double totalScore, double totalGoal, Game game) {
