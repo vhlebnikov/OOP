@@ -1,18 +1,23 @@
 package ru.nsu.khlebnikov.model.snake;
 
+import java.awt.Point;
+import java.util.ArrayList;
+import java.util.List;
 import ru.nsu.khlebnikov.Main;
 import ru.nsu.khlebnikov.model.food.Food;
 import ru.nsu.khlebnikov.model.food.FoodItem;
 import ru.nsu.khlebnikov.model.walls.Walls;
 import ru.nsu.khlebnikov.view.Score;
 
-import java.awt.Point;
-import java.util.ArrayList;
-import java.util.List;
-
+/**
+ * Class for snake.
+ */
 public class Snake {
     private ArrayList<Point> snake;
 
+    /**
+     * Enum for snake direction.
+     */
     public enum Direction {
         UP, RIGHT, DOWN, LEFT
     }
@@ -23,10 +28,20 @@ public class Snake {
     private double speed;
     private double growthSpeed;
 
+    /**
+     * Enum for snake nodes orientation.
+     */
     public enum BodyOrientation {
         HORIZONTALLY, VERTICALLY, ROTATED
     }
 
+    /**
+     * Constructor for snake that consists only of the head.
+     *
+     * @param head - head coordinates
+     * @param speed - initial speed of the snake
+     * @param growthSpeed - initial snake growth speed
+     */
     public Snake(Point head, double speed, double growthSpeed) {
         snake = new ArrayList<>(List.of(head));
         direction = Direction.LEFT;
@@ -34,6 +49,13 @@ public class Snake {
         this.growthSpeed = growthSpeed;
     }
 
+    /**
+     * Constructor for snake that consists of the list of the nodes.
+     *
+     * @param body - list of nodes coordinates of the snake
+     * @param speed - initial speed of the snake
+     * @param growthSpeed - initial snake growth speed
+     */
     public Snake(List<Point> body, double speed, double growthSpeed) {
         snake = new ArrayList<>(body);
         direction = Direction.LEFT;
@@ -93,6 +115,12 @@ public class Snake {
         this.snake.add(node);
     }
 
+    /**
+     * Method to get orientation of the certain body node.
+     *
+     * @param node - node of the body to get orientation
+     * @return - node orientation
+     */
     public BodyOrientation getBodyOrientation(Point node) {
         int nodeIndex = snake.indexOf(node);
 
@@ -108,6 +136,12 @@ public class Snake {
         return BodyOrientation.ROTATED;
     }
 
+    /**
+     *  Method to get rotated body node angle.
+     *
+     * @param node - node of the body to get angle
+     * @return - node angle
+     */
     public int getBodyAngle(Point node) {
         int nodeIndex = snake.indexOf(node);
 
@@ -143,10 +177,15 @@ public class Snake {
             case (3) -> {  // 00   90 deg
                 return 90; // 0
             }
+            default -> throw new IllegalStateException("Wrong body angle");
         }
-        throw new IllegalStateException("Wrong body angle");
     }
 
+    /**
+     * Method to get tail node angle.
+     *
+     * @return - node angle
+     */
     public double getTailAngle() {
         Point tail = getTail();
 
@@ -171,6 +210,11 @@ public class Snake {
         throw new IllegalStateException("Wrong tail angle");
     }
 
+    /**
+     * Method to get head node angle.
+     *
+     * @return - node angle
+     */
     public double getHeadAngle() {
         switch (direction) {
             case UP -> {
@@ -185,11 +229,22 @@ public class Snake {
             case RIGHT -> {
                 return 270;
             }
+            default -> throw new IllegalStateException("Wrong head angle");
         }
-        throw new IllegalStateException("Wrong head angle");
     }
 
-    public void update(Food food, Walls walls, Score score, Main main, int widthCells, int heightCells) {
+    /**
+     * Method to update user's snake data.
+     *
+     * @param food - food object
+     * @param walls - walls object
+     * @param score - score
+     * @param main - main class
+     * @param widthCells - number of the cells by width
+     * @param heightCells - number of the cells by height
+     */
+    public void update(Food food, Walls walls, Score score, Main main,
+                       int widthCells, int heightCells) {
         Point head = new Point(this.getHead());
 
         switch (this.getDirection()) {
@@ -197,6 +252,7 @@ public class Snake {
             case DOWN -> head.setLocation(head.x, head.y + 1);
             case LEFT -> head.setLocation(head.x - 1, head.y);
             case RIGHT -> head.setLocation(head.x + 1, head.y);
+            default -> throw new IllegalStateException("Snake must have orientation");
         }
 
         if (head.x < 0) {
@@ -212,17 +268,20 @@ public class Snake {
             head.setLocation(head.x, 0);
         }
 
-        List<FoodItem> eatenFood = food.getFood().stream().filter(f -> f.point().equals(head)).toList();
+        List<FoodItem> eatenFood = food.getFood().stream()
+                .filter(f -> f.point().equals(head)).toList();
 
         if (!eatenFood.isEmpty()) {
             Point newTail = new Point(this.getTail());
             this.addNode(newTail);
             food.removeFood(eatenFood.get(0));
-            food.generateFood(1, eatenFood.get(0).foodType(), walls.getCoordinates(), this.getSnake(), widthCells, heightCells);
+            food.generateFood(1, eatenFood.get(0).foodType(), walls.getCoordinates(),
+                    this.getSnake(), widthCells, heightCells);
             switch (eatenFood.get(0).foodType()) {
                 case WATERMELON -> score.setWatermelons(score.getWatermelons() + 1);
                 case APPLE -> score.setApples(score.getApples() + 1);
                 case LEMON -> score.setLemons(score.getLemons() + 1);
+                default -> throw new IllegalStateException("Each food must have type");
             }
             this.setSpeed(this.getSpeed() + this.getGrowthSpeed());
         }
@@ -246,23 +305,34 @@ public class Snake {
         }
     }
 
+    /**
+     * Method to update hunter snake data.
+     *
+     * @param player - user's snake
+     * @param walls - walls object
+     * @param main - main class
+     */
     public void hunterBotUpdate(Snake player, Walls walls, Main main) {
         Point playerHead = new Point(player.getHead());
         Point botHead = new Point(this.getHead());
 
         if (Math.random() > 0.5) {
-            if (playerHead.x > botHead.x && walls.getCoordinates().stream().noneMatch(w -> w.x == botHead.x + 1 && w.y == botHead.y)) {
+            if (playerHead.x > botHead.x && walls.getCoordinates().stream()
+                    .noneMatch(w -> w.x == botHead.x + 1 && w.y == botHead.y)) {
                 botHead.setLocation(botHead.x + 1, botHead.y);
                 this.setDirection(Direction.RIGHT);
-            } else if (playerHead.x < botHead.x && walls.getCoordinates().stream().noneMatch(w -> w.x == botHead.x - 1 && w.y == botHead.y)) {
+            } else if (playerHead.x < botHead.x && walls.getCoordinates().stream()
+                    .noneMatch(w -> w.x == botHead.x - 1 && w.y == botHead.y)) {
                 botHead.setLocation(botHead.x - 1, botHead.y);
                 this.setDirection(Direction.LEFT);
             }
         } else {
-            if (playerHead.y > botHead.y && walls.getCoordinates().stream().noneMatch(w -> w.x == botHead.x && w.y == botHead.y + 1)) {
+            if (playerHead.y > botHead.y && walls.getCoordinates().stream()
+                    .noneMatch(w -> w.x == botHead.x && w.y == botHead.y + 1)) {
                 botHead.setLocation(botHead.x, botHead.y + 1);
                 this.setDirection(Direction.DOWN);
-            } else if (playerHead.y < botHead.y && walls.getCoordinates().stream().noneMatch(w -> w.x == botHead.x && w.y == botHead.y - 1)) {
+            } else if (playerHead.y < botHead.y && walls.getCoordinates().stream()
+                    .noneMatch(w -> w.x == botHead.x && w.y == botHead.y - 1)) {
                 botHead.setLocation(botHead.x, botHead.y - 1);
                 this.setDirection(Direction.UP);
             }
@@ -287,7 +357,17 @@ public class Snake {
         }
     }
 
-    public void gluttonBotUpdate(Walls walls, Food food, Snake player, int widthCells, int heightCells) {
+    /**
+     * Method to update glutton snake data.
+     *
+     * @param walls - walls object
+     * @param food - food object
+     * @param player - user's snake
+     * @param widthCells - number of cells by width
+     * @param heightCells - number of cells by height
+     */
+    public void gluttonBotUpdate(Walls walls, Food food, Snake player,
+                                 int widthCells, int heightCells) {
         Point botHead = new Point(this.getHead());
 
         if (foodTarget == null) {
@@ -295,18 +375,22 @@ public class Snake {
         }
 
         if (Math.random() > 0.5) {
-            if (foodTarget.point().x > botHead.x && walls.getCoordinates().stream().noneMatch(w -> w.x == botHead.x + 1 && w.y == botHead.y)) {
+            if (foodTarget.point().x > botHead.x && walls.getCoordinates().stream()
+                    .noneMatch(w -> w.x == botHead.x + 1 && w.y == botHead.y)) {
                 botHead.setLocation(botHead.x + 1, botHead.y);
                 this.setDirection(Direction.RIGHT);
-            } else if (foodTarget.point().x < botHead.x && walls.getCoordinates().stream().noneMatch(w -> w.x == botHead.x - 1 && w.y == botHead.y)) {
+            } else if (foodTarget.point().x < botHead.x && walls.getCoordinates().stream()
+                    .noneMatch(w -> w.x == botHead.x - 1 && w.y == botHead.y)) {
                 botHead.setLocation(botHead.x - 1, botHead.y);
                 this.setDirection(Direction.LEFT);
             }
         } else {
-            if (foodTarget.point().y > botHead.y && walls.getCoordinates().stream().noneMatch(w -> w.x == botHead.x && w.y == botHead.y + 1)) {
+            if (foodTarget.point().y > botHead.y && walls.getCoordinates().stream()
+                    .noneMatch(w -> w.x == botHead.x && w.y == botHead.y + 1)) {
                 botHead.setLocation(botHead.x, botHead.y + 1);
                 this.setDirection(Direction.DOWN);
-            } else if (foodTarget.point().y < botHead.y && walls.getCoordinates().stream().noneMatch(w -> w.x == botHead.x && w.y == botHead.y - 1)) {
+            } else if (foodTarget.point().y < botHead.y && walls.getCoordinates().stream()
+                    .noneMatch(w -> w.x == botHead.x && w.y == botHead.y - 1)) {
                 botHead.setLocation(botHead.x, botHead.y - 1);
                 this.setDirection(Direction.UP);
             }
@@ -314,7 +398,8 @@ public class Snake {
 
         if (foodTarget.point().equals(botHead)) {
             food.removeFood(foodTarget);
-            food.generateFood(1, foodTarget.foodType(), walls.getCoordinates(), player.getSnake(), widthCells, heightCells);
+            food.generateFood(1, foodTarget.foodType(), walls.getCoordinates(), player.getSnake(),
+                    widthCells, heightCells);
             foodTarget = null;
         }
 

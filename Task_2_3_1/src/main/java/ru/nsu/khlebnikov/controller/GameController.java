@@ -4,9 +4,22 @@ import javafx.scene.input.KeyCode;
 import ru.nsu.khlebnikov.Main;
 import ru.nsu.khlebnikov.model.snake.Snake;
 
+/**
+ * Class that contains method to handle button clicks by the user on game scene.
+ */
 public class GameController {
 
-    public static void handler(KeyCode keyCode, Snake snake, int heightCells, int widthCells, Main main) {
+    /**
+     * Method to handle button clicks by user on game scene.
+     *
+     * @param keyCode - button key code
+     * @param snake - user's snake
+     * @param heightCells - number of cells by height
+     * @param widthCells - number of cells by width
+     * @param main - main class to restart the game
+     */
+    public static void handler(KeyCode keyCode, Snake snake, int heightCells, int widthCells,
+                               Main main) {
         if (keyCode == KeyCode.UP && snake.getDirection() != Snake.Direction.DOWN) {
             if ((snake.getSize() > 1 && snake.getHead().getY() != snake.getSnake().get(1).getY() + 1
                     && heightCells - snake.getHead().getY() != snake.getSnake().get(1).getY() + 1)

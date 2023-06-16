@@ -16,15 +16,31 @@ import javafx.scene.text.Font;
 import ru.nsu.khlebnikov.Main;
 import ru.nsu.khlebnikov.controller.GameWinController;
 
+/**
+ * Class of the game won scene.
+ */
 public class GameWinScene extends Scene {
     private final Canvas canvas;
     private final Image snapshot;
 
-    public GameWinScene(StackPane root, Image snapshot, double windowWidth, double windowHeight, double totalScore, double totalGoal, Main main) {
+    /**
+     * Game won scene constructor.
+     *
+     * @param root - pane where we will store all our elements
+     * @param snapshot - snapshot of the game won moment
+     * @param windowWidth - window width
+     * @param windowHeight - window height
+     * @param totalScore - total score
+     * @param totalGoal - total goal
+     * @param main - main class
+     */
+    public GameWinScene(StackPane root, Image snapshot, double windowWidth, double windowHeight,
+                        double totalScore, double totalGoal, Main main) {
         super(root, windowWidth, windowHeight);
 
         Label gameOverText = new Label("YOU WON!");
-        Font font = Font.loadFont(getClass().getClassLoader().getResourceAsStream("fonts/Mario-Kart-DS.ttf"), 60);
+        Font font = Font.loadFont(getClass()
+                .getClassLoader().getResourceAsStream("fonts/Mario-Kart-DS.ttf"), 60);
         gameOverText.setFont(font);
 
         Label scoreText = new Label((int) totalScore + " of " + (int) totalGoal);
@@ -38,13 +54,13 @@ public class GameWinScene extends Scene {
             helperText = new Label("Press [Space] for the next level!\nPress [R] to restart.");
         }
 
-        VBox vBox = new VBox(gameOverText, scoreText, helperText);
-        vBox.setAlignment(Pos.CENTER);
+        VBox verticalBox = new VBox(gameOverText, scoreText, helperText);
+        verticalBox.setAlignment(Pos.CENTER);
 
         this.snapshot = snapshot;
         canvas = new Canvas(windowWidth, windowHeight);
 
-        root.getChildren().addAll(canvas, vBox);
+        root.getChildren().addAll(canvas, verticalBox);
 
         this.setOnKeyPressed(event -> {
             KeyCode keyCode = event.getCode();
@@ -52,11 +68,13 @@ public class GameWinScene extends Scene {
         });
     }
 
+    /**
+     * Method that draws game won scene.
+     */
     public void draw() {
         double windowWidth = this.widthProperty().get();
         double windowHeight = this.heightProperty().get();
 
-        GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
         canvas.setWidth(windowWidth);
         canvas.setHeight(windowHeight);
 
@@ -68,6 +86,7 @@ public class GameWinScene extends Scene {
         snapshotImageView.setFitHeight(windowHeight);
         Image image = snapshotImageView.snapshot(params, null);
 
+        GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
         graphicsContext.drawImage(image, 0, 0);
     }
 }

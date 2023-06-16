@@ -3,6 +3,9 @@ package ru.nsu.khlebnikov.model.walls;
 import java.awt.Point;
 import java.util.List;
 
+/**
+ * Class of the walls.
+ */
 public class Walls {
     private List<Point> coordinates;
 

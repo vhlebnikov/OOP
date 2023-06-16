@@ -15,6 +15,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
+/**
+ * Class for the score panel.
+ */
 public class Score extends Pane {
     private double watermelons;
     private final double watermelonsGoal;
@@ -32,13 +35,22 @@ public class Score extends Pane {
     private final Label labelApples;
     private final Label labelLemons;
 
-    public Score(int wGoal, int aGoal, int lGoal, double windowWidth, double windowHeight) {
+    /**
+     * Score panel constructor.
+     *
+     * @param watermelonsGoal - watermelons goal
+     * @param applesGoal apples goal
+     * @param lemonsGoal - lemons goal
+     * @param windowWidth - window width
+     * @param windowHeight - window height
+     */
+    public Score(int watermelonsGoal, int applesGoal, int lemonsGoal, double windowWidth, double windowHeight) {
         watermelons = 0;
         apples = 0;
         lemons = 0;
-        lemonsGoal = lGoal;
-        applesGoal = aGoal;
-        watermelonsGoal = wGoal;
+        this.lemonsGoal = lemonsGoal;
+        this.applesGoal = applesGoal;
+        this.watermelonsGoal = watermelonsGoal;
 
         canvas = new Canvas(windowWidth, windowHeight);
 
@@ -51,11 +63,13 @@ public class Score extends Pane {
         pbLemons = new ProgressBar();
         pbLemons.setPadding(new Insets(5, 0, 5, 0));
 
-        Font font = Font.loadFont(getClass().getClassLoader().getResourceAsStream("fonts/Mario-Kart-DS.ttf"), 20);
-
         labelWatermelons = new Label("watermelons\n              goal");
         labelWatermelons.setAlignment(Pos.CENTER);
         labelWatermelons.setPadding(new Insets(5, 0, 0, 0));
+
+        Font font = Font.loadFont(getClass()
+                .getClassLoader().getResourceAsStream("fonts/Mario-Kart-DS.ttf"), 20);
+
         labelWatermelons.setFont(font);
         labelWatermelons.setTextFill(Color.WHITE);
 
@@ -107,18 +121,33 @@ public class Score extends Pane {
         return watermelons + apples + lemons;
     }
 
+    /**
+     * Method to set current number of eaten watermelons.
+     *
+     * @param watermelons - eaten watermelons
+     */
     public void setWatermelons(double watermelons) {
         if (watermelons <= watermelonsGoal) {
             this.watermelons = watermelons;
         }
     }
 
+    /**
+     * Method to set current number of eaten apples.
+     *
+     * @param apples - eaten apples
+     */
     public void setApples(double apples) {
         if (apples <= applesGoal) {
             this.apples = apples;
         }
     }
 
+    /**
+     * Method to set current number of eaten lemons.
+     *
+     * @param lemons - eaten lemons
+     */
     public void setLemons(double lemons) {
         if (lemons <= lemonsGoal) {
             this.lemons = lemons;
@@ -137,6 +166,12 @@ public class Score extends Pane {
         return lemons;
     }
 
+    /**
+     * Method that draws score panel.
+     *
+     * @param windowWidth - window width
+     * @param windowHeight - window height
+     */
     public void draw(double windowWidth, double windowHeight) {
         gridPane.setTranslateX(windowWidth * 0.05);
 
